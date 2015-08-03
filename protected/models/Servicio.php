@@ -65,7 +65,7 @@ $servicio->detalle=$detalle;
 
 public function ObtenerServicio($idServicio){
 
-		$sql = "select * from Servicio where idServicio=".$idServicio;	
+		$sql = "select * from servicio where idServicio=".$idServicio;	
 
 		return $this->findAllBySql($sql);
 
@@ -98,7 +98,7 @@ if(!$servicio->save()){
 	
 	public function listarServicios(){
 
-		$sql = "select * from Servicio where estado=0";	
+		$sql = "select * from servicio where estado=0";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
@@ -106,7 +106,7 @@ if(!$servicio->save()){
 
 	public function listarServicios_S(){
 
-		$sql = "select idServicio,descripcion,metodo from Servicio where estado=0";	
+		$sql = "select idServicio,descripcion,metodo from servicio where estado=0";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
