@@ -15,15 +15,16 @@
  * @property string $fecha_registro
  * @property string $estado
  * @property string $distrito
+ * @property string $provincia
  *
  * The followings are the available model relations:
  * @property Cotizacion[] $cotizacions
  * @property Muestra[] $muestras
+ * @property Solicitud[] $solicituds
  */
 class Cliente extends CActiveRecord
 {
-
-public function consultarClientexDoc($doc_ident){
+	public function consultarClientexDoc($doc_ident){
 
 		$sql = "select * from Cliente where doc_ident='".$doc_ident."'";
 			
@@ -34,6 +35,31 @@ return $this->findAllBySql($sql);
 	return 0;
 }
 }
+
+public function actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$provincia,$provincia){
+		$resultado = array('valor'=>1,'message'=>'Servicio actualizado correctamente.');
+
+		$cliente = Cliente::model()->findByPk($idCliente);
+$cliente->nombres=$nombres;
+$cliente->doc_ident=$doc_ident;
+$cliente->atencion_a=$atencion_a;
+$cliente->direccion=$direccion;
+$cliente->telefono=$telefono;
+$cliente->correo=$correo;
+$cliente->referencia=$referencia;
+$cliente->distrito=$distrito;
+$cliente->provincia=$provincia;
+
+			
+		
+			if(!$servicio->save()){
+				$resultado = array('valor'=>0, 'message'=>'No hemos podido Actualizar el Servicio');
+			}
+		
+
+		return $resultado;
+	}
+
 
 public function RegistrarCliente($nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia){
 
@@ -59,7 +85,6 @@ if(!$cliente->save()){
 
 		return $resultado;
 	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -79,7 +104,7 @@ if(!$cliente->save()){
 			array('nombres, doc_ident', 'required'),
 			array('nombres, atencion_a', 'length', 'max'=>45),
 			array('doc_ident, telefono', 'length', 'max'=>12),
-			array('direccion', 'length', 'max'=>50),
+			array('direccion, provincia', 'length', 'max'=>50),
 			array('correo', 'length', 'max'=>25),
 			array('referencia', 'length', 'max'=>200),
 			array('estado', 'length', 'max'=>1),
@@ -87,7 +112,7 @@ if(!$cliente->save()){
 			array('fecha_registro', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idCliente, nombres, doc_ident, atencion_a, direccion, telefono, correo, referencia, fecha_registro, estado, distrito', 'safe', 'on'=>'search'),
+			array('idCliente, nombres, doc_ident, atencion_a, direccion, telefono, correo, referencia, fecha_registro, estado, distrito, provincia', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -101,6 +126,7 @@ if(!$cliente->save()){
 		return array(
 			'cotizacions' => array(self::HAS_MANY, 'Cotizacion', 'idCliente'),
 			'muestras' => array(self::HAS_MANY, 'Muestra', 'idCliente'),
+			'solicituds' => array(self::HAS_MANY, 'Solicitud', 'idCliente'),
 		);
 	}
 
@@ -121,6 +147,7 @@ if(!$cliente->save()){
 			'fecha_registro' => 'Fecha Registro',
 			'estado' => 'Estado',
 			'distrito' => 'Distrito',
+			'provincia' => 'Provincia',
 		);
 	}
 
@@ -153,6 +180,7 @@ if(!$cliente->save()){
 		$criteria->compare('fecha_registro',$this->fecha_registro,true);
 		$criteria->compare('estado',$this->estado,true);
 		$criteria->compare('distrito',$this->distrito,true);
+		$criteria->compare('provincia',$this->provincia,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

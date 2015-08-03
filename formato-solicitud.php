@@ -103,14 +103,14 @@ border-top: 0px;
 	<div>
 	<table border="0" cellspacing="0" cellspading="0" style="max-width:1024px;margin:0 auto;">
 	<tr>
-		<td colspan="4" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo $idCotizacion; ?></span></td>
+		<td colspan="4" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo ''; ?></span></td>
 	</tr>
 	<tr>
 		<td colspan="4" class="border-r">Fecha :  <span class="bold"><?php echo ''; ?></span></td>
 	</tr>
 	<tr class="rtc">
 		<td >1.</td>
-		<td colspan="3" class="n_border-l border-r"> INFORMACION DEL CLIENTE/SOLICITANTE</td>
+		<td colspan="3" class="n_border-l border-r"> DATOS DEL SOLICITANTE.</td>
 	</tr>
 	<tr>
 		<td>1.1</td>

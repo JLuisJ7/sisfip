@@ -342,6 +342,35 @@ $("#txtRefCliente").val(data.referencia);
          
       
     },
+    actualizarCliente: function(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,distrito,provincia){
+        var idCliente;
+        $.ajax({
+            url: 'index.php?r=cliente/AjaxActualizarCliente',
+            type: 'POST',            
+            data: {
+                idCliente:idCliente,
+                nombres:nombres,
+                doc_ident:doc_ident,
+                atencion_a:atencion_a,
+                direccion:direccion,
+                telefono:telefono,
+                correo:correo,
+                referencia:referencia,
+                distrito:distrito,
+                provincia:provincia
+            },
+        })
+        .done(function(response) {
+          console(response);
+          
+        })
+        .always(function(response) {
+          
+        });
+
+         
+      
+    },
     registrarMuestra: function(idCliente,nombre,marca,identificacion,cant_muestra,presentacion,observaciones){
         var idMuestra;
         $.ajax({

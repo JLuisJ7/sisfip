@@ -13,7 +13,24 @@ public function actionAjaxConsultarClientexDoc(){
 		Util::renderJSON($cliente);
 	}
 
-	public function actionAjaxRegistrarCliente(){
+	public function actionAjaxActualizarCliente(){
+$idCliente=$_POST['idCliente'];
+$nombres=$_POST['nombres'];
+$doc_ident=$_POST['doc_ident'];
+$atencion_a=$_POST['atencion_a'];
+$direccion=$_POST['direccion'];
+$telefono=$_POST['telefono'];
+$correo=$_POST['correo'];
+$referencia=$_POST['referencia'];
+$distrito=$_POST['distrito'];
+$provincia=$_POST['provincia'];
+$respuesta= Cliente::model()->actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$provincia,$provincia);
+
+
+		Util::renderJSON(array( 'success' => $respuesta ));
+	
+	}
+public function actionAjaxRegistrarCliente(){
 $nombres=$_POST['nombres'];
 $doc_ident=$_POST['doc_ident'];
 $atencion_a=$_POST['atencion_a'];

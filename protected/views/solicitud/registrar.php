@@ -254,11 +254,15 @@ var presentacion=$("#txtPresentacion").val();
 var ObservacionesMuestra=$("#txtObservaciones").val();
 var cant_muestra=$("#txtCantidad").val();
 var idCliente=$("#txtDocumento").attr('data-id');
-  idMuestra=ClienteCore.registrarMuestra(idCliente,nombre,marca,identificacion,cant_muestra,presentacion,ObservacionesMuestra)
+ClienteCore.actualizarClientefunction(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,distrito,provincia);
+  idMuestra=ClienteCore.registrarMuestra(idCliente,nombre,marca,identificacion,cant_muestra,presentacion,ObservacionesMuestra);
 /* ------------ */
 
 /* ------------ */
-var Acreditacion=$('input:radio[name=rdb_acreditación]:checked').val();
+
+	var Acreditacion=$('input:radio[name=rdb_acreditación]:checked').val();
+
+
 var Contramuestras=$('input:radio[name=rdb_contramuestras]:checked').val();
 var observacionesServ=$("#txtObservacionesServicios").val();
 
@@ -268,11 +272,36 @@ var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
 
 
 /* ------------ */
-var Ensayos=$('input:checkbox[name=chkServEnsayos]:checked').val();
-var Inspeccion=$('input:checkbox[name=chkServInspeccion]:checked').val();
-var muestreo=$('input:checkbox[name=chkServMuestreo]:checked').val();
-var chkOtrosServicios=$('input:checkbox[name=chkOtrosServicios]:checked').val();
-var otros=$("#txtOtrosServicios").val();
+if($('input:checkbox[name=chkServEnsayos]').prop('checked')){
+	var Ensayos=$('input:radio[name=rdb_acreditación]:checked').val();
+}else{
+	var Ensayos='N';
+}
+
+if($('input:checkbox[name=chkServInspeccion]').prop('checked')){
+	var Inspeccion=$('input:radio[name=chkServInspeccion]:checked').val();
+}else{
+	var Inspeccion='N';
+}
+
+if($('input:checkbox[name=chkServMuestreo]').prop('checked')){
+	var muestreo=$('input:radio[name=chkServMuestreo]:checked').val();
+}else{
+	var muestreo='N';
+}
+
+if($('input:checkbox[name=chkOtrosServicios]').prop('checked')){
+	var otros=$("#txtOtrosServicios").val();
+}else{
+	var otros=null;
+}
+
+//var Ensayos=$('input:checkbox[name=chkServEnsayos]:checked').val();
+//var Inspeccion=$('input:checkbox[name=chkServInspeccion]:checked').val();
+//var muestreo=$('input:checkbox[name=chkServMuestreo]:checked').val();
+
+//var otros=$("#txtOtrosServicios").val();
+
 var fecha_entrega=$("#txtFecha").val();
 var txtHora=$("#txtHora").val();
 var total=$("#txtTotal").val();	
