@@ -1,0 +1,3 @@
+.htaccess
+protected/runtime/application.log
+protected/config/database.php
