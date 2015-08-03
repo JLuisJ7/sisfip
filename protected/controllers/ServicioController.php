@@ -2,10 +2,7 @@
 
 class ServicioController extends Controller
 {
-	public function actionIndex()
-	{
-		$this->render('index');
-	}
+	
 
 	public function actionAjaxListarServicios(){
 		
@@ -66,5 +63,15 @@ class ServicioController extends Controller
 	}
 	
 
+public function actionIndex()
+	{
+	
+
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$this->render("index");
+		}
+	}
 
 }

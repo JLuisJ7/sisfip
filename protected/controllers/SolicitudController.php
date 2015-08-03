@@ -41,17 +41,25 @@ $observaciones=$_POST['observaciones'];
 	public function actionRegistrar()
 	{
 		
-	//	$NroCotizacion=$_POST['NroCotizacion'];
-	$NroCotizacion = Yii::app()->request->getParam('NroCotizacion');
-		if(empty($NroCotizacion)){
-			$this->render("registrar");
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+
 		}else{
-			//$cotizacion = Cotizacion::model()->obtenerCotizacion($NroCotizacion);
-			//$detalle = Detallecotizacion::model()->obtenerDetalleCotizacion($NroCotizacion);
 			
-			$this->render('registrar', array('data' => $NroCotizacion));
-			
-			
+			//	$NroCotizacion=$_POST['NroCotizacion'];
+			$NroCotizacion = Yii::app()->request->getParam('NroCotizacion');
+			if(empty($NroCotizacion)){
+				$this->render("registrar");
+			}else{
+				//$cotizacion = Cotizacion::model()->obtenerCotizacion($NroCotizacion);
+				//$detalle = Detallecotizacion::model()->obtenerDetalleCotizacion($NroCotizacion);
+				
+				$this->render('registrar', array('data' => $NroCotizacion));
+				
+				
+			}
+
+	
 		}
 		
 

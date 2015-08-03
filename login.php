@@ -28,7 +28,7 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingrese sus datos para iniciar sesion</p>
-        <form action="index.php?r=login/AuthenticationUser" method="post">
+        <form action="index.php?r=login/AjaxAuthenticationUser" method="post">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" id="username" placeholder="Usuario" name="username" 
             value="<?php if( !empty($_GET['l'])){ echo $_GET['l'];} ?>"/>
@@ -47,7 +47,7 @@
               </div>                        
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="button" id="btnIngresar" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+              <button type="submit" id="btnIngresar" class="btn btn-primary btn-block btn-flat">Ingresar</button>
             </div><!-- /.col -->
           </div>
         </form>
@@ -83,7 +83,7 @@
 </html>
 
 <script>
-  $("#btnIngresar").click(function(event) {
+ /* $("#btnIngresar").click(function(event) {
     console.log("dd");
       var username=$("#username").val();
       var password=$("#password").val();
@@ -106,5 +106,5 @@
         console.log("complete");
       });
       
-  });
+  });*/
 </script>

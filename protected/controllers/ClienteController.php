@@ -56,7 +56,11 @@ $respuesta= Muestra::model()->RegistrarMuestra($idCliente,$nombre,$marca,$identi
 
 	public function actionIndex()
 	{
-		$this->render('index');
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$this->render("index");
+		}
 	}
 
 	// Uncomment the following methods and override them if needed

@@ -130,15 +130,31 @@ foreach($array as $obj){
 	public function actionIndex()
 	{
 		$this->render('index');
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$this->render('index');
+		}
 	}
 	public function actionRegistrar()
 	{
-		$this->render('registrar');
+		
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$this->render('registrar');
+		}
+		
 	}
 
 	public function actionCotizaciones()
 	{
-		$this->render('cotizaciones');
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$this->render('cotizaciones');
+		}
+		
 	}
 	
 }
