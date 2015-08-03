@@ -24,7 +24,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-$session = new CHttpSession;
+		$session = new CHttpSession;
         $session->open();
 		$userSesion = $session->get('usuarioSesion');
         if (empty($userSesion)) {

@@ -33,6 +33,8 @@ $respuesta= Cliente::model()->RegistrarCliente($nombres,$doc_ident,$atencion_a,$
     	  	);
 	}
 
+
+
 public function actionAjaxRegistrarMuestra(){
 $idCliente=$_POST['idCliente'];
 $nombre=$_POST['nombre'];
