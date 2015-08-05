@@ -254,7 +254,7 @@ var presentacion=$("#txtPresentacion").val();
 var ObservacionesMuestra=$("#txtObservaciones").val();
 var cant_muestra=$("#txtCantidad").val();
 var idCliente=$("#txtDocumento").attr('data-id');
-ClienteCore.actualizarClientefunction(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,distrito,provincia);
+ClienteCore.actualizarCliente(idCliente,txtNomCliente,txtDocumento,txtAtencion,txtDireccion,txtTelefono,txtEmail,txtRefCliente,txtDistrito,txtProvincia);
   idMuestra=ClienteCore.registrarMuestra(idCliente,nombre,marca,identificacion,cant_muestra,presentacion,ObservacionesMuestra);
 /* ------------ */
 
@@ -273,19 +273,19 @@ var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
 
 /* ------------ */
 if($('input:checkbox[name=chkServEnsayos]').prop('checked')){
-	var Ensayos=$('input:radio[name=rdb_acreditación]:checked').val();
+	var Ensayos=$('input:checkbox[name=chkServEnsayos]:checked').val();
 }else{
 	var Ensayos='N';
 }
 
 if($('input:checkbox[name=chkServInspeccion]').prop('checked')){
-	var Inspeccion=$('input:radio[name=chkServInspeccion]:checked').val();
+	var Inspeccion=$('input:checkbox[name=chkServInspeccion]:checked').val();
 }else{
 	var Inspeccion='N';
 }
 
 if($('input:checkbox[name=chkServMuestreo]').prop('checked')){
-	var muestreo=$('input:radio[name=chkServMuestreo]:checked').val();
+	var muestreo=$('input:checkbox[name=chkServMuestreo]:checked').val();
 }else{
 	var muestreo='N';
 }
@@ -312,3 +312,4 @@ SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,idCliente,idMuestra,
 
 	
 </script>
+

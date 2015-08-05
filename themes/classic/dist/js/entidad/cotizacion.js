@@ -343,6 +343,7 @@ $("#txtRefCliente").val(data.referencia);
       
     },
     actualizarCliente: function(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,distrito,provincia){
+      
         var idCliente;
         $.ajax({
             url: 'index.php?r=cliente/AjaxActualizarCliente',

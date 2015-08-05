@@ -36,7 +36,7 @@ return $this->findAllBySql($sql);
 }
 }
 
-public function actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$provincia,$provincia){
+public function actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$distrito,$provincia){
 		$resultado = array('valor'=>1,'message'=>'Servicio actualizado correctamente.');
 
 		$cliente = Cliente::model()->findByPk($idCliente);
@@ -52,7 +52,7 @@ $cliente->provincia=$provincia;
 
 			
 		
-			if(!$servicio->save()){
+			if(!$cliente->save()){
 				$resultado = array('valor'=>0, 'message'=>'No hemos podido Actualizar el Servicio');
 			}
 		

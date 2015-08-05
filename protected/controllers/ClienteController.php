@@ -24,7 +24,7 @@ $correo=$_POST['correo'];
 $referencia=$_POST['referencia'];
 $distrito=$_POST['distrito'];
 $provincia=$_POST['provincia'];
-$respuesta= Cliente::model()->actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$provincia,$provincia);
+$respuesta= Cliente::model()->actualizarCliente($idCliente,$nombres,$doc_ident,$atencion_a,$direccion,$telefono,$correo,$referencia,$distrito,$provincia);
 
 
 		Util::renderJSON(array( 'success' => $respuesta ));
