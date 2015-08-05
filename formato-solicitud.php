@@ -103,60 +103,83 @@ border-top: 0px;
 	<div>
 	<table border="0" cellspacing="0" cellspading="0" style="max-width:1024px;margin:0 auto;">
 	<tr>
-		<td colspan="4" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="6" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo ''; ?></span></td>
 	</tr>
 	<tr>
-		<td colspan="4" class="border-r">Fecha :  <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="3" class="">Fecha :  <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="3" class="n_border-l border-r">hora :  <span class="bold"><?php echo ''; ?></span></td>
 	</tr>
 	<tr class="rtc">
 		<td >1.</td>
-		<td colspan="3" class="n_border-l border-r"> DATOS DEL SOLICITANTE.</td>
+		<td colspan="5" class="n_border-l border-r"> DATOS DEL SOLICITANTE.</td>
 	</tr>
 	<tr>
 		<td>1.1</td>
-		<td>Cliente/Solicitante:  <span class="bold"><?php echo ''; ?></span></td>
-		<td colspan="2" class="border-r">RUC o DNI:  <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="5" class="border-r">Nombre:  <span class="bold"><?php echo ''; ?></span></td>		
 	</tr>
 	<tr>
 		<td>1.2</td>
-		<td colspan="3" class="border-r">Atención a:  <span class="bold"><?php echo ''; ?></span></td>		
-	</tr>
-	<tr>
-		<td>1.3</td>
-		<td colspan="3" class="border-r">Dirección :  <span class="bold"><?php echo ''; ?></span></td>		
+		<td colspan="2" class="">Dirección Legal:  <span class="bold"><?php echo ''; ?></span></td>
+		
+		<td colspan="3" class="border-r"><span class="num_row">1.3</span> Distrito:  <span class="bold"><?php echo ''; ?></span></td>		
 	</tr>
 	<tr>
 		<td>1.4</td>
-		<td >Teléfono/fax :  <span class="bold"><?php echo ''; ?></span></td>	
-		<td colspan="2" class="border-r">E-mail: <span class="bold"><?php echo ''; ?></span></td>	
+		<td colspan="2" class="">Provincia/Departamento :  <span class="bold"><?php echo ''; ?></span></td>
+		
+		<td colspan="3" class="border-r"><span class="num_row">1.5</span> RUC NRO :  <span class="bold"><?php echo ''; ?></span></td>		
 	</tr>
 	<tr>
-		<td>1.5</td>
-		<td colspan="3" class="border-r">Comunicación de Referencia :  <span class="bold"><?php echo ''; ?></span></td>		
-	</tr>
+		<td>1.6</td>
+		<td colspan="2">Teléfono/fax :  <span class="bold"><?php echo ''; ?></span></td>	
+		
+		<td colspan="3" class="border-r"> <span class="num_row">1.7</span> referencias: <span class="bold"><?php echo ''; ?></span></td>	
+	</tr>	
 	<tr class="rtc">
 		<td>2</td>
-		<td colspan="3" class="n_border-l border-r">INFORMACION SOBRE LOS SERVICIOS. </td>		
+		<td colspan="5" class="n_border-l border-r">SERVICIOS SOLICITADOS. </td>		
 	</tr>
 	<tr>
 		<td>2.1</td>
-		<td colspan="3" class="border-r">Nombre del Producto:  <span class="bold"><?php echo ''; ?></span></td>
-	</tr>
-	<tr>
-		<td>2.2</td>
-		<td colspan="3" class="border-r">Servicios Solicitados</td>
-	</tr>
-	<tr>
-		<td>2.3</td>
-		<td colspan="3" class="border-r">Condiciones Técnicas Especiales Aplicables a los Servicios : <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="1" class="border-r">Ensayos:  <span class="bold"><?php echo ''; ?></span></td>		
+		<td colspan="1" class="border-r"> <span class="num_row">2.3</span> Inspección:  <span class="bold"><?php echo ''; ?></span></td>
+		
+		<td colspan="3" class="border-r"><span class="num_row">2.4</span> Muestreo:  <span class="bold"><?php echo ''; ?></span></td>
 	</tr>
 	<tr>
 		<td>2.4</td>
-		<td colspan="3" class="border-r">Detalles sobre los Servicios ofrecidos : <span class="bold"><?php echo ''; ?></span></td>
+		<td colspan="5" class="border-r">Otros (especificar)   </td>
+	</tr>
+	<tr class="rtc">
+		<td>3</td>
+		<td colspan="5" class="n_border-l border-r">DATOS DE LAS MUESTRAS DE PRODUCTOS </td>		
 	</tr>
 	<tr>
+		<td>3.1</td>
+		<td colspan="2" class="border-r">Nombre del producto según alcance de la acreditación: <span class="bold"><?php echo ''; ?></span></td>
+		<td>3.2</td>
+		<td colspan="2" class="border-r">Marca Comercial : <span class="bold"><?php echo ''; ?></span></td>
+	</tr>
+	<tr>
+		<td>3.3</td>
+		<td colspan="2" class="border-r">Identificación de la muestra según el solicitante:: <span class="bold"><?php echo ''; ?></span></td>
+		<td>3.4</td>
+		<td colspan="2" class="border-r">Cantidad de Muestra (N° Unidades,Peso,Volumen): <span class="bold"><?php echo ''; ?></span></td>
+	</tr>
+	<tr>
+		<td>3.5</td>
+		<td colspan="2" class="border-r">Presentación de la muestra:<span class="bold"><?php echo ''; ?></span></td>
+		<td>3.6</td>
+		<td colspan="2" class="border-r">Observaciones: <span class="bold"><?php echo ''; ?></span></td>
+	</tr>
+	<tr class="rtc">
+		<td>4</td>
+		<td colspan="5" class="n_border-l border-r">ENSAYOS SOLICITADOS.</td>		
+	</tr>
+
+	<tr>
 		<td class="det ">ITEMS</td>
-		<td class="det ">SERVICIOS</td>
+		<td class="det " colspan="2" >SERVICIOS</td>
 		<td class="det ">METODOLOGIA</td>
 		<td class="det border-r" style="width:110px;">TARIFA POR SERVICIO(S/.)</td>
 	</tr>
