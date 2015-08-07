@@ -185,12 +185,7 @@ $("#btn_cancelar").click(function(event) {
 
 });
 
-$("#btn_Generar_Solicitud").click(function(event) {
-	var idCotizacion=$("#NroCotizacion").attr('data-nro');
-	$.post('index.php?r=solicitud/registrar', param1: 'value1', function(data, textStatus, xhr) {
-		/*optional stuff to do after success */
-	});
-});
+
 
 /*$("#btn_Guardar_Imprimir_Cotizacion").click(function(event) {
 	var NroCotizacion=$("#NroCotizacion").attr('data-nro');	
@@ -279,7 +274,7 @@ $('#agregarServicio').on( 'click', function () {
                    response[0].tiempo_entrega,
                    response[0].cantM_x_ensayo+' ml',
                    response[0].tarifa,
-                   '<input type="checkbox" id="Todoscheckbox">'
+                   '<span id="check'+idServicio+'" style="display:none;">SI</span><input type="checkbox" value="check'+idServicio+'" class="checkACred" >'
             ]).draw();
          }else if(repeat===true){
             //alert("el servicio ya esta agregado al detalle");
@@ -305,8 +300,29 @@ $('#agregarServicio').on( 'click', function () {
     } );
 
 
+
+
 $(document).ready(function() {
-    
+	
+               $('.checkACred')
+.change(function() {
+    console.log('hrllo');
+    if ($(this).is(':checked')) {
+       costo=$("#txtCosto").val();
+        precio= $(this).val();
+       
+       suma=parseFloat(costo)+parseFloat(precio);
+      $("#txtCosto").val(suma.toFixed(2));
+      
+    } else {
+        costo=$("#txtCosto").val();
+        precio= $(this).val();
+       
+       resta=parseFloat(costo)-parseFloat(precio);
+      $("#txtCosto").val(resta.toFixed(2));
+    }
+}).change();
+
      $('#DetalleCotizacion').dataTable({  
       "language": {
             "lengthMenu": "Display _MENU_ records per page",
@@ -323,7 +339,24 @@ $(document).ready(function() {
         "paging":   false,
         "ordering": false,
         "info":     false,
-        "bFilter": false
+        "bFilter": false,
+        fnDrawCallback: function() {
+
+                $('.checkACred')
+.change(function() {
+     console.log($(this).val());
+    if ($(this).is(':checked')) {
+       costo=$("#txtCosto").val();
+       $("#"+$(this).val()+"").text('SI');
+      //$("#"+$(this).val()+"").show();
+      
+    } else {
+      // $("#"+$(this).val()+"").show();
+       $("#"+$(this).val()+"").text('NO');
+    }
+}).change();
+              
+            } 
     } );
 /************************/
 $('#DetalleCotizacion tbody').on( 'click', 'button', function () {

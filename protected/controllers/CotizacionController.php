@@ -115,8 +115,8 @@ $array = json_decode($json);
 foreach($array as $obj){
 			$idServicio=$obj->id;			
 			$Precio=$obj->Tarifa;	
-						
- $respuesta=Detallecotizacion::model() -> registrarDetalleCotizacion($idCotizacion,$idServicio,$Precio,$muestra);
+			$Acreditado=$obj->Acreditado;			
+ $respuesta=Detallecotizacion::model() -> registrarDetalleCotizacion($idCotizacion,$idServicio,$Precio,$muestra,$Acreditado);
 
 
 

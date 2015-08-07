@@ -36,7 +36,7 @@ where idCotizacion=".$NroCotizacion;
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
 
-	public function registrarDetalleCotizacion($idCotizacion,$idServicio,$Precio,$muestra){
+	public function registrarDetalleCotizacion($idCotizacion,$idServicio,$Precio,$muestra,$Acreditado){
 
 		$resultado = array('valor'=>1,'message'=>'Su solicitud ha sido procesada correctamente.');
 
@@ -49,6 +49,7 @@ where idCotizacion=".$NroCotizacion;
 			$Detalle->idServicio=$idServicio;
 			$Detalle->Muestra=$muestra;
 			$Detalle->precio=$Precio;
+			$Detalle->acreditado=$Acreditado;
 
 			$Detalle->save();
 
