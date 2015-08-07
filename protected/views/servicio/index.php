@@ -24,7 +24,7 @@ $this->breadcrumbs=array(
         <div class="box-body">
           <div class="row">
 
-    <form action="" method="post" name="ServicioForm" id="ServicioForm"  onclick="ServicioCore.validarServicio();" >
+    <form action="" method="post" name="ServicioForm" id="ServicioForm"  onclick="" >
           
 
       <div class="form-group col-md-6">
@@ -57,7 +57,7 @@ $this->breadcrumbs=array(
          </textarea>
       </div>
       <div class="form-group col-md-6 ">
-        <input class="btn btn-primary col-md-12" type="submit" id="btn-Accion-M" value="Registrar" >
+        <input class="btn btn-primary col-md-12" type="button" id="btn-Accion-M" value="Registrar" >
       </div>
       <div class="form-group col-md-6">
         <input class="btn btn-danger col-md-12" type="reset" id="btn-Cancelar-M" value="Cancelar">
@@ -125,5 +125,20 @@ $this->breadcrumbs=array(
         //event.preventDefault(); 
 
       });
+
+
+      $("#btn-Accion-M").click(function(event) {
+
+        var Accion=$(this).val();                        
+        var descripcion =$("#txtServicio").val();
+        var metodo =$("#txtMetodo").val();
+        var tiempo_entrega =$("#txtTiempoEntrega").val();
+        var cantM_x_ensayo =$("#txtCantMuestra").val();
+        var tarifa =$("#txtTarifa").val();
+        var tarifa_Acred =$("#txtTarifaAcred").val();
+        var detalle =$("#txtDetalle").val();
+        ServicioCore.realizarTransaccion(Accion,descripcion,metodo,tiempo_entrega,cantM_x_ensayo,tarifa,tarifa_Acred,detalle);
+      });
+
     });
 </script>

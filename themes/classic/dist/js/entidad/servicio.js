@@ -80,7 +80,80 @@ var ServicioCore = {
                 }
             }
         });
-    },    
+    }, 
+    realizarTransaccion:function(Accion,descripcion,metodo,tiempo_entrega,cantM_x_ensayo,tarifa,tarifa_Acred,detalle){
+        if(Accion=='Registrar'){
+                        $.ajax({
+                         url: 'index.php?r=servicio/AjaxAccionMantenimiento',
+                         type: 'POST',                        
+                         data: {
+                            Accion:Accion,
+                            descripcion:descripcion,
+                            metodo:metodo,
+                            tiempo_entrega:tiempo_entrega,
+                            cantM_x_ensayo:cantM_x_ensayo,
+                            tarifa:tarifa,
+                            tarifa_Acred:tarifa_Acred,
+                            detalle:detalle
+
+                        },
+                     })
+                     .done(function(response) {
+                         console.log(response.success['message']);
+                            $("#text-message").text(response.success['message']);
+                           
+                            $('#alert-message').show('fade');
+                             setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+
+                     })
+                     .fail(function() {
+                         console.log("error");
+                     })
+                     .always(function() {
+                         console.log("complete");
+
+                     });
+                }else if (Accion=='Actualizar') {
+
+                    var idServicio=$("#txtServicio").attr('data-id');
+                    $.ajax({
+                         url: 'index.php?r=servicio/AjaxAccionMantenimiento',
+                         type: 'POST',                        
+                         data: {
+                            Accion:Accion,
+                            idServicio:idServicio,
+                            descripcion:descripcion,
+                            metodo:metodo,
+                            tiempo_entrega:tiempo_entrega,
+                            cantM_x_ensayo:cantM_x_ensayo,
+                            tarifa:tarifa,
+                            tarifa_Acred:tarifa_Acred,
+                            detalle:detalle
+
+                        },
+                     })
+                     .done(function(response) {
+                        console.log(response.success['message']);
+                            $("#text-message").text(response.success['message']);
+                           
+                            $('#alert-message').show('fade');
+
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+
+                     })
+                     .fail(function() {
+                         console.log("error");
+                     })
+                     .always(function() {
+                         console.log("complete");
+
+                     });
+                };     
+    },   
     validarServicio: function(){
         //console.log("VAMOS A VALIDAR");
         var me = this;

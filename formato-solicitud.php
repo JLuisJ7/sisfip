@@ -181,7 +181,7 @@ border-top: 0px;
 		<td class="det ">ITEMS</td>
 		<td class="det " colspan="2" >SERVICIOS</td>
 		<td class="det ">METODOLOGIA</td>
-		<td class="det border-r" style="width:110px;">TARIFA POR SERVICIO(S/.)</td>
+		<td class="det border-r" colspan="" >TARIFA POR SERVICIO(S/.)</td>
 	</tr>
 <!-- 	<?php 
 $json=$_POST['detalle'];
@@ -203,21 +203,19 @@ foreach($array as $obj){
 		}
 ?> -->
 	<tr>
-		<td colspan="2" class="bold">Ensayos Recomendados</td>
-		<td colspan="" class=" bold " >Valor Total de los Servicios</td>
-		<td class="bold border-r align-c"><?php echo ''; ?></td>
+		<td colspan="3" class="bold">El cliente proporciona métodos de ensayos (especificar):</td>
+		<td colspan="3" class=" bold border-r" >Valor Total de los Servicios</td>
+		
 	</tr>
 	<tr class="rtc">
-		<td>3</td>
-		<td colspan="3" class="n_border-l border-r">CONDICIONES DE PAGO Y ENTREGA DE LOS RESULTADOS.</td>
+		<td>5.</td>
+		<td colspan="2" class="n_border-l border-r">ENTREGA DE RESULTADOS.</td>
+		<td>6.</td>
+		<td colspan="2" class="n_border-l border-r">ENTREGA DE CONTRAMUESTRAS.</td>
 	</tr>
 	<tr>
 		<td class="n_border-b ">3.1</td>
-		<td colspan="2" class="n_border-l n_border-b ">Condiciones de Pago de los Servicios:Condiciones de Pago de los Servicios: El pago de los servicios prestados se realizara con adelanto del 50% 
-contrato del servicio y cancelación a la entrega del Informe de Ensayos.
-En caso contrario se aceptará el servicio previa orden de compra
-(RUC 20169004359),  debiéndose  informar  esta operación,  dentro de las 24 horas,  mediante  presentación 
-original del depósito, a fin de procesar su registro contable.
+		<td colspan="2" class="n_border-l n_border-b ">
 </td>
 <td class="n_border-l n_border-b border-r"></td>
 	</tr>

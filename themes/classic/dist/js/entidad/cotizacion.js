@@ -36,7 +36,7 @@ var CotizacionCore = {
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-pencil"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarCotizacion"><i class="fa fa-trash-o"></i></a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-eye"></i> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm eliminarCotizacion"><i class="fa fa-print"></i></a>';
                     }
                 }
                    
@@ -82,6 +82,9 @@ var CotizacionCore = {
         .done(function(response) {
             console.log(response);
              me.registrarDetalleCotizacion(idCotizacion,muestra,detalle);
+             $("#idCotSolicitud").val(idCotizacion);
+            $("#btn_Generar_Solicitud").removeAttr('disabled');
+
 
         })
            
@@ -174,6 +177,10 @@ $("#txtMuestra").val(data.Cotizacion[0].muestra);
 $("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
 $("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
 $("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
+$("#btn_Generar_Solicitud").removeAttr('disabled');
+$("#btn_GuardarCotizacion").removeAttr('disabled');
+$("#btn_imprimirCotizacion").removeAttr('disabled');
+
 
 
             /*-------*/

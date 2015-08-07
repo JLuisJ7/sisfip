@@ -202,19 +202,19 @@ Cotización Guardada Correctamente
          </textarea>
     </div>
 	<div class="col-md-4">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarCotizacion">Guardar <i class="fa fa-floppy-o"></i></button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarCotizacion" disabled>Guardar <i class="fa fa-floppy-o"></i></button>
 	</div>
 	<div class="col-md-4">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_imprimirCotizacion">Imprimir</button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_imprimirCotizacion" disabled>Imprimir</button>
 	</div>
 	<div class="col-md-4">
-		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar">Cancelar</button>
+		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar" >Cancelar</button>
 	</div>
 
 	<div class="col-md-12" style="margin-top:1em;">
 		<form action="index.php?r=solicitud/registrar" method="POST">
 			<input type="hidden" value="" name="NroCotizacion" id="idCotSolicitud">
-		<button type="submit" class="btn btn-primary col-md-12" id="btn_Generar_Solicitud">Generar Solicitud </button>			
+		<button type="submit" class="btn btn-primary col-md-12" id="btn_Generar_Solicitud" disabled>Generar Solicitud </button>			
 		</form>
 	</div>
 	
@@ -242,6 +242,7 @@ Cotización Guardada Correctamente
 var NroCotizacion=$("#Edit_NroCotizacion").attr('data-nro');
 $.post('index.php?r=cotizacion/AjaxgenerarSolicitud',{NroCotizacion:NroCotizacion});
 });*/
+
 $("#btn_cancelar").click(function(event) {
 	location.reload();
 

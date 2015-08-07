@@ -152,8 +152,13 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="col-md-12" style="margin-top:1em;">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_Generar_Solicitud">Generar Solicitud </button>
+		
+		<form action="index.php?r=solicitud/registrar" method="POST">
+			<input type="hidden" value="" name="NroCotizacion" id="idCotSolicitud">
+			<button type="submit" class="btn btn-primary col-md-12" id="btn_Generar_Solicitud" disabled>Generar Solicitud </button>			
+		</form>
 	</div>
+	
 	
 
 </div>
@@ -340,5 +345,8 @@ $('#DetalleCotizacion tbody').on( 'click', 'button', function () {
 /*************************/
 } );
 
+$("#btn_cancelar").click(function(event) {
+	location.reload();
 
+});
 </script>
