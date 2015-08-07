@@ -208,14 +208,37 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
         "paging":   false,
         "ordering": false,
         "info":     false,
-        "bFilter": false
+        "bFilter": false,
+        fnDrawCallback: function() {
+
+                $('.checkACred')
+.change(function() {
+     console.log($(this).val());
+    if ($(this).is(':checked')) {
+       costo=$("#txtCosto").val();
+       $("#"+$(this).val()+"").text('SI');
+      //$("#"+$(this).val()+"").show();
+      
+    } else {
+      // $("#"+$(this).val()+"").show();
+       $("#"+$(this).val()+"").text('NO');
+    }
+}).change();
+              
+            } 
     } );
 console.log(detalle);
     $.each(detalle,function(index, value){ 
-        
-          $('#DetalleCotizacion').DataTable().row.add([
-            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, value.acreditado
+        if (value.acreditado=='SI') {
+            $('#DetalleCotizacion').DataTable().row.add([
+            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, '<span id="check'+value.id+'" style="display:none;">SI</span><input type="checkbox" value="check'+value.id+'" class="checkACred" checked>'
             ]).draw();
+        }else{
+            $('#DetalleCotizacion').DataTable().row.add([
+            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, '<span id="check'+value.id+'" style="display:none;">NO</span><input type="checkbox" value="check'+value.id+'" class="checkACred" >'
+            ]).draw();
+        }
+          
 
         });
  /*---- Eliminar Fila---------*/

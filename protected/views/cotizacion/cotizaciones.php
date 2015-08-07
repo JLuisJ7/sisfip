@@ -83,7 +83,7 @@ Cotización Guardada Correctamente
 <div class="box box-primary">
 <div class="box-header">
 	<h3 class="box-title">Cotizacion de Servicios para Ensayos Nro: <b id="Edit_NroCotizacion" data-nro="">     </b></h3>
-	<h3 class="box-title" style="float:right;" id="fecha_registro">2015-07-16 </h3>
+	<h3 class="box-title" style="float:right;" id="fecha_registro"> </h3>
 </div>
 <div class="box-body">
 
@@ -123,13 +123,13 @@ Cotización Guardada Correctamente
 	<input type="text" class="form-control cli_block" id="txtRefCliente" >
 	</div>
 
-	<div class="form-group col-md-12">
+	<!-- <div class="form-group col-md-12">
 	<label class="" for="s_listarProd">Seleccione Muestra : </label>
 
 	<select id="s_listarProducto" class="selectpicker form-control" data-live-search="true" title="Muestras " style="display:none;">
 	<option value="">Seleccione </option>
 	</select>
-	</div>
+	</div> -->
 	<div class="form-group col-md-12">
 	<label class="" for="">Muestra : </label>
 	<input type="text" class="form-control" id="txtMuestra" >
