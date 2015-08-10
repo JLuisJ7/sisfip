@@ -194,6 +194,28 @@ function ObtenerNroCotizacion(){
         //console.log("complete");
     });
  };
+
+ function ObtenerNroOrdenT(){
+ 
+   $.ajax({
+        url: 'index.php?r=orden/AjaxObtenerNroOrden',
+        type: 'POST',          
+    })
+    .done(function(response) {   
+     data=response.output;     
+        //console.log(data.nroComp);
+
+        $("#NroOrdenTrabajo").text(data.nroOrden);
+        $("#NroOrdenTrabajo").attr('NroOrdenTrabajo', data.nroOrden);
+        $("#fecha_actual").text(data.fecha);      
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+        //console.log("complete");
+    });
+ };
  
 function obtenerNroBoleta(modulo,idNroComp,idserie){
     var nroSerie=$("#"+idserie+"").attr('data-param');

@@ -2,6 +2,45 @@
     INICIO Fn Cotizacion
 */
 var SolicitudCore = {
+    
+    listar_SolicitudesAprobadas: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#SolicitudesAprobadas',{
+            toolButons:'',
+            url:'index.php?r=solicitud/AjaxListarSolicitudesAprobadas',
+            columns:[
+                {"mData": "nroSolicitud", "sClass": "alignCenter"},
+                {"mData": "cliente", "sClass": "alignCenter"},                
+                {"mData": "muestra", "sClass": "alignCenter"},
+                {"mData": "fecha_registro", "sClass": "alignCenter"},
+                {"mData": "fecha_entrega", "sClass": "alignCenter"},
+                 {"mData": "total", "sClass": "alignCenter"},            
+                {
+                    "mData": 'nroSolicitud',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    "mRender": function(o) {
+                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><input  class="btn btn-warning btn-sm" value="enviar" type="submit"></form><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                $('.eliminarServicio').click(function() {
+                    me.alertEliminarServicio($(this).attr('lang'));
+                });
+                $('.editarServicio').click(function() {
+                    me.obtenerServicio($(this).attr('lang'));
+                    $("#btn-Accion-M").attr('value', 'Actualizar');
+                    $("#text-Accion").text('Actualizar');
+
+                });
+
+            }
+        });
+    },
     CotizacionesxCliente: function(nroDoc){
        var me = this;
        var table = $('#CotizacionesCliente').DataTable();

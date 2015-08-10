@@ -3,6 +3,13 @@
 class SolicitudController extends Controller
 {
 
+public function actionAjaxListarSolicitudesAprobadas(){
+		
+		$solicitud = Solicitud::model()->listarSolicitudesAprobadas();
+
+		Util::renderJSON($solicitud);
+	}
+
 	public function actionAjaxActualizarEstadoSolicitud(){
 		$idSolicitud=$_POST['idSolicitud'];
 		$estado=$_POST['estado'];
@@ -46,6 +53,25 @@ $observaciones=$_POST['observaciones'];
 	public function actionIndex()
 	{
 		$this->render('index');
+	}
+
+	public function actionSolicitudes()
+	{
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==2) {
+  				$this->render('solicitudes', array('rol' => $rol));
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
 	}
 
 	public function actionRegistrar()

@@ -2,8 +2,17 @@
 
 class OrdenController extends Controller
 {
+
+	public function actionAjaxObtenerNroOrden(){		
+		$orden = OrdenTrabajo::model()->obtenerNroOrdenT();
+		header('Content-Type: application/json; charset="UTF-8"');
+    	echo CJSON::encode(array('output'=>$orden[0]));
+		
+	}
+	
 	public function actionRegistrar()
 	{
+
 		if($this->verificarSessiousuario()==FALSE){
 			$this->redirect("login.php");
 		}else{
@@ -11,7 +20,19 @@ class OrdenController extends Controller
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
   			if ($rol==2) {
-  				$this->render('registrar', array('rol' => $rol));
+  				//	$NroCotizacion=$_POST['NroCotizacion'];
+			$NroSolicitud = Yii::app()->request->getParam('NroSolicitud');
+			if(empty($NroSolicitud)){
+				$this->render("registrar");
+			}else{
+				//$cotizacion = Cotizacion::model()->obtenerCotizacion($NroCotizacion);
+				//$detalle = Detallecotizacion::model()->obtenerDetalleCotizacion($NroCotizacion);
+				
+				$this->render('registrar', array('data' => $NroSolicitud));
+				
+				
+			}
+  				
   			}else{
   				$this->redirect('index.php');
   			}

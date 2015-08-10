@@ -392,7 +392,7 @@ $("#txtRefCliente").val(data.referencia);
             },
         })
         .done(function(response) {
-          console(response);
+          console.log(response);
           
         })
         .always(function(response) {
