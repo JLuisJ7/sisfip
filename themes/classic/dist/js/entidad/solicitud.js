@@ -91,6 +91,26 @@ var SolicitudCore = {
         })
            
     },
+    actualizarEstadoSolicitud: function(idSolicitud,estado){
+        $.ajax({
+            url: 'index.php?r=solicitud/AjaxActualizarEstadoSolicitud',
+            type: 'POST',
+            data: {
+                idSolicitud: idSolicitud,
+                estado:estado
+            },
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    },
     actualizarCotizacion: function(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle){
         var me = this;
         me.eliminarDetalleCotizacion(idCotizacion);

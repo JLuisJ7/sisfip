@@ -209,7 +209,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="col-md-12" style="margin-top:1em;">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_Generar_Solicitud">Generar Solicitud </button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_aceptar_Solicitud">Enviar a Director tecnico</button>
 	</div>
 	
 
@@ -221,6 +221,10 @@ $this->breadcrumbs=array(
 <script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/solicitud.js" type="text/javascript"></script>
 <script>
 	
+	$("#btn_aceptar_Solicitud").click(function(event) {
+		var NroSolicitud=$("#NroSolicitud").attr('NroSolicitud');
+		 SolicitudCore.actualizarEstadoSolicitud(NroSolicitud,1);
+	});
 	$(document).ready(function() {
 		ObtenerNroSolicitud();
 		var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');

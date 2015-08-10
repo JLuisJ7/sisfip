@@ -108,3 +108,39 @@ CREATE TABLE Muestra(
 );
 
 ALTER TABLE Muestra ADD CONSTRAINT fk_Muest_Cli FOREIGN KEY(idCliente) references Cliente(idCliente);
+
+
+
+create table ordenTrabajo(
+nroOrden int unsigned auto_increment primary key,
+nroSolicitud int unsigned,
+fecha_emision TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+laboratorio varchar(50),
+idMuestra int,
+codMuestra char(5),
+observaciones varchar(200),
+fecha_entrega datetime,
+codPersonal int
+);
+
+ALTER TABLE ordenTrabajo ADD CONSTRAINT fk_orden_solicitud FOREIGN KEY(nroSolicitud) references Solicitud(nroSolicitud);
+ALTER TABLE ordenTrabajo ADD CONSTRAINT fk_orden_solicitud FOREIGN KEY(idMuestra) references Muestra(idMuestra);
+
+create table detalleOrdenTrab(
+nroOrden int unsigned ,
+idServicio int
+);
+ALTER TABLE detalleOrdenTrab ADD CONSTRAINT fk_orden_detalle FOREIGN KEY(nroOrden) references ordenTrabajo(nroOrden);
+ALTER TABLE detalleOrdenTrab ADD CONSTRAINT fk_serv_detalle FOREIGN KEY(idServicio) references Servicio(idServicio);
+
+a
+MuestraF(
+codigo char(5),
+Nombre varchar(30), 
+unidadespormuestra int,
+peso_vol varchar(20),
+presentacion varchar(200),
+metodoCliente char(2),
+observaciones varchar(200)
+
+);

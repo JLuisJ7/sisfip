@@ -2,6 +2,16 @@
 
 class SolicitudController extends Controller
 {
+
+	public function actionAjaxActualizarEstadoSolicitud(){
+		$idSolicitud=$_POST['idSolicitud'];
+		$estado=$_POST['estado'];
+		
+		$solicitud = Solicitud::model()->actualizarEstadoSolicitud($idSolicitud,$estado);
+
+		Util::renderJSON($solicitud);
+	}
+
 public function actionAjaxRegistrarSolicitud(){
 	//cotizacion
 $nroSolicitud=$_POST['nroSolicitud'];

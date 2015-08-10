@@ -18,15 +18,30 @@
  * @property string $Acreditacion
  * @property string $Contramuestras
  * @property string $observaciones
+ * @property string $Estado
+ * @property string $eliminado
  *
  * The followings are the available model relations:
  * @property Detallesolicitud[] $detallesolicituds
+ * @property Ordentrabajo[] $ordentrabajos
  * @property Cotizacion $nroCotizacion0
  * @property Cliente $idCliente0
  * @property Muestra $idMuestra0
  */
 class Solicitud extends CActiveRecord
 {
+public function actualizarEstadoSolicitud($idSolicitud,$estado){
+		
+
+		
+		$command = Yii::app()->db->createCommand("update solicitud set Estado=$estado where nroSolicitud=$idSolicitud");
+		return $command->execute();
+
+			
+			
+		
+	}
+
 	public function registrarSolicitud($nroSolicitud,$nroCotizacion,$idCliente,$idMuestra,$Ensayos,$Inspeccion,$muestreo,$otros,$total,$fecha_entrega,$Acreditacion,$Contramuestras,$observaciones){
 
 		$resultado = array('valor'=>1,'message'=>'Servicio Registrado correctamente.');
@@ -65,7 +80,6 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -82,17 +96,17 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nroSolicitud, nroCotizacion, idCliente, idMuestra', 'required'),
+			array('nroSolicitud, nroCotizacion, idCliente, idMuestra, fecha_entrega', 'required'),
 			array('idCliente, idMuestra', 'numerical', 'integerOnly'=>true),
 			array('nroSolicitud, nroCotizacion', 'length', 'max'=>10),
-			array('Ensayos, Inspeccion, muestreo', 'length', 'max'=>1),
+			array('Ensayos, Inspeccion, muestreo, Estado, eliminado', 'length', 'max'=>1),
 			array('otros', 'length', 'max'=>200),
 			array('total', 'length', 'max'=>8),
 			array('Acreditacion, Contramuestras', 'length', 'max'=>2),
 			array('observaciones', 'length', 'max'=>300),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroSolicitud, nroCotizacion, idCliente, idMuestra, fecha_registro, Ensayos, Inspeccion, muestreo, otros, total, fecha_entrega, Acreditacion, Contramuestras, observaciones', 'safe', 'on'=>'search'),
+			array('nroSolicitud, nroCotizacion, idCliente, idMuestra, fecha_registro, Ensayos, Inspeccion, muestreo, otros, total, fecha_entrega, Acreditacion, Contramuestras, observaciones, Estado, eliminado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +119,7 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		// class name for the relations automatically generated below.
 		return array(
 			'detallesolicituds' => array(self::HAS_MANY, 'Detallesolicitud', 'nroSolicitud'),
+			'ordentrabajos' => array(self::HAS_MANY, 'Ordentrabajo', 'nroSolicitud'),
 			'nroCotizacion0' => array(self::BELONGS_TO, 'Cotizacion', 'nroCotizacion'),
 			'idCliente0' => array(self::BELONGS_TO, 'Cliente', 'idCliente'),
 			'idMuestra0' => array(self::BELONGS_TO, 'Muestra', 'idMuestra'),
@@ -131,6 +146,8 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 			'Acreditacion' => 'Acreditacion',
 			'Contramuestras' => 'Contramuestras',
 			'observaciones' => 'Observaciones',
+			'Estado' => 'Estado',
+			'eliminado' => 'Eliminado',
 		);
 	}
 
@@ -166,6 +183,8 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		$criteria->compare('Acreditacion',$this->Acreditacion,true);
 		$criteria->compare('Contramuestras',$this->Contramuestras,true);
 		$criteria->compare('observaciones',$this->observaciones,true);
+		$criteria->compare('Estado',$this->Estado,true);
+		$criteria->compare('eliminado',$this->eliminado,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
