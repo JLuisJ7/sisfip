@@ -4,7 +4,7 @@ class OrdenController extends Controller
 {
 
 	public function actionAjaxObtenerNroOrden(){		
-		$orden = OrdenTrabajo::model()->obtenerNroOrdenT();
+		$orden = Ordentrabajo::model()->obtenerNroOrdenT();
 		header('Content-Type: application/json; charset="UTF-8"');
     	echo CJSON::encode(array('output'=>$orden[0]));
 		
