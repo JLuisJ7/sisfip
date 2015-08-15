@@ -18,13 +18,25 @@ class LoginController extends Controller{
     }
 
     public function obtenerUsuarioByLoginUser($loginUser, $tipo=0) {
-        $usuarioCriteria = new CDbCriteria();
-
+     
         // HIZE CAMBIOS DESDE AQUI =================================
+
+
+  /*      Otra forma:
+$criteria=new CDbCriteria;
+$criteria->select='descripcion';  // seleccionar solo la columna 'title'
+$criteria->condition='id_producto=:id';
+$criteria->params=array(':id'=>1);
+$producto=Productos::model()->find($criteria); // $params no es necesario
+*/
+   $usuarioCriteria = new CDbCriteria();
+
         if($tipo==1){
             $usuarioCriteria->select = 'des_usuario, ide_rol,estado';
         }        
-        $usuarioCriteria->addSearchCondition('des_usuario', $loginUser);
+      // $usuarioCriteria->addSearchCondition('des_usuario', $loginUser);
+        $usuarioCriteria->condition='des_usuario=:loginUser';
+        $usuarioCriteria->params=array(':loginUser'=>$loginUser);
         $usuario = SisUsuario::model()->find($usuarioCriteria);
         if(empty($usuario)){return NULL;}
         return $usuario->attributes;
