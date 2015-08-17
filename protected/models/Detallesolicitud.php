@@ -16,6 +16,23 @@
  */
 class Detallesolicitud extends CActiveRecord
 {
+
+	public function registrarDetalleSolicitud($idServicio,$nroSolicitud,$Acreditado,$Precio){
+
+		$resultado = array('valor'=>1,'message'=>'Su solicitud ha sido procesada correctamente.');
+
+		
+      		$Detalle=new Detallesolicitud;
+      		$Detalle->idServicio=$idServicio;			
+			$Detalle->nroSolicitud=$nroSolicitud;
+			$Detalle->acreditado=$Acreditado;			
+			$Detalle->precio=$Precio;
+			
+
+			$Detalle->save();
+
+		return $resultado;
+	}
 	/**
 	 * @return string the associated database table name
 	 */

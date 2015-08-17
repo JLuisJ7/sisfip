@@ -201,6 +201,12 @@ $this->breadcrumbs=array(
          <textarea id="txtObservacionesServicios" class="form-control col-md-12"  rows="2">       
          </textarea>
     </div>
+    <div class="col-md-12"> <div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
+   		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+   		<h4>  <i class="icon fa fa-check"></i> Alert!</h4>
+   		Solicitud Registrada Correctamente
+   		</div>
+   	</div>
 	<div class="col-md-6">
 		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarSolicitud">Guardar e Imprimir</button>
 	</div>
@@ -310,8 +316,8 @@ var fecha_entrega=$("#txtFecha").val();
 var txtHora=$("#txtHora").val();
 var total=$("#txtTotal").val();	
 /* --------------*/
-
-SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observacionesServ);
+var detalle = $('#DetalleCotizacion').tableToJSON();
+SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observacionesServ,detalle);
 });
 
 	

@@ -49,6 +49,27 @@ $observaciones=$_POST['observaciones'];
     	echo CJSON::encode(array('output'=>$solicitud[0]));
 		
 	}
+public function actionAjaxRegistrarDetalleSolicitud(){
+
+$nroSolicitud=$_POST['nroSolicitud'];
+
+$json=$_POST['json'];
+$array = json_decode($json);
+
+	
+foreach($array as $obj){
+			$idServicio=$obj->id;			
+			$Precio=$obj->Tarifa;	
+			$Acreditado=$obj->Acreditado;			
+ $respuesta=Detallesolicitud::model() -> registrarDetalleSolicitud($idServicio,$nroSolicitud,$Acreditado,$Precio);
+
+
+
+}
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
+
 
 	public function actionIndex()
 	{
@@ -63,7 +84,7 @@ $observaciones=$_POST['observaciones'];
 			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
-  			if ($rol==2) {
+  			if ($rol==1) {
   				$this->render('solicitudes', array('rol' => $rol));
   			}else{
   				$this->redirect('index.php');

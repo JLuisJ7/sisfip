@@ -82,8 +82,12 @@ var CotizacionCore = {
         .done(function(response) {
             console.log(response);
              me.registrarDetalleCotizacion(idCotizacion,muestra,detalle);
+             $('#Success').show();
+             //boton generar solicitud
              $("#idCotSolicitud").val(idCotizacion);
             $("#btn_Generar_Solicitud").removeAttr('disabled');
+
+            
 
 
         })

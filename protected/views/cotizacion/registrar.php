@@ -144,6 +144,12 @@ $this->breadcrumbs=array(
          <textarea id="txtDetalles" class="form-control col-md-12"  rows="2">       
          </textarea>
     </div>
+   <div class="col-md-12"> <div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
+   		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+   		<h4>  <i class="icon fa fa-check"></i> Alert!</h4>
+   		Cotización Guardada Correctamente
+   		</div>
+   	</div>
 	<div class="col-md-6">
 		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarCotizacion">Guardar e Imprimir</button>
 	</div>
@@ -166,11 +172,7 @@ $this->breadcrumbs=array(
 
 </div><!-- /.box-body -->
 
-<div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-<h4>  <i class="icon fa fa-check"></i> Alert!</h4>
-Cotización Guardada Correctamente
-</div>                  
+                 
 </div><!-- /.box -->
 <!--end contadores-->
 
@@ -216,13 +218,15 @@ var fecha_Entrega=$("#txtTiempo").val();
 var cant_Muestra_necesaria=$("#txtCantidad").val();
 var muestra=$("#txtMuestra").val();
 var idCotizacion=$("#NroCotizacion").attr('data-nro');
+
 var detalle = $('#DetalleCotizacion').tableToJSON();
 if($("#txtDocumento").attr('data-id')=='Nuevo'	){
 
  idCliente=ClienteCore.registrarCliente(nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia);
 CotizacionCore.registrarCotizacion(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
 }else{
-	 idCliente= $("#txtDocumento").attr('data-id');
+	idCliente= $("#txtDocumento").attr('data-id');
+	ClienteCore.actualizarCliente(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,'','');
 	 CotizacionCore.registrarCotizacion(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
 }
 

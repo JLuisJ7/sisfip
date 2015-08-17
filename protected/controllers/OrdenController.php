@@ -19,7 +19,7 @@ class OrdenController extends Controller
 			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
-  			if ($rol==2) {
+  			if ($rol==1) {
   				//	$NroCotizacion=$_POST['NroCotizacion'];
 			$NroSolicitud = Yii::app()->request->getParam('NroSolicitud');
 			if(empty($NroSolicitud)){

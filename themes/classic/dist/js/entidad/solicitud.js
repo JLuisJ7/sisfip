@@ -102,7 +102,7 @@ var SolicitudCore = {
         });
         
     },
-    registrarSolicitud: function(nroSolicitud,nroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observaciones){
+    registrarSolicitud: function(nroSolicitud,nroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observaciones,detalle){
         var me = this;
         $.ajax({
             url: 'index.php?r=solicitud/AjaxRegistrarSolicitud',
@@ -125,8 +125,23 @@ var SolicitudCore = {
         })
         .done(function(response) {
             console.log(response);
-             //me.registrarDetalleCotizacion(idCotizacion,muestra,detalle);
+             me.registrarDetalleSolicitud(nroSolicitud,detalle);
+              $('#Success').show();
 
+        })
+           
+    },
+    registrarDetalleSolicitud: function(nroSolicitud,detalle){
+        $.ajax({
+            url: 'index.php?r=solicitud/AjaxRegistrarDetalleSolicitud',
+            type: 'POST',
+            data: {
+                nroSolicitud:nroSolicitud,                            
+                json:JSON.stringify(detalle),
+                },
+        })
+        .done(function(response) {
+            console.log(response);
         })
            
     },
@@ -172,21 +187,6 @@ var SolicitudCore = {
              me.registrarDetalleCotizacion(idCotizacion,muestra,detalle);
         })
 
-           
-    },
-    registrarDetalleCotizacion: function(idCotizacion,muestra,detalle){
-        $.ajax({
-            url: 'index.php?r=cotizacion/AjaxRegistrarDetalleCotizacion',
-            type: 'POST',
-            data: {
-                idCotizacion:idCotizacion,
-                muestra,muestra,               
-                json:JSON.stringify(detalle),
-                },
-        })
-        .done(function(response) {
-            console.log(response);
-        })
            
     },
     eliminarDetalleCotizacion: function(NroCotizacion){
