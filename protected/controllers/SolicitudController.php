@@ -3,6 +3,15 @@
 class SolicitudController extends Controller
 {
 
+public function actionAjaxConsultarSolicitudOT(){
+		$nroSolicitud=$_POST['nroSolicitud'];
+		
+		$solicitud = Solicitud::model()->obtenerSolicitudOT($nroSolicitud);
+
+		$detalle = Detallesolicitud::model()->obtenerDetalleSolicitudOT($nroSolicitud);
+
+		Util::renderJSON(array( 'Solicitud' => $solicitud,'Detalle'=>$detalle ));
+	}
 public function actionAjaxListarSolicitudesAprobadas(){
 		
 		$solicitud = Solicitud::model()->listarSolicitudesAprobadas();

@@ -17,6 +17,13 @@
 class Detallesolicitud extends CActiveRecord
 {
 
+public function obtenerDetalleSolicitudOT($nroSolicitud){
+
+		$sql = "select ds.idServicio,serv.descripcion,serv.metodo from detallesolicitud ds inner join servicio as serv ON serv.idServicio=ds.idServicio where nroSolicitud=".$nroSolicitud;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
 	public function registrarDetalleSolicitud($idServicio,$nroSolicitud,$Acreditado,$Precio){
 
 		$resultado = array('valor'=>1,'message'=>'Su solicitud ha sido procesada correctamente.');

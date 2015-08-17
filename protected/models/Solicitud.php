@@ -31,6 +31,16 @@
 class Solicitud extends CActiveRecord
 {
 
+	public function obtenerSolicitudOT($nroSolicitud){
+
+		$sql = "select nrosolicitud,sol.idCliente,nombre,cant_muestra,peso_volumen,metodocliente,presentacion from solicitud as sol
+inner join muestra as m ON m.idMuestra=sol.idMuestra
+where nrosolicitud=".$nroSolicitud;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 		public function listarSolicitudesAprobadas(){
 
 		$sql = "select nroSolicitud,idCliente as cliente,idMuestra as muestra,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha_registro,DATE_FORMAT(fecha_entrega,'%d-%m-%Y') as fecha_entrega,total from solicitud where estado=1";	

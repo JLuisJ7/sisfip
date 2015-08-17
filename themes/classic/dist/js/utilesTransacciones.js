@@ -435,7 +435,7 @@ $("#msg"+idcampo+"").hide();
 
 $(document).ready(function(){
 
-$.ajax({
+/*$.ajax({
             type: "POST",
             url: 'index.php?r=compras/AjaxListarProveedores',
             //sync:false,           
@@ -456,7 +456,7 @@ $.ajax({
             dataType: 'json'
 
         });
-
+*/
   $(".ActualizarParametro").click(function() {
     var campo=$(this).attr('data-input');
       actualizarParamGeneral(campo);
@@ -467,7 +467,7 @@ $.ajax({
   });*/
 
 
- obtenerProductosAgotados()
+ //obtenerProductosAgotados()
 // obtenerNroFactura();
 // obtenerNroOrdenCompra();
     

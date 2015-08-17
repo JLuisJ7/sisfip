@@ -145,6 +145,38 @@ var SolicitudCore = {
         })
            
     },
+    consultarSolicitudOT:function(nroSolicitud){
+        var me = this;
+        $.ajax({
+        url: 'index.php?r=solicitud/AjaxConsultarSolicitudOT',
+        type: 'POST',       
+        data: {nroSolicitud: nroSolicitud},       
+        })
+        .done(function(data) {
+            //console.log(data.Cotizacion);
+            
+           me.llenarDetalleOT(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+$("#txtNomMuestra").val(data.Solicitud[0].nombre);
+$("#txtNumUnidad").val(data.Solicitud[0].cant_muestra);
+
+$("#txtPresentacion").val(data.Solicitud[0].presentacion);
+
+        
+
+
+            /*-------*/
+        });
+
+        
+
+    },
     actualizarEstadoSolicitud: function(idSolicitud,estado){
         $.ajax({
             url: 'index.php?r=solicitud/AjaxActualizarEstadoSolicitud',
@@ -202,48 +234,47 @@ var SolicitudCore = {
         })
            
     },
-    consultarCotizacion:function(NroCotizacion){
-        var me = this;
-        $.ajax({
-        url: 'index.php?r=cotizacion/AjaxeditarCotizacion',
-        type: 'POST',       
-        data: {NroCotizacion: NroCotizacion},       
-        })
-        .done(function(data) {
-            console.log(data.Cotizacion);
-            
-           me.llenarDetalle(data.Detalle);
-
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function(data) {
-            /*------*/
-            $("#fecha_registro").text(data.Cotizacion[0].fecha_registro);
-             $("#txtNomCliente").val(data.Cotizacion[0].nombres);
- $("#txtDocumento").val(data.Cotizacion[0].doc_ident); 
- $("#txtDocumento").attr('data-id',data.Cotizacion[0].idCliente);;
- $("#txtAtencion").val(data.Cotizacion[0].atencion_a);
- $("#txtDireccion").val(data.Cotizacion[0].direccion);
- $("#txtTelefono").val(data.Cotizacion[0].telefono);
- $("#txtEmail").val(data.Cotizacion[0].correo);
- $("#txtRefCliente").val(data.Cotizacion[0].referencia);
-$("#txtCondTecnicas").val(data.Cotizacion[0].cond_tecnica);
-$("#txtDetalles").val(data.Cotizacion[0].detalle_servicios);
-$("#txtTotal").val(data.Cotizacion[0].total);
-$("#txtTiempo").val(data.Cotizacion[0].fecha_entrega);
-$("#txtCantidad").val(data.Cotizacion[0].cant_Muestra_necesaria);
-$("#txtMuestra").val(data.Cotizacion[0].muestra);
-$("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
-$("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
-$("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
-
-
-            /*-------*/
-        });
-
+    llenarDetalleOT:function(detalle){
+        var table = $('#DetalleOrden').DataTable();
+        table.destroy();
+        $('#DetalleOrden').dataTable({  
+      "language": {
+            "lengthMenu": "Display _MENU_ records per page",
+            "zeroRecords": " ",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "bFilter": false
+    } );
+console.log(detalle);
+    $.each(detalle,function(index, value){ 
         
+          $('#DetalleOrden').DataTable().row.add([
+            value.idServicio, value.descripcion, value.metodo
+            ]).draw();
+
+        });
+ /*---- Eliminar Fila---------*/
+ $('#DetalleOrden tbody').on( 'click', 'button', function () {
+        
+        var table = $('#DetalleOrden').DataTable();
+        
+        table.row( $(this).parents('tr') ).remove().draw( false );         
+          
+        if(table.column(5).data().length==0){
+            $("#txtTotal").val('0.00'); 
+            
+        }else{
+          calcularTotal();
+         
+        }        
+
+
+    } );
 
     },
     llenarDetalle:function(detalle){

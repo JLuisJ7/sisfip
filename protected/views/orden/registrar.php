@@ -122,10 +122,11 @@ $this->breadcrumbs=array(
 	
 	$(document).ready(function() {
 		ObtenerNroOrdenT();
-		/*var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
-		if (NroCotizacion!='') {
-			CotizacionCore.consultarCotizacion(NroCotizacion);
-		};*/
+
+		var nroSolicitud=$("#NroOrdenTrabajo").attr('NroSolicitud');
+		if (nroSolicitud!='') {
+			SolicitudCore.consultarSolicitudOT(nroSolicitud);
+		};
 
 				
 	});

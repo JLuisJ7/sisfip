@@ -18,6 +18,8 @@
  */
 class Detallecotizacion extends CActiveRecord
 {
+
+	
 	public function obtenerDetalleCotizacion($NroCotizacion){
 
 		$sql = "select  detc.idServicio as id,serv.descripcion,serv.metodo,serv.tiempo_entrega,serv.cantM_X_ensayo,detc.precio,detc.acreditado,detc.estado from detallecotizacion as detc inner join servicio as serv ON serv.idServicio=detc.idServicio where idCotizacion=".$NroCotizacion;
