@@ -33,7 +33,7 @@ class Solicitud extends CActiveRecord
 
 	public function obtenerSolicitudOT($nroSolicitud){
 
-		$sql = "select nrosolicitud,sol.idCliente,nombre,cant_muestra,peso_volumen,metodocliente,presentacion from solicitud as sol
+		$sql = "select nrosolicitud,sol.idCliente,nombre,sol.idMuestra,cant_muestra,peso_volumen,metodocliente,presentacion from solicitud as sol
 inner join muestra as m ON m.idMuestra=sol.idMuestra
 where nrosolicitud=".$nroSolicitud;
 	

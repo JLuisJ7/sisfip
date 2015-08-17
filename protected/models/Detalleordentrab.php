@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'detalleordentrab':
  * @property string $nroOrden
  * @property integer $idServicio
+ * @property string $resultado
  *
  * The followings are the available model relations:
  * @property Ordentrabajo $nroOrden0
@@ -13,6 +14,21 @@
  */
 class Detalleordentrab extends CActiveRecord
 {
+
+	public function registrarDetalleOrdenTrab($nroOrden,$idServicio){
+
+		$resultado = array('valor'=>1,'message'=>'Su solicitud ha sido procesada correctamente.');
+
+		
+      		$Detalle=new Detalleordentrab;
+      		$Detalle->nroOrden=$nroOrden;
+      		$Detalle->idServicio=$idServicio;			
+			
+
+			$Detalle->save();
+
+		return $resultado;
+	}
 	/**
 	 * @return string the associated database table name
 	 */
@@ -31,9 +47,10 @@ class Detalleordentrab extends CActiveRecord
 		return array(
 			array('idServicio', 'numerical', 'integerOnly'=>true),
 			array('nroOrden', 'length', 'max'=>10),
+			array('resultado', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroOrden, idServicio', 'safe', 'on'=>'search'),
+			array('nroOrden, idServicio, resultado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +75,7 @@ class Detalleordentrab extends CActiveRecord
 		return array(
 			'nroOrden' => 'Nro Orden',
 			'idServicio' => 'Id Servicio',
+			'resultado' => 'Resultado',
 		);
 	}
 
@@ -81,6 +99,7 @@ class Detalleordentrab extends CActiveRecord
 
 		$criteria->compare('nroOrden',$this->nroOrden,true);
 		$criteria->compare('idServicio',$this->idServicio);
+		$criteria->compare('resultado',$this->resultado,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

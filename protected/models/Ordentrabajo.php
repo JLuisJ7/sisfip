@@ -13,6 +13,9 @@
  * @property string $observaciones
  * @property string $fecha_entrega
  * @property integer $codPersonal
+ * @property string $fecha_registro
+ * @property string $estado
+ * @property string $eliminado
  *
  * The followings are the available model relations:
  * @property Detalleordentrab[] $detalleordentrabs
@@ -22,6 +25,34 @@
 class Ordentrabajo extends CActiveRecord
 {
 
+
+		public function registrarOrdenTrabajo($nroOrden,$nroSolicitud,$fecha_emision,$laboratorio,$idMuestra,$codMuestra,$observaciones,$fecha_entrega,$codPersonal){
+
+		$resultado = array('valor'=>1,'message'=>'Orden Registrado correctamente.');
+
+		
+		$orden=new Ordentrabajo;
+
+$orden->nroOrden=$nroOrden;
+$orden->nroSolicitud=$nroSolicitud;
+$orden->fecha_emision=$fecha_emision;
+$orden->laboratorio=$laboratorio;
+$orden->idMuestra=$idMuestra;
+$orden->codMuestra=$codMuestra;
+$orden->observaciones=$observaciones;
+$orden->fecha_entrega=$fecha_entrega;
+$orden->codPersonal=$codPersonal;
+      		
+if(!$orden->save()){
+	
+	$resultado = array('valor'=>0, 'message'=>'No hemos podido Registrar la orden, intentelo nuevamente');
+
+}
+			
+
+		return $resultado;
+	}
+
 	public function obtenerNroOrdenT(){
 
 $sql = "select count(*)+1 as nroOrden,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from ordentrabajo";
@@ -30,6 +61,7 @@ $sql = "select count(*)+1 as nroOrden,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha fro
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -46,16 +78,17 @@ $sql = "select count(*)+1 as nroOrden,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha fro
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fecha_emision, idMuestra', 'required'),
+			array('idMuestra', 'required'),
 			array('idMuestra, codPersonal', 'numerical', 'integerOnly'=>true),
-			array('nroSolicitud', 'length', 'max'=>10),
+			array('nroOrden, nroSolicitud', 'length', 'max'=>10),
 			array('laboratorio', 'length', 'max'=>50),
 			array('codMuestra', 'length', 'max'=>5),
 			array('observaciones', 'length', 'max'=>200),
-			array('fecha_entrega', 'safe'),
+			array('estado, eliminado', 'length', 'max'=>1),
+			array('fecha_emision, fecha_entrega, fecha_registro', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroOrden, nroSolicitud, fecha_emision, laboratorio, idMuestra, codMuestra, observaciones, fecha_entrega, codPersonal', 'safe', 'on'=>'search'),
+			array('nroOrden, nroSolicitud, fecha_emision, laboratorio, idMuestra, codMuestra, observaciones, fecha_entrega, codPersonal, fecha_registro, estado, eliminado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +121,9 @@ $sql = "select count(*)+1 as nroOrden,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha fro
 			'observaciones' => 'Observaciones',
 			'fecha_entrega' => 'Fecha Entrega',
 			'codPersonal' => 'Cod Personal',
+			'fecha_registro' => 'Fecha Registro',
+			'estado' => 'Estado',
+			'eliminado' => 'Eliminado',
 		);
 	}
 
@@ -118,6 +154,9 @@ $sql = "select count(*)+1 as nroOrden,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha fro
 		$criteria->compare('observaciones',$this->observaciones,true);
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
 		$criteria->compare('codPersonal',$this->codPersonal);
+		$criteria->compare('fecha_registro',$this->fecha_registro,true);
+		$criteria->compare('estado',$this->estado,true);
+		$criteria->compare('eliminado',$this->eliminado,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

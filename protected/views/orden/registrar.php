@@ -33,8 +33,12 @@ $this->breadcrumbs=array(
 <div class="box-body">
 
 	<div class="form-group col-md-6">
+	<label class="" for="">Laboratorio Sección : </label>
+	<input type="text" class="form-control" id="txtLaboratorio" >
+	</div>
+	<div class="form-group col-md-6">
 	<label class="" for="">Nombre del Producto : </label>
-	<input type="text" class="form-control" id="txtNomMuestra" >
+	<input type="text" class="form-control" id="txtNomMuestra" data-id="">
 	</div>
 	<div class="form-group col-md-6">
 	<label class="" for="">Codigo de Muestra : </label>
@@ -100,7 +104,7 @@ $this->breadcrumbs=array(
 	
 	
 	<div class="col-md-6">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarSolicitud">Guardar e Imprimir</button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarOrden">Guardar e Imprimir</button>
 	</div>
 	<div class="col-md-6">
 		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar">Cancelar</button>
@@ -117,6 +121,8 @@ $this->breadcrumbs=array(
 </div><!-- /.box-body -->
 <script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/cotizacion.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/solicitud.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/ordentrab.js" type="text/javascript"></script>
+
 <script>
 	
 	
@@ -135,82 +141,36 @@ $("#btn_aceptar_Solicitud").click(function(event) {
 		var NroSolicitud=$("#NroSolicitud").attr('NroSolicitud');
 		 SolicitudCore.actualizarEstadoSolicitud(NroSolicitud,1);
 	});
-$("#btn_GuardarSolicitud").click(function(event) {
+$("#btn_GuardarOrden").click(function(event) {
 /* ------------ */
 
-
-var txtDocumento=$("#txtDocumento").val();
-var txtNomCliente=$("#txtNomCliente").val();
-var txtAtencion=$("#txtAtencion").val();
-var txtDireccion=$("#txtDireccion").val();
-var txtDistrito=$("#txtDistrito").val();
-var txtProvincia=$("#txtProvincia").val();
-var txtTelefono=$("#txtTelefono").val();
-var txtEmail=$("#txtEmail").val();
-var txtRefCliente=$("#txtRefCliente").val();
-
-/* ------------ */
-var nombre=$("#txtMuestra").val();
-var marca=$("#txtMarca").val();
-var identificacion=$("#txtIdentificacion").val();
-var presentacion=$("#txtPresentacion").val();
-var ObservacionesMuestra=$("#txtObservaciones").val();
-var cant_muestra=$("#txtCantidad").val();
-var idCliente=$("#txtDocumento").attr('data-id');
-ClienteCore.actualizarCliente(idCliente,txtNomCliente,txtDocumento,txtAtencion,txtDireccion,txtTelefono,txtEmail,txtRefCliente,txtDistrito,txtProvincia);
-  idMuestra=ClienteCore.registrarMuestra(idCliente,nombre,marca,identificacion,cant_muestra,presentacion,ObservacionesMuestra);
-/* ------------ */
-
-/* ------------ */
-
-	var Acreditacion=$('input:radio[name=rdb_acreditación]:checked').val();
-
-
-var Contramuestras=$('input:radio[name=rdb_contramuestras]:checked').val();
-var observacionesServ=$("#txtObservacionesServicios").val();
-
-/* ------------ */
-var NroSolicitud=$("#NroSolicitud").attr('NroSolicitud');
-var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
-
-
-/* ------------ */
-if($('input:checkbox[name=chkServEnsayos]').prop('checked')){
-	var Ensayos=$('input:checkbox[name=chkServEnsayos]:checked').val();
-}else{
-	var Ensayos='N';
-}
-
-if($('input:checkbox[name=chkServInspeccion]').prop('checked')){
-	var Inspeccion=$('input:checkbox[name=chkServInspeccion]:checked').val();
-}else{
-	var Inspeccion='N';
-}
-
-if($('input:checkbox[name=chkServMuestreo]').prop('checked')){
-	var muestreo=$('input:checkbox[name=chkServMuestreo]:checked').val();
-}else{
-	var muestreo='N';
-}
-
-if($('input:checkbox[name=chkOtrosServicios]').prop('checked')){
-	var otros=$("#txtOtrosServicios").val();
-}else{
-	var otros=null;
-}
-
-//var Ensayos=$('input:checkbox[name=chkServEnsayos]:checked').val();
-//var Inspeccion=$('input:checkbox[name=chkServInspeccion]:checked').val();
-//var muestreo=$('input:checkbox[name=chkServMuestreo]:checked').val();
-
-//var otros=$("#txtOtrosServicios").val();
-
+var nroOrden=$("#NroOrdenTrabajo").attr('nroordentrabajo');
+var nroSolicitud=$("#NroOrdenTrabajo").attr('NroSolicitud');
+var fecha_emision=$("#fecha_actual").text();
+var laboratorio=$("#txtLaboratorio").val();
+var idMuestra=$("#txtNomMuestra").attr('data-id');
+var codMuestra=$("#txtCodMuestra").val();
+var observaciones=$("#txtObservOrden").val();
 var fecha_entrega=$("#txtFecha").val();
-var txtHora=$("#txtHora").val();
-var total=$("#txtTotal").val();	
-/* --------------*/
+var detalle = $('#DetalleOrden').tableToJSON();
+var hora=$("#txtHora").val();
+/*var $("#txtNomMuestra").val();
+var 
+var $("#txtNumUnidad").val();
+var $("#txtPesoVol").val();
+var $("#txtPresentacion").val();
+var $("#rdb_metodo").val();
 
-SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observacionesServ);
+var $("#DetalleOrden").val();
+var $("#txtFecha").val();
+var $("#txtHora").val();
+*/
+
+OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega+hora,1,detalle)
+
+
+
+
 });
 
 	

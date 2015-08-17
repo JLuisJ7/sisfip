@@ -1,46 +1,7 @@
 /*
     INICIO Fn Cotizacion
 */
-var SolicitudCore = {
-    
-    listar_SolicitudesAprobadas: function(){
-        //alert("hola");
-        var me = this;
-        
-        Util.createGrid('#SolicitudesAprobadas',{
-            toolButons:'',
-            url:'index.php?r=solicitud/AjaxListarSolicitudesAprobadas',
-            columns:[
-                {"mData": "nroSolicitud", "sClass": "alignCenter"},
-                {"mData": "cliente", "sClass": "alignCenter"},                
-                {"mData": "muestra", "sClass": "alignCenter"},
-                {"mData": "fecha_registro", "sClass": "alignCenter"},
-                {"mData": "fecha_entrega", "sClass": "alignCenter"},
-                 {"mData": "total", "sClass": "alignCenter"},            
-                {
-                    "mData": 'nroSolicitud',
-                    "bSortable": false,
-                    "bFilterable": false,
-                    //"width": "150px",
-                    "mRender": function(o) {
-                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><input  class="btn btn-warning btn-sm" value="enviar" type="submit"></form><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
-                    }
-                }
-            ],
-            fnDrawCallback: function() {
-                $('.eliminarServicio').click(function() {
-                    me.alertEliminarServicio($(this).attr('lang'));
-                });
-                $('.editarServicio').click(function() {
-                    me.obtenerServicio($(this).attr('lang'));
-                    $("#btn-Accion-M").attr('value', 'Actualizar');
-                    $("#text-Accion").text('Actualizar');
-
-                });
-
-            }
-        });
-    },
+var OrdenCore = {
     CotizacionesxCliente: function(nroDoc){
        var me = this;
        var table = $('#CotizacionesCliente').DataTable();
@@ -75,7 +36,7 @@ var SolicitudCore = {
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-pencil"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarCotizacion"><i class="fa fa-trash-o"></i></a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-eye"></i> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm eliminarCotizacion"><i class="fa fa-print"></i></a>';
                     }
                 }
                    
@@ -102,101 +63,38 @@ var SolicitudCore = {
         });
         
     },
-    registrarSolicitud: function(nroSolicitud,nroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observaciones,detalle){
-        var me = this;
-        $.ajax({
-            url: 'index.php?r=solicitud/AjaxRegistrarSolicitud',
-            type: 'POST',
-            data: {
-               nroSolicitud:nroSolicitud,
-               nroCotizacion:nroCotizacion,
-               idCliente:idCliente,
-               idMuestra:idMuestra,
-               Ensayos:Ensayos,
-               Inspeccion:Inspeccion,
-               muestreo:muestreo,
-               otros:otros,
-               total:total,
-               fecha_entrega:fecha_entrega,
-               Acreditacion:Acreditacion,
-               Contramuestras:Contramuestras,
-               observaciones:observaciones               
-                },
-        })
-        .done(function(response) {
-            console.log(response);
-             me.registrarDetalleSolicitud(nroSolicitud,detalle);
-              $('#Success').show();
+    registrarOrdenTrabajo: function(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega,codPersonal,detalle){
+        
 
-        })
-           
-    },
-    registrarDetalleSolicitud: function(nroSolicitud,detalle){
+        var me = this;
         $.ajax({
-            url: 'index.php?r=solicitud/AjaxRegistrarDetalleSolicitud',
+            url: 'index.php?r=orden/AjaxRegistrarOrdenTrabajo',
             type: 'POST',
             data: {
-                nroSolicitud:nroSolicitud,                            
-                json:JSON.stringify(detalle),
+                nroOrden:nroOrden,
+                nroSolicitud:nroSolicitud,
+                fecha_emision:fecha_emision,
+                laboratorio:laboratorio,
+                idMuestra:idMuestra,
+                codMuestra:codMuestra,
+                observaciones:observaciones,
+                fecha_entrega:fecha_entrega,
+                codPersonal:codPersonal             
                 },
         })
         .done(function(response) {
             console.log(response);
-        })
-           
-    },
-    consultarSolicitudOT:function(nroSolicitud){
-        var me = this;
-        $.ajax({
-        url: 'index.php?r=solicitud/AjaxConsultarSolicitudOT',
-        type: 'POST',       
-        data: {nroSolicitud: nroSolicitud},       
-        })
-        .done(function(data) {
-            //console.log(data.Cotizacion);
+             me.registrarDetalleOrdenTrab(nroOrden,detalle);
+             $('#Success').show();
+             //boton generar solicitud
+             //$("#idCotSolicitud").val(idCotizacion);
+            //$("#btn_Generar_Solicitud").removeAttr('disabled');
+
             
-           me.llenarDetalleOT(data.Detalle);
+
 
         })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function(data) {
-            /*------*/
-$("#txtNomMuestra").val(data.Solicitud[0].nombre);
-$("#txtNomMuestra").attr('data-id',data.Solicitud[0].idMuestra);
-$("#txtNumUnidad").val(data.Solicitud[0].cant_muestra);
-
-$("#txtPresentacion").val(data.Solicitud[0].presentacion);
-
-        
-
-
-            /*-------*/
-        });
-
-        
-
-    },
-    actualizarEstadoSolicitud: function(idSolicitud,estado){
-        $.ajax({
-            url: 'index.php?r=solicitud/AjaxActualizarEstadoSolicitud',
-            type: 'POST',
-            data: {
-                idSolicitud: idSolicitud,
-                estado:estado
-            },
-        })
-        .done(function(response) {
-            console.log(response);
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-        
+           
     },
     actualizarCotizacion: function(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle){
         var me = this;
@@ -222,6 +120,20 @@ $("#txtPresentacion").val(data.Solicitud[0].presentacion);
 
            
     },
+    registrarDetalleOrdenTrab: function(nroOrden,detalle){
+        $.ajax({
+            url: 'index.php?r=orden/AjaxRegistrarDetalleOrdenTrab',
+            type: 'POST',
+            data: {
+                nroOrden:nroOrden,                           
+                json:JSON.stringify(detalle),
+                },
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+           
+    },
     eliminarDetalleCotizacion: function(NroCotizacion){
         $.ajax({
             url: 'index.php?r=cotizacion/AjaxEliminarDetalleCotizacion',
@@ -235,47 +147,52 @@ $("#txtPresentacion").val(data.Solicitud[0].presentacion);
         })
            
     },
-    llenarDetalleOT:function(detalle){
-        var table = $('#DetalleOrden').DataTable();
-        table.destroy();
-        $('#DetalleOrden').dataTable({  
-      "language": {
-            "lengthMenu": "Display _MENU_ records per page",
-            "zeroRecords": " ",
-            "info": "Showing page _PAGE_ of _PAGES_",
-            "infoEmpty": "No records available",
-            "infoFiltered": "(filtered from _MAX_ total records)"
-        },
-        "paging":   false,
-        "ordering": false,
-        "info":     false,
-        "bFilter": false
-    } );
-console.log(detalle);
-    $.each(detalle,function(index, value){ 
-        
-          $('#DetalleOrden').DataTable().row.add([
-            value.idServicio, value.descripcion, value.metodo
-            ]).draw();
-
-        });
- /*---- Eliminar Fila---------*/
- $('#DetalleOrden tbody').on( 'click', 'button', function () {
-        
-        var table = $('#DetalleOrden').DataTable();
-        
-        table.row( $(this).parents('tr') ).remove().draw( false );         
-          
-        if(table.column(5).data().length==0){
-            $("#txtTotal").val('0.00'); 
+    consultarCotizacion:function(NroCotizacion){
+        var me = this;
+        $.ajax({
+        url: 'index.php?r=cotizacion/AjaxeditarCotizacion',
+        type: 'POST',       
+        data: {NroCotizacion: NroCotizacion},       
+        })
+        .done(function(data) {
+            console.log(data.Cotizacion);
             
-        }else{
-          calcularTotal();
-         
-        }        
+           me.llenarDetalle(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $("#fecha_registro").text(data.Cotizacion[0].fecha_registro);
+             $("#txtNomCliente").val(data.Cotizacion[0].nombres);
+ $("#txtDocumento").val(data.Cotizacion[0].doc_ident); 
+ $("#txtDocumento").attr('data-id',data.Cotizacion[0].idCliente);;
+ $("#txtAtencion").val(data.Cotizacion[0].atencion_a);
+ $("#txtDireccion").val(data.Cotizacion[0].direccion);
+ $("#txtTelefono").val(data.Cotizacion[0].telefono);
+ $("#txtEmail").val(data.Cotizacion[0].correo);
+ $("#txtRefCliente").val(data.Cotizacion[0].referencia);
+$("#txtCondTecnicas").val(data.Cotizacion[0].cond_tecnica);
+$("#txtDetalles").val(data.Cotizacion[0].detalle_servicios);
+$("#txtTotal").val(data.Cotizacion[0].total);
+$("#txtTiempo").val(data.Cotizacion[0].fecha_entrega);
+$("#txtCantidad").val(data.Cotizacion[0].cant_Muestra_necesaria);
+$("#txtMuestra").val(data.Cotizacion[0].muestra);
+$("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
+$("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
+$("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
+$("#btn_Generar_Solicitud").removeAttr('disabled');
+$("#btn_GuardarCotizacion").removeAttr('disabled');
+$("#btn_imprimirCotizacion").removeAttr('disabled');
 
 
-    } );
+
+            /*-------*/
+        });
+
+        
 
     },
     llenarDetalle:function(detalle){
@@ -297,14 +214,37 @@ console.log(detalle);
         "paging":   false,
         "ordering": false,
         "info":     false,
-        "bFilter": false
+        "bFilter": false,
+        fnDrawCallback: function() {
+
+                $('.checkACred')
+.change(function() {
+     console.log($(this).val());
+    if ($(this).is(':checked')) {
+       costo=$("#txtCosto").val();
+       $("#"+$(this).val()+"").text('SI');
+      //$("#"+$(this).val()+"").show();
+      
+    } else {
+      // $("#"+$(this).val()+"").show();
+       $("#"+$(this).val()+"").text('NO');
+    }
+}).change();
+              
+            } 
     } );
 console.log(detalle);
     $.each(detalle,function(index, value){ 
-        
-          $('#DetalleCotizacion').DataTable().row.add([
-            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, value.acreditado
+        if (value.acreditado=='SI') {
+            $('#DetalleCotizacion').DataTable().row.add([
+            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, '<span id="check'+value.id+'" style="display:none;">SI</span><input type="checkbox" value="check'+value.id+'" class="checkACred" checked>'
             ]).draw();
+        }else{
+            $('#DetalleCotizacion').DataTable().row.add([
+            value.id, value.descripcion, value.metodo, value.tiempo_entrega, value.cantM_X_ensayo, value.precio, '<span id="check'+value.id+'" style="display:none;">NO</span><input type="checkbox" value="check'+value.id+'" class="checkACred" >'
+            ]).draw();
+        }
+          
 
         });
  /*---- Eliminar Fila---------*/

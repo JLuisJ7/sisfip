@@ -2,6 +2,47 @@
 
 class OrdenController extends Controller
 {
+public function actionAjaxRegistrarOrdenTrabajo(){
+	//cotizacion
+
+$nroOrden=$_POST['nroOrden'];
+$nroSolicitud=$_POST['nroSolicitud'];
+$fecha_emision=$_POST['fecha_emision'];
+$laboratorio=$_POST['laboratorio'];
+$idMuestra=$_POST['idMuestra'];
+$codMuestra=$_POST['codMuestra'];
+$observaciones=$_POST['observaciones'];
+$fecha_entrega=$_POST['fecha_entrega'];
+$codPersonal=$_POST['codPersonal'];
+
+
+$date = new DateTime($fecha_emision);
+$fecha=$date->format('Y-m-d');
+		$respuesta = Ordentrabajo::model() -> registrarOrdenTrabajo($nroOrden,$nroSolicitud,$fecha,$laboratorio,$idMuestra,$codMuestra,$observaciones,$fecha_entrega,$codPersonal);
+
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
+public function actionAjaxRegistrarDetalleOrdenTrab(){
+
+$nroOrden=$_POST['nroOrden'];
+
+$json=$_POST['json'];
+$array = json_decode($json);
+
+	
+foreach($array as $obj){
+			$idServicio=$obj->ID;			
+			
+						
+ $respuesta=Detalleordentrab::model() -> registrarDetalleOrdenTrab($nroOrden,$idServicio);
+
+
+
+}
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
 
 	public function actionAjaxObtenerNroOrden(){		
 		$orden = Ordentrabajo::model()->obtenerNroOrdenT();
