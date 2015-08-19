@@ -73,6 +73,24 @@ $respuesta= Muestra::model()->RegistrarMuestra($idCliente,$nombre,$marca,$identi
     	  	);
 	}
 
+public function actionAjaxActualizarMuestra(){
+$idMuestra=$_POST['idMuestra'];
+$idCliente=$_POST['idCliente'];
+$codigo=$_POST['codigo'];
+$nombre=$_POST['nombre'];
+$cant_muestra=$_POST['cant_muestra'];
+$peso_volumen=$_POST['peso_volumen'];
+$metodocliente=$_POST['metodocliente'];
+$presentacion=$_POST['presentacion'];
+$observaciones=$_POST['observaciones'];	
+
+
+$respuesta= Muestra::model()->ActualizarMuestra($idMuestra,$idCliente,$codigo,$nombre,$cant_muestra,$peso_volumen,$metodocliente,$presentacion,$observaciones);
+
+
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
+
 	public function actionIndex()
 	{
 		if($this->verificarSessiousuario()==FALSE){

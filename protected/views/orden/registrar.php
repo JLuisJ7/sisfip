@@ -38,7 +38,7 @@ $this->breadcrumbs=array(
 	</div>
 	<div class="form-group col-md-6">
 	<label class="" for="">Nombre del Producto : </label>
-	<input type="text" class="form-control" id="txtNomMuestra" data-id="">
+	<input type="text" class="form-control" id="txtNomMuestra" data-id="" id-cliente="">
 	</div>
 	<div class="form-group col-md-6">
 	<label class="" for="">Codigo de Muestra : </label>
@@ -59,10 +59,10 @@ $this->breadcrumbs=array(
 	<div class="form-group col-md-12">
 	<label class="" for="">Incluye Método de Ensayo del Cliente ( SI / NO ) :  </label>
 	<label class="radio-inline">
-	  <input type="radio" name="rdb_metodo" id="inlineRadio1" value="SI"> SI
+	  <input type="radio" name="rdb_metodo" id="rdb_metodo" value="SI"> SI
 	</label>
 	<label class="radio-inline">
-	  <input type="radio" name="rdb_metodo" id="inlineRadio2" value="NO"> NO
+	  <input type="radio" name="rdb_metodo" id="rdb_metodo" value="NO"> NO
 	</label>
 	
 
@@ -149,24 +149,23 @@ var nroSolicitud=$("#NroOrdenTrabajo").attr('NroSolicitud');
 var fecha_emision=$("#fecha_actual").text();
 var laboratorio=$("#txtLaboratorio").val();
 var idMuestra=$("#txtNomMuestra").attr('data-id');
+var idCliente=$("#txtNomMuestra").attr('id-cliente');
+var NomMuestra=$("#txtNomMuestra").val();
 var codMuestra=$("#txtCodMuestra").val();
 var observaciones=$("#txtObservOrden").val();
 var fecha_entrega=$("#txtFecha").val();
 var detalle = $('#DetalleOrden').tableToJSON();
 var hora=$("#txtHora").val();
-/*var $("#txtNomMuestra").val();
-var 
-var $("#txtNumUnidad").val();
-var $("#txtPesoVol").val();
-var $("#txtPresentacion").val();
-var $("#rdb_metodo").val();
 
-var $("#DetalleOrden").val();
-var $("#txtFecha").val();
-var $("#txtHora").val();
-*/
+var cant_muestra=$("#txtNumUnidad").val();
+var peso_volumen=$("#txtPesoVol").val();
+var presentacion=$("#txtPresentacion").val();
+var metodocliente=$("#rdb_metodo").val();
 
-OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega+hora,1,detalle)
+var observaciones=$("#txtObservMuestra").val();
+
+ClienteCore.actualizarMuestra(idMuestra,idCliente,codMuestra,NomMuestra,cant_muestra,peso_volumen,metodocliente,presentacion,observaciones);
+OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega+hora,1,detalle);
 
 
 

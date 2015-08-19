@@ -20,6 +20,33 @@
  */
 class Muestra extends CActiveRecord
 {
+
+	public function ActualizarMuestra($idMuestra,$idCliente,$codigo,$nombre,$cant_muestra,$peso_volumen,$metodocliente,$presentacion,$observaciones){
+		$resultado = array('valor'=>1,'message'=>'Servicio actualizado correctamente.');
+
+		$muestra = Muestra::model()->findByPk($idMuestra);
+$muestra->idMuestra=$idMuestra;
+$muestra->idCliente=$idCliente;
+$muestra->codigo=$codigo;
+$muestra->nombre=$nombre;
+
+$muestra->Cant_Muestra=$cant_muestra;
+$muestra->peso_volumen=$peso_volumen;
+$muestra->metodocliente=$metodocliente;
+$muestra->presentacion=$presentacion;
+$muestra->observaciones=$observaciones;
+
+			
+		
+			if(!$muestra->save()){
+				$resultado = array('valor'=>0, 'message'=>'No hemos podido Actualizar el Servicio');
+			}
+		
+
+		return $resultado;
+	}
+
+
 	public function RegistrarMuestra($idCliente,$nombre,$marca,$identificacion,$cant_muestra,$presentacion,$observaciones){
 
 		$resultado = array('valor'=>1,'message'=>'Servicio Registrado correctamente.');

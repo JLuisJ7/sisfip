@@ -18,6 +18,21 @@ $respuesta= Muestra::model()->RegistrarMuestra($nombre,$idCliente);
     	  	);
 	}
 
+	public function actionAjaxActualizarMuestra(){
+$nombre=$_POST['nombre'];
+$idCliente=$_POST['idCliente'];
+$respuesta= Muestra::model()->RegistrarMuestra($nombre,$idCliente);
+
+
+		header('Content-Type: application/json; charset="UTF-8"');
+    	  Util::renderJSON(
+    	  	array( 
+    	  		'success' => $respuesta,
+    	  		'idGenerado'=>Yii::app()->db->getLastInsertID('Muestra')
+    	  		)
+    	  	);
+	}
+
 	public function actionIndex()
 	{
 		$this->render('index');

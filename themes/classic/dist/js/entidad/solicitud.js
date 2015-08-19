@@ -165,6 +165,7 @@ var SolicitudCore = {
             /*------*/
 $("#txtNomMuestra").val(data.Solicitud[0].nombre);
 $("#txtNomMuestra").attr('data-id',data.Solicitud[0].idMuestra);
+$("#txtNomMuestra").attr('id-cliente',data.Solicitud[0].idCliente);
 $("#txtNumUnidad").val(data.Solicitud[0].cant_muestra);
 
 $("#txtPresentacion").val(data.Solicitud[0].presentacion);
