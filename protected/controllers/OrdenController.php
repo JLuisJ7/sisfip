@@ -2,6 +2,21 @@
 
 class OrdenController extends Controller
 {
+
+
+public function actionAjaxListarOrdenesAnalista(){
+		
+		$orden = Ordentrabajo::model()->ListarOrdenesAnalista();
+
+		Util::renderJSON($orden);
+	}
+	public function actionAjaxListarOrdenesDTecnico(){
+		
+		$orden = Ordentrabajo::model()->ListarOrdenesdtecnico();
+
+		Util::renderJSON($orden);
+	}
+
 public function actionAjaxRegistrarOrdenTrabajo(){
 	//cotizacion
 
@@ -91,7 +106,7 @@ foreach($array as $obj){
 			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
-  			if ($rol==1) {
+  			if ($rol==1 || $rol==3) {
   				$this->render("ordenes");
   			
   				
@@ -104,6 +119,24 @@ foreach($array as $obj){
 		
 	}
 
+public function actionordenes_analista()
+	{
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==1 || $rol==4) {
+  				$this->render('ordenes_analista', array('rol' => $rol));
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
+	}
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

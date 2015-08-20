@@ -23,7 +23,7 @@ var SolicitudCore = {
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><input  class="btn btn-warning btn-sm" value="enviar" type="submit"></form><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Orden" type="submit"></form>';
                     }
                 }
             ],

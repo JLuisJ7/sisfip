@@ -10,10 +10,10 @@ $this->moduleTitle="Ordenes de Trabajo";
 $this->moduleSubTitle="Ordenes de Trabajo";
 // Breadcrumbs
 $this->breadcrumbs=array(
-    'Ordenes de Trabajo',
+	'Ordenes de Trabajo',
 );?>
 <style>
-    tbody {
+	tbody {
     text-align:center;
 }
 
@@ -24,17 +24,17 @@ $this->breadcrumbs=array(
 <!--end contadores-->
 <div class="box box-primary">
 <div class="box-header">
-    <h3 class="box-title">Ordenes</h3>
-    
+	<h3 class="box-title">Ordenes</h3>
+	
 </div>
 <div class="box-body">
 
-    <!-- Cotizaciones por Cliente -->
-    <table id="OrdenesTecnico" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%">
+	<!-- Cotizaciones por Cliente -->
+	<table id="OrdenesAnalista" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         <th style="vertical-align: middle;" >nroOrden</th>
-                        <th style="vertical-align: middle;" >Muestra</th>                           
+                        <th style="vertical-align: middle;" >Muestra</th>   	                    
                         <th style="vertical-align: middle;" >Codigo</th>
                         <th style="vertical-align: middle;" >Laboratorio</th>
                         <th style="vertical-align: middle;" >Fecha</th>
@@ -45,7 +45,7 @@ $this->breadcrumbs=array(
                   </table>
 
 
-    
+	
 
 
 
@@ -63,7 +63,7 @@ $this->breadcrumbs=array(
 <script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/ordentrab.js" type="text/javascript"></script>
 <script>
     window.onload=function(){
-        OrdenCore.ordenesDTecnico();
+        OrdenCore.ordenesAnalista();
     };
   
 

@@ -2,6 +2,83 @@
     INICIO Fn Cotizacion
 */
 var OrdenCore = {
+    ordenesDTecnico: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#OrdenesTecnico',{
+            toolButons:'',
+            url:'index.php?r=orden/AjaxListarOrdenesDTecnico',
+            columns:[
+                {"mData": "nroOrden", "sClass": "alignCenter"},
+                {"mData": "Muestra", "sClass": "alignCenter"},                
+                {"mData": "Codigo", "sClass": "alignCenter"},
+                {"mData": "laboratorio", "sClass": "alignCenter"},
+                {"mData": "fecha", "sClass": "alignCenter"},  
+                {
+                    "mData": 'nroOrden',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    /*"mRender": function(o) {
+                        return '<form action="index.php?r=orden/editar" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"></form>';
+                    }*/
+                    "mRender": function(o) {
+                        return '<input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Reporte" type="submit">';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                $('.eliminarServicio').click(function() {
+                    me.alertEliminarServicio($(this).attr('lang'));
+                });
+                $('.editarServicio').click(function() {
+                    me.obtenerServicio($(this).attr('lang'));
+                    $("#btn-Accion-M").attr('value', 'Actualizar');
+                    $("#text-Accion").text('Actualizar');
+
+                });
+
+            }
+        });
+    },
+    ordenesAnalista: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#OrdenesAnalista',{
+            toolButons:'',
+            url:'index.php?r=orden/AjaxListarOrdenesAnalista',
+            columns:[
+                {"mData": "nroOrden", "sClass": "alignCenter"},
+                {"mData": "Muestra", "sClass": "alignCenter"},                
+                {"mData": "Codigo", "sClass": "alignCenter"},
+                {"mData": "laboratorio", "sClass": "alignCenter"},
+                {"mData": "fecha", "sClass": "alignCenter"},  
+                {
+                    "mData": 'nroOrden',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    "mRender": function(o) {
+                        return '<form action="index.php?r=ensayos/generar_reporte" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Reporte" type="submit"></form>';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                $('.eliminarServicio').click(function() {
+                    me.alertEliminarServicio($(this).attr('lang'));
+                });
+                $('.editarServicio').click(function() {
+                    me.obtenerServicio($(this).attr('lang'));
+                    $("#btn-Accion-M").attr('value', 'Actualizar');
+                    $("#text-Accion").text('Actualizar');
+
+                });
+
+            }
+        });
+    },
     CotizacionesxCliente: function(nroDoc){
        var me = this;
        var table = $('#CotizacionesCliente').DataTable();

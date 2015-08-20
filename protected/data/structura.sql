@@ -144,3 +144,31 @@ metodoCliente char(2),
 observaciones varchar(200)
 
 );
+
+
+create table reporteensayo(
+nroEnsayo int unsigned not null,
+nroOrden int unsigned not null,
+idMuestra int,
+fecha_emision date,
+fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+laboratorio varchar(50),
+observaciones varchar(255),
+fecha_entrega date,
+hora entrega time,
+estado char(1),
+eliminado char(1)
+);
+
+ALTER TABLE reporteensayo ADD CONSTRAINT fk_reporte_orden FOREIGN KEY(nroOrden) references ordenTrabajo(nroOrden);
+ALTER TABLE reporteensayo ADD CONSTRAINT fk_reporte_muestra FOREIGN KEY(idMuestra) references Muestra(idMuestra);
+
+create table detreporteensayo(
+nroEnsayo int unsigned not null,
+idServicio int,
+analista int,
+resultado varchar(255)
+);
+
+ALTER TABLE reporteensayo ADD CONSTRAINT fk_detalle_reporte FOREIGN KEY(nroEnsayo) references reporteensayo(nroEnsayo);
+ALTER TABLE reporteensayo ADD CONSTRAINT fk_detreporte_servicio FOREIGN KEY(idServicio) references servicio(idServicio);

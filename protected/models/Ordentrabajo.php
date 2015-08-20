@@ -25,6 +25,22 @@
 class Ordentrabajo extends CActiveRecord
 {
 
+	public function ListarOrdenesAnalista(){
+
+		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.estado=1;";	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	
+	}
+
+	public function ListarOrdenesdtecnico(){
+
+		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.estado=0;";	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	
+	}
+
 
 		public function registrarOrdenTrabajo($nroOrden,$nroSolicitud,$fecha_emision,$laboratorio,$idMuestra,$codMuestra,$observaciones,$fecha_entrega,$codPersonal){
 
