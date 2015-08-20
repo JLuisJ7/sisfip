@@ -24,7 +24,7 @@ var OrdenCore = {
                         return '<form action="index.php?r=orden/editar" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"></form>';
                     }*/
                     "mRender": function(o) {
-                        return '<input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Reporte" type="submit">';
+                        return '<input  class="btn btn-default btn-sm" value="Editar Orden" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Orden" type="submit">';
                     }
                 }
             ],

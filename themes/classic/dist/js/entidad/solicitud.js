@@ -2,6 +2,55 @@
     INICIO Fn Cotizacion
 */
 var SolicitudCore = {
+
+    consultarCotizacion:function(NroCotizacion){
+        var me = this;
+        $.ajax({
+        url: 'index.php?r=cotizacion/AjaxeditarCotizacion',
+        type: 'POST',       
+        data: {NroCotizacion: NroCotizacion},       
+        })
+        .done(function(data) {
+            console.log(data.Cotizacion);
+            
+           me.llenarDetalle(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $("#fecha_registro").text(data.Cotizacion[0].fecha_registro);
+             $("#txtNomCliente").val(data.Cotizacion[0].nombres);
+ $("#txtDocumento").val(data.Cotizacion[0].doc_ident); 
+ $("#txtDocumento").attr('data-id',data.Cotizacion[0].idCliente);;
+ $("#txtAtencion").val(data.Cotizacion[0].atencion_a);
+ $("#txtDireccion").val(data.Cotizacion[0].direccion);
+ $("#txtTelefono").val(data.Cotizacion[0].telefono);
+ $("#txtEmail").val(data.Cotizacion[0].correo);
+ $("#txtRefCliente").val(data.Cotizacion[0].referencia);
+$("#txtCondTecnicas").val(data.Cotizacion[0].cond_tecnica);
+$("#txtDetalles").val(data.Cotizacion[0].detalle_servicios);
+$("#txtTotal").val(data.Cotizacion[0].total);
+$("#txtTiempo").val(data.Cotizacion[0].fecha_entrega);
+$("#txtCantidad").val(data.Cotizacion[0].cant_Muestra_necesaria);
+$("#txtMuestra").val(data.Cotizacion[0].muestra);
+$("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
+$("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
+$("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
+$("#btn_Generar_Solicitud").removeAttr('disabled');
+$("#btn_GuardarCotizacion").removeAttr('disabled');
+$("#btn_imprimirCotizacion").removeAttr('disabled');
+
+
+
+            /*-------*/
+        });
+
+        
+
+    },
     
     listar_SolicitudesAprobadas: function(){
         //alert("hola");
@@ -127,6 +176,7 @@ var SolicitudCore = {
             console.log(response);
              me.registrarDetalleSolicitud(nroSolicitud,detalle);
               $('#Success').show();
+              
 
         })
            
@@ -290,11 +340,7 @@ console.log(detalle);
             "infoEmpty": "No records available",
             "infoFiltered": "(filtered from _MAX_ total records)"
         },   
-        "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='btn btn-danger'><i class='fa fa-trash-o '></i></button>"
-        } ],
+      
         "paging":   false,
         "ordering": false,
         "info":     false,

@@ -140,7 +140,7 @@ $this->breadcrumbs=array(
 	<th style="vertical-align: middle;" >Cantidad </th> 
 	<th style="vertical-align: middle;" >Tarifa</th>                        
 	<th style="vertical-align: middle;" >Acreditado</th>
-	<th style="vertical-align: middle;" >DEL</th>
+	
 	</tr>
 	</thead>                 
 	</table>
@@ -180,7 +180,7 @@ $this->breadcrumbs=array(
 	  <input type="radio" name="rdb_acreditación" id="inlineRadio1" value="SI"> SI
 	</label>
 	<label class="radio-inline">
-	  <input type="radio" name="rdb_acreditación" id="inlineRadio2" value="NO"> NO
+	  <input type="radio" name="rdb_acreditación" id="inlineRadio2" value="NO" checked> NO
 	</label>
 	
 
@@ -191,7 +191,7 @@ $this->breadcrumbs=array(
 	  <input type="radio" name="rdb_contramuestras" id="inlineRadio1" value="SI"> SI
 	</label>
 	<label class="radio-inline">
-	  <input type="radio" name="rdb_contramuestras" id="inlineRadio2" value="NO"> NO
+	  <input type="radio" name="rdb_contramuestras" id="inlineRadio2" value="NO" checked> NO
 	</label>
 	
 
@@ -215,7 +215,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="col-md-12" style="margin-top:1em;">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_aceptar_Solicitud">Enviar a Director tecnico</button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_aceptar_Solicitud" disabled>Enviar a Director tecnico</button>
 	</div>
 	
 
@@ -235,7 +235,7 @@ $this->breadcrumbs=array(
 		ObtenerNroSolicitud();
 		var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
 		if (NroCotizacion!='') {
-			CotizacionCore.consultarCotizacion(NroCotizacion);
+			SolicitudCore.consultarCotizacion(NroCotizacion);
 		};
 
 				
