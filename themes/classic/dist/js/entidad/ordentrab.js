@@ -91,7 +91,9 @@ var OrdenCore = {
             //$("#btn_Generar_Solicitud").removeAttr('disabled');
 
             
-
+                setTimeout(function(){
+                      window.location.href = "index.php?r=solicitud/solicitudes";
+                }, 1000);
 
         })
            

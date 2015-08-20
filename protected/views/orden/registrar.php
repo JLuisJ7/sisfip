@@ -97,7 +97,14 @@ $this->breadcrumbs=array(
 			</div>				
 		</div>
 	</div>
-
+<div class="row">
+	<div class="col-md-12"> <div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
+   		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+   		<h4>  <i class="icon fa fa-check"></i> Alert!</h4>
+   		Orden de Trabajo Guardada Correctamente
+   		</div>
+   	</div>
+</div>
 	
 <div class="row" >
 	

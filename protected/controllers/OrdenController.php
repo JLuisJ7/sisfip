@@ -82,6 +82,27 @@ foreach($array as $obj){
 		}
 		
 	}
+	public function actionOrdenes()
+	{
+
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==1) {
+  				$this->render("ordenes");
+  			
+  				
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
+	}
 
 	// Uncomment the following methods and override them if needed
 	/*
