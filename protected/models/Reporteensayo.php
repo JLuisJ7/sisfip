@@ -23,6 +23,16 @@
  */
 class Reporteensayo extends CActiveRecord
 {
+
+	public function obtenerNroReporteE(){
+
+$sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from Reporteensayo";
+	
+
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

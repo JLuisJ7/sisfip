@@ -15,6 +15,21 @@
 class Detalleordentrab extends CActiveRecord
 {
 
+public function GuardarResultadoServicio($NroOrden,$idservicio,$resultado){
+	
+		
+$command = Yii::app()->db->createCommand("update Detalleordentrab set resultado='".$resultado."' where nroOrden=$NroOrden and idservicio=$idservicio");
+		return $command->execute();
+	}
+
+	public function obtenerDetalleOrdenAnalista($NroOrdenTrabajo){
+
+		$sql = "select   nroOrden,det_o.idServicio as id,serv.descripcion,serv.metodo,resultado from Detalleordentrab as det_o inner join servicio as serv ON serv.idServicio=det_o.idServicio where nroOrden=".$NroOrdenTrabajo;
+		
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 	public function registrarDetalleOrdenTrab($nroOrden,$idServicio){
 
 		$resultado = array('valor'=>1,'message'=>'Su solicitud ha sido procesada correctamente.');

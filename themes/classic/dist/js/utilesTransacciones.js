@@ -216,6 +216,28 @@ function ObtenerNroCotizacion(){
         //console.log("complete");
     });
  };
+
+ function ObtenerNroReporteE(){
+ 
+   $.ajax({
+        url: 'index.php?r=ensayos/AjaxObtenerNroReporte',
+        type: 'POST',          
+    })
+    .done(function(response) {   
+     data=response.output;     
+        //console.log(data.nroComp);
+
+        $("#NroReporte").text(data.nroReporte);
+        $("#NroReporte").attr('NroReporte', data.nroReporte);
+        $("#fecha_actual").text(data.fecha);      
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+        //console.log("complete");
+    });
+ };
  
 function obtenerNroBoleta(modulo,idNroComp,idserie){
     var nroSerie=$("#"+idserie+"").attr('data-param');

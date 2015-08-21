@@ -4,6 +4,33 @@ class OrdenController extends Controller
 {
 
 
+public function actionAjaxGuardarResultadoServicio(){
+		$NroOrden = $_POST['NroOrden'];
+		$idservicio = $_POST['idservicio'];
+		$resultado = $_POST['resultado'];
+
+		$respuesta = Detalleordentrab::model()->GuardarResultadoServicio($NroOrden,$idservicio,$resultado);
+
+		Util::renderJSON(array('success' => $respuesta));
+	}
+
+
+public function actionAjaxconsultarOrdenAnalista(){
+		$NroOrdenTrabajo=$_POST['NroOrdenTrabajo'];
+		
+		$Ordentrabajo = Ordentrabajo::model()->obtenerOrdenAnalista($NroOrdenTrabajo);
+		$detalle = Detalleordentrab::model()->obtenerDetalleOrdenAnalista($NroOrdenTrabajo);
+
+		Util::renderJSON(array( 'Ordentrabajo' => $Ordentrabajo,'Detalle'=>$detalle ));
+	}
+
+	public function actionAjaxobtenerDetalleOrdenAnalista(){
+		$NroOrdenTrabajo=$_POST['NroOrdenTrabajo'];
+		$detalle = Detalleordentrab::model()->obtenerDetalleOrdenAnalista($NroOrdenTrabajo);
+
+		Util::renderJSON(array('Detalle'=>$detalle ));
+	}
+
 public function actionAjaxListarOrdenesAnalista(){
 		
 		$orden = Ordentrabajo::model()->ListarOrdenesAnalista();

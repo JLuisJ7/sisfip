@@ -79,6 +79,54 @@ var OrdenCore = {
             }
         });
     },
+    consultarOrdenT:function(NroOrdenTrabajo){
+        var me = this;
+        $.ajax({
+        url: 'index.php?r=orden/AjaxconsultarOrdenAnalista',
+        type: 'POST',       
+        data: {NroOrdenTrabajo: NroOrdenTrabajo},       
+        })
+        .done(function(data) {
+            console.log(data.Orden);
+            
+           me.llenarDetalle(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $("#fecha_registro").text(data.Cotizacion[0].fecha_registro);
+             $("#txtNomCliente").val(data.Cotizacion[0].nombres);
+ $("#txtDocumento").val(data.Cotizacion[0].doc_ident); 
+ $("#txtDocumento").attr('data-id',data.Cotizacion[0].idCliente);;
+ $("#txtAtencion").val(data.Cotizacion[0].atencion_a);
+ $("#txtDireccion").val(data.Cotizacion[0].direccion);
+ $("#txtTelefono").val(data.Cotizacion[0].telefono);
+ $("#txtEmail").val(data.Cotizacion[0].correo);
+ $("#txtRefCliente").val(data.Cotizacion[0].referencia);
+$("#txtCondTecnicas").val(data.Cotizacion[0].cond_tecnica);
+$("#txtDetalles").val(data.Cotizacion[0].detalle_servicios);
+$("#txtTotal").val(data.Cotizacion[0].total);
+$("#txtTiempo").val(data.Cotizacion[0].fecha_entrega);
+$("#txtCantidad").val(data.Cotizacion[0].cant_Muestra_necesaria);
+$("#txtMuestra").val(data.Cotizacion[0].muestra);
+$("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
+$("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
+$("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
+$("#btn_Generar_Solicitud").removeAttr('disabled');
+$("#btn_GuardarCotizacion").removeAttr('disabled');
+$("#btn_imprimirCotizacion").removeAttr('disabled');
+
+
+
+            /*-------*/
+        });
+
+        
+
+    },
     CotizacionesxCliente: function(nroDoc){
        var me = this;
        var table = $('#CotizacionesCliente').DataTable();
