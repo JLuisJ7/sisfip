@@ -17,6 +17,14 @@
 class Detallesolicitud extends CActiveRecord
 {
 
+public function obtenerPrintDetalleSolicitud($nroSolicitud){
+
+		$sql = "select serv.descripcion,serv.metodo,detsol.precio from detallesolicitud as detsol inner join servicio as serv ON serv.idServicio=detsol.idServicio where nroSolicitud=".$nroSolicitud;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+	
 public function obtenerDetalleSolicitudOT($nroSolicitud){
 
 		$sql = "select ds.idServicio,serv.descripcion,serv.metodo from detallesolicitud ds inner join servicio as serv ON serv.idServicio=ds.idServicio where nroSolicitud=".$nroSolicitud;

@@ -3,6 +3,15 @@
 class SolicitudController extends Controller
 {
 
+public function actionAjaxImprimirSolicitud(){
+		$nroSolicitud=$_POST['nroSolicitud'];
+		
+		$solicitud = Solicitud::model()->obtenerPrintSolicitud($nroSolicitud);
+		$detalle = Detallesolicitud::model()->obtenerPrintDetalleSolicitud($nroSolicitud);
+
+		Util::renderJSON(array( 'Solicitud' => $solicitud,'Detalle'=>$detalle ));
+	}
+
 public function actionAjaxConsultarSolicitudOT(){
 		$nroSolicitud=$_POST['nroSolicitud'];
 		
@@ -93,8 +102,26 @@ foreach($array as $obj){
 			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
-  			if ($rol==1) {
+  			if ($rol==1 || $rol==3) {
   				$this->render('solicitudes', array('rol' => $rol));
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
+	}
+	public function actionsolicitudes_acliente()
+	{
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==1 || $rol==2) {
+  				$this->render('solicitudes_acliente', array('rol' => $rol));
   			}else{
   				$this->redirect('index.php');
   			}

@@ -31,6 +31,16 @@
 class Solicitud extends CActiveRecord
 {
 
+public function obtenerPrintSolicitud($nroSolicitud){
+
+		$sql = "select nroSolicitud,nroCotizacion,DATE_FORMAT(sol.fecha_registro,'%d-%m-%Y') as fecha_registro,cli.nombres as cliente,cli.doc_ident as documento,cli.direccion,cli.distrito,cli.provincia,cli.telefono,cli.referencia,Ensayos,Inspeccion,muestreo,sol.otros,m.nombre,m.marca,m.identificacion,m.cant_muestra,m.presentacion,m.observaciones as observaciones_m,m.metodocliente,sol.total,sol.acreditacion,sol.contramuestras,sol.observaciones as observaciones_sol,year(sol.fecha_entrega) as año,month(sol.fecha_entrega)as mes,day(sol.fecha_entrega) as dia from solicitud as sol inner join cliente as cli on cli.idCliente=sol.idCliente inner join cotizacion as cot on cot.idCotizacion=sol.nroCotizacion inner join muestra as m on m.idMuestra=sol.idMuestra
+where nroSolicitud=".$nroSolicitud;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
+
 	public function obtenerSolicitudOT($nroSolicitud){
 
 		$sql = "select nrosolicitud,sol.idCliente,nombre,sol.idMuestra,cant_muestra,peso_volumen,metodocliente,presentacion from solicitud as sol

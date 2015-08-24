@@ -50,8 +50,97 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
 
         
 
+    },    
+    listar_SolicitudesAtencionCliente: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#SolicitudesA_Cliente',{
+            toolButons:'',
+            url:'index.php?r=solicitud/AjaxListarSolicitudesAprobadas',
+            columns:[
+                {"mData": "nroSolicitud", "sClass": "alignCenter"},
+                {"mData": "cliente", "sClass": "alignCenter"},                
+                {"mData": "muestra", "sClass": "alignCenter"},
+                {"mData": "fecha_registro", "sClass": "alignCenter"},
+                {"mData": "fecha_entrega", "sClass": "alignCenter"},
+                 {"mData": "total", "sClass": "alignCenter"},            
+                {
+                    "mData": 'nroSolicitud',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    "mRender": function(o) {
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-eye"></i> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirSolicitud"><i class="fa fa-print"></i></a>';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                $('.imprimirSolicitud').click(function() {
+                    me.imprimirSolicitud($(this).attr('lang'));
+                });
+                $('.consultarCotizacion').click(function() {
+                    me.consultarCotizacion($(this).attr('lang'));
+                });
+            }
+        });
     },
-    
+    imprimirSolicitud:function(nroSolicitud){
+        $.ajax({
+        url: 'index.php?r=solicitud/AjaxImprimirSolicitud',
+        type: 'POST',       
+        data: {nroSolicitud: nroSolicitud},
+        })
+        .done(function(data) {
+            console.log(data.Solicitud);
+            console.log(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $.post('formato-solicitud.php', {
+                        distrito:data.Solicitud[0].distrito, 
+                        fecha_registro:data.Solicitud[0].fecha_registro,            
+                        Ensayos:data.Solicitud[0].Ensayos, 
+                        Inspeccion:data.Solicitud[0].Inspeccion, 
+                        acreditacion:data.Solicitud[0].acreditacion, 
+                        año:data.Solicitud[0].año, 
+                        cant_muestra:data.Solicitud[0].cant_muestra, 
+                        cliente:data.Solicitud[0].cliente, 
+                        contramuestras:data.Solicitud[0].contramuestras, 
+                        dia:data.Solicitud[0].dia, 
+                        direccion:data.Solicitud[0].direccion, 
+                        documento:data.Solicitud[0].documento,
+                        identificacion:data.Solicitud[0].identificacion, 
+                        marca:data.Solicitud[0].marca, 
+                        mes:data.Solicitud[0].mes,
+                        metodocliente:data.Solicitud[0].metodocliente, 
+                        muestreo:data.Solicitud[0].muestreo, 
+                        nombre:data.Solicitud[0].nombre, 
+                        nroCotizacion:data.Solicitud[0].nroCotizacion, 
+                        nroSolicitud:data.Solicitud[0].nroSolicitud, 
+                        observaciones_m:data.Solicitud[0].observaciones_m,
+                        observaciones_sol:data.Solicitud[0].observaciones_sol, 
+                        otros:data.Solicitud[0].otros, 
+                        presentacion:data.Solicitud[0].presentacion,
+                        provincia:data.Solicitud[0].provincia, 
+                        referencia:data.Solicitud[0].referencia, 
+                        telefono:data.Solicitud[0].telefono,
+                        total:data.Solicitud[0].total,
+                        detalle:JSON.stringify(data.Detalle), 
+            }, function (result) {
+                    WinId = window.open('', '_blank');//resolucion de la ventana
+                    WinId.document.open();
+                    WinId.document.write(result);
+                    //WinId.document.close();
+            });      
+            /*-------------*/
+
+        });
+    },
     listar_SolicitudesAprobadas: function(){
         //alert("hola");
         var me = this;
@@ -372,48 +461,5 @@ console.log(detalle);
 
     } );
 
-    },
-    imprimirCotizacion:function(NroCotizacion){
-        $.ajax({
-        url: 'index.php?r=cotizacion/AjaxImprimirCotizacion',
-        type: 'POST',       
-        data: {NroCotizacion: NroCotizacion},
-        })
-        .done(function(data) {
-            console.log(data.Cotizacion);
-            console.log(data.Detalle);
-
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function(data) {
-            /*------*/
-            $.post('formato-cotizacion.php', { 
-                        atencion_a:data.Cotizacion[0].atencion_a, 
-                        cant_Muestra_necesaria:data.Cotizacion[0].cant_Muestra_necesaria, 
-                        cond_tecnica:data.Cotizacion[0].cond_tecnica, 
-                        correo:data.Cotizacion[0].correo, 
-                        detalle_servicios:data.Cotizacion[0].detalle_servicios, 
-                        direccion:data.Cotizacion[0].direccion, 
-                        doc_ident:data.Cotizacion[0].doc_ident,
-                        fecha_entrega:data.Cotizacion[0].fecha_entrega, 
-                        fecha_registro:data.Cotizacion[0].fecha_registro, 
-                        idCotizacion:data.Cotizacion[0].idCotizacion, 
-                        muestra:data.Cotizacion[0].muestra, 
-                        nombres:data.Cotizacion[0].nombres, 
-                        referencia:data.Cotizacion[0].referencia, 
-                        telefono:data.Cotizacion[0].telefono, 
-                        total:data.Cotizacion[0].total,
-                        detalle:JSON.stringify(data.Detalle),
-            }, function (result) {
-                    WinId = window.open('', '_blank');//resolucion de la ventana
-                    WinId.document.open();
-                    WinId.document.write(result);
-                    //WinId.document.close();
-            });      
-            /*-------------*/
-
-        });
     }
 }
