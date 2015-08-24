@@ -55,7 +55,7 @@ $this->breadcrumbs=array(
 	<th style="vertical-align: middle;" >ID</th>                        
 	<th style="vertical-align: middle;" >Ensayo</th>	
 	<th style="vertical-align: middle;" >Metodo</th>
-	<th style="vertical-align: middle;" ></th>	
+	<th style="vertical-align: middle;" ><span style="display:none;">RES</span></th>	
 	</tr>
 	</thead>                 
 	</table>
@@ -143,6 +143,19 @@ $("#btn_GuardarResultado").click(function(event) {
 	ReporteCore.guardarResultadoServicio(NroOrden,idservicio,resultado);
 	
 });
+
+$("#btn_GuardarReporte").click(function(event) {
+var nroReporte=$("#NroReporte").attr('NroReporte');
+var nroOrden=$("#NroOrdenTrabajo").attr('NroOrden');
+var laboratorio=$("#txtLaboratorio").val();
+var idMuestra=$("#txtNomMuestra").attr('data-id');
+var observaciones=$("#txtObservOrden").val();
+var ingresado_por=1;
+var detalle = $('#DetalleReporte').tableToJSON();
+	ReporteCore.registrarReporteEnsayos(nroReporte,nroOrden,idMuestra,laboratorio,observaciones,ingresado_por,detalle);
+	//var DetalleReporte=$("#DetalleReporte").val();
+});
+
 	$("#btn_cancelar_resultado").click(function(event) {
 		  $("#FormResultado").hide();
 	});

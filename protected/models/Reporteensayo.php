@@ -15,6 +15,7 @@
  * @property string $hora_entrega
  * @property string $estado
  * @property string $eliminado
+ * @property integer $ingresado_por
  *
  * The followings are the available model relations:
  * @property Detreporteensayo[] $detreporteensayos
@@ -24,7 +25,32 @@
 class Reporteensayo extends CActiveRecord
 {
 
-	public function obtenerNroReporteE(){
+
+public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestra,$laboratorio,$observaciones,$ingresado_por){
+
+		$resultado = array('valor'=>1,'message'=>'Reporte Registrado correctamente.');
+
+		
+		$Reporte=new Reporteensayo;
+$Reporte->nroEnsayo=$nroReporte;
+$Reporte->nroOrden=$nroOrden;
+$Reporte->idMuestra=$idMuestra;
+$Reporte->laboratorio=$laboratorio;
+$Reporte->observaciones=$observaciones;
+$Reporte->ingresado_por=$ingresado_por;
+
+      		
+if(!$Reporte->save()){
+	
+	$resultado = array('valor'=>0, 'message'=>'No hemos podido Registrar el Reporte, intentelo nuevamente');
+
+}
+			
+
+		return $resultado;
+	}
+
+		public function obtenerNroReporteE(){
 
 $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from Reporteensayo";
 	
@@ -32,7 +58,6 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -49,8 +74,8 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nroEnsayo, nroOrden, fecha_registro', 'required'),
-			array('idMuestra', 'numerical', 'integerOnly'=>true),
+			array('nroEnsayo, nroOrden', 'required'),
+			array('idMuestra, ingresado_por', 'numerical', 'integerOnly'=>true),
 			array('nroEnsayo, nroOrden', 'length', 'max'=>10),
 			array('laboratorio', 'length', 'max'=>50),
 			array('observaciones', 'length', 'max'=>255),
@@ -58,7 +83,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 			array('fecha_emision, fecha_entrega, hora_entrega', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroEnsayo, nroOrden, idMuestra, fecha_emision, fecha_registro, laboratorio, observaciones, fecha_entrega, hora_entrega, estado, eliminado', 'safe', 'on'=>'search'),
+			array('nroEnsayo, nroOrden, idMuestra, fecha_emision, fecha_registro, laboratorio, observaciones, fecha_entrega, hora_entrega, estado, eliminado, ingresado_por', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,6 +118,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 			'hora_entrega' => 'Hora Entrega',
 			'estado' => 'Estado',
 			'eliminado' => 'Eliminado',
+			'ingresado_por' => 'Ingresado Por',
 		);
 	}
 
@@ -125,6 +151,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 		$criteria->compare('hora_entrega',$this->hora_entrega,true);
 		$criteria->compare('estado',$this->estado,true);
 		$criteria->compare('eliminado',$this->eliminado,true);
+		$criteria->compare('ingresado_por',$this->ingresado_por);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

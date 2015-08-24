@@ -93,28 +93,25 @@ var ReporteCore = {
         
 
     },
-    registrarOrdenTrabajo: function(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega,codPersonal,detalle){
+    registrarReporteEnsayos: function(nroReporte,nroOrden,idMuestra,laboratorio,observaciones,ingresado_por,detalle){
         
 
         var me = this;
         $.ajax({
-            url: 'index.php?r=orden/AjaxRegistrarOrdenTrabajo',
+            url: 'index.php?r=ensayos/AjaxRegistrarReporteEnsayos',
             type: 'POST',
             data: {
+                nroReporte:nroReporte,
                 nroOrden:nroOrden,
-                nroSolicitud:nroSolicitud,
-                fecha_emision:fecha_emision,
-                laboratorio:laboratorio,
                 idMuestra:idMuestra,
-                codMuestra:codMuestra,
+                laboratorio:laboratorio,
                 observaciones:observaciones,
-                fecha_entrega:fecha_entrega,
-                codPersonal:codPersonal             
+                ingresado_por:ingresado_por,                            
                 },
         })
         .done(function(response) {
             console.log(response);
-             me.registrarDetalleOrdenTrab(nroOrden,detalle);
+             me.registrarDetalleReporte(nroReporte,detalle);
              $('#Success').show();
              //boton generar solicitud
              //$("#idCotSolicitud").val(idCotizacion);
@@ -122,9 +119,23 @@ var ReporteCore = {
 
             
                 setTimeout(function(){
-                      window.location.href = "index.php?r=solicitud/solicitudes";
+                      window.location.href = "index.php?r=orden/ordenes_analista";
                 }, 1000);
 
+        })
+           
+    },
+    registrarDetalleReporte: function(nroReporte,detalle){
+        $.ajax({
+            url: 'index.php?r=ensayos/AjaxRegistrarDetalleReporte',
+            type: 'POST',
+            data: {
+                nroReporte:nroReporte,                           
+                json:JSON.stringify(detalle),
+                },
+        })
+        .done(function(response) {
+            console.log(response);
         })
            
     },
@@ -170,7 +181,7 @@ var ReporteCore = {
     $.each(detalle,function(index, value){ 
         
             $('#DetalleReporte').DataTable().row.add([
-            value.id, value.descripcion, value.metodo,'<a href="#" resultado="'+value.resultado+'"metodo="'+value.metodo+'" servicio="'+value.descripcion+'" idservicio="'+value.id+'" nroOrden="'+value.nroOrden+'"style="margin-left:5px;margin-right:0px" class="btn btn-default btn-sm ver_serviciodetalle"><i class="fa fa-eye"></i></a>'
+            value.id, value.descripcion, value.metodo,'<a href="#" resultado="'+value.resultado+'"metodo="'+value.metodo+'" servicio="'+value.descripcion+'" idservicio="'+value.id+'" nroOrden="'+value.nroOrden+'"style="margin-left:5px;margin-right:0px" class="btn btn-default btn-sm ver_serviciodetalle"><i class="fa fa-eye"><span style="display:none;">'+value.resultado+'</span></i></a>'
             ]).draw();
         
           

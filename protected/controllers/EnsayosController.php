@@ -2,7 +2,42 @@
 
 class EnsayosController extends Controller
 {
+	public function actionAjaxRegistrarReporteEnsayos(){
+	//cotizacion
+
+
+$nroReporte=$_POST['nroReporte'];
+$nroOrden=$_POST['nroOrden'];
+$idMuestra=$_POST['idMuestra'];
+$laboratorio=$_POST['laboratorio'];
+$observaciones=$_POST['observaciones'];
+$ingresado_por=$_POST['ingresado_por'];
+		$respuesta = Reporteensayo::model() -> registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestra,$laboratorio,$observaciones,$ingresado_por);
+
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
+public function actionAjaxRegistrarDetalleReporte(){
+
+$nroReporte=$_POST['nroReporte'];
+
+$json=$_POST['json'];
+$array = json_decode($json);
+
 	
+foreach($array as $obj){
+			$idServicio=$obj->ID;			
+			$resultado=$obj->RES;	
+						
+ $respuesta=Detreporteensayo::model() -> registrarRegistrarDetalleReporte($nroReporte,$idServicio,$resultado);
+
+
+
+}
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
+
 	
 	public function actionAjaxObtenerNroReporte(){		
 		$reporte = Reporteensayo::model()->obtenerNroReporteE();

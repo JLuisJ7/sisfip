@@ -15,6 +15,26 @@
  */
 class Detreporteensayo extends CActiveRecord
 {
+	public function registrarRegistrarDetalleReporte($nroReporte,$idServicio,$resultado){
+
+		$respuesta = array('valor'=>1,'message'=>'Su DEtalle ha sido procesada correctamente.');
+
+		
+      		$Detalle=new Detreporteensayo;
+      		$Detalle->nroEnsayo=$nroReporte;
+      		$Detalle->idServicio=$idServicio;	
+      		$Detalle->resultado=$resultado;			
+			
+
+			
+			if(!$Detalle->save()){
+	
+		$respuesta = array('valor'=>1,'message'=>'Su DEtalle ha sido procesada correctamente.');
+
+}
+
+		return $respuesta;
+	}
 	/**
 	 * @return string the associated database table name
 	 */
