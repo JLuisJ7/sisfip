@@ -1,4 +1,20 @@
+<?php 
+$laboratorio=$_POST['laboratorio'];
+$fecha_emision=$_POST['fecha_emision'];
+$año=$_POST['año'];
+$cant_muestra=$_POST['cant_muestra'];
+$codigo=$_POST['codigo'];
+$dia=$_POST['dia'];
+$mes=$_POST['mes'];
+$metodocliente=$_POST['metodocliente'];
+$nombre=$_POST['nombre'];
+$nroOrden=$_POST['nroOrden'];
+$observacion_m=$_POST['observacion_m'];
+$observaciones_o=$_POST['observaciones_o'];
+$peso_volumen=$_POST['peso_volumen'];
+$presentacion=$_POST['presentacion'];                    
 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,12 +113,12 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center" class="n_b_b b_r bold">
-				ORDEN DE TRABAJO PARA ENSAYOS N° <span class="orden_d"></span>
+				ORDEN DE TRABAJO PARA ENSAYOS N° <span class="orden_d"><?php echo $nroOrden; ?></span>
 			</td>
 		</tr>
 		<tr>
-			<td class="" colspan="3">Fecha de Emisión : <span class="orden_d"> </span></td>
-			<td class="n_b_l b_r" colspan="1">Laboratorio/Sección : <span class="orden_d"> </span></td>
+			<td class="" colspan="3">Fecha de Emisión : <span class="orden_d"> <?php echo $fecha_emision; ?></span></td>
+			<td class="n_b_l b_r" colspan="1">Laboratorio/Sección : <span class="orden_d"> <?php echo $laboratorio; ?></span></td>
 		</tr>
 		<tr class="row_title" >
 			<td  class=" bold">
@@ -114,23 +130,23 @@
 		</tr>
 		<tr>
 			<td class="">1.1</td>
-			<td class="">Nombre del Producto : <span class="orden_d"> </span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Código de Muestra :<span class="orden_d"></td>
+			<td class="">Nombre del Producto : <span class="orden_d"> <?php echo $nombre; ?></span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Código de Muestra :<span class="orden_d"><?php echo $codigo; ?></td>
 		</tr>
 		<tr>
 			<td class="">1.3</td>
-			<td class="">N° de Unidades por Muestra : <span class="orden_d"> </span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.4</span> Peso / Volumen por  Muestra : </td>
+			<td class="">N° de Unidades por Muestra : <span class="orden_d"><?php echo $cant_muestra; ?> </span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.4</span> Peso / Volumen por  Muestra : <span class="orden_d"><?php echo $peso_volumen ?></span></td>
 		</tr>
 		<tr>
 			<td class="">1.5</td>
 			
-			<td class="b_r" colspan="3">Forma de Presentación : </td>
+			<td class="b_r" colspan="3">Forma de Presentación : <span class="orden_d"> <?php echo $presentacion ?></span> </td>
 		</tr>
 		<tr>
 			<td class="">1.6</td>
-			<td class="">Incluye Método de Ensayo del Cliente ( SI / NO ) : <span class="orden_d"> </span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.7</span> Observaciones Adicionales : <span class="orden_d"></td>
+			<td class="">Incluye Método de Ensayo del Cliente ( SI / NO ) : <span class="orden_d"> <?php echo $metodocliente; ?></span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.7</span> Observaciones Adicionales : <span class="orden_d"><?php echo $observacion_m ?></td>
 		</tr>
 		<tr class="row_title" >
 			<td  class=" bold">
@@ -146,6 +162,24 @@
 			<td  class="bold center b_r" style="width: 135px;" colspan="2">MÉTODO  DE  ENSAYO</td>
 			
 		</tr>
+			<?php 
+$json=$_POST['detalle'];
+$array = json_decode($json);
+
+		
+	$item=1;
+foreach($array as $obj){
+			
+ ?>
+	<tr>
+		<td class="center"><?php echo $item;?></td>
+		<td class="center"><?php echo $obj->descripcion; ?></td>
+		<td class="center b_r" colspan="2"><?php echo $obj->metodo; ?></td>		
+	</tr>
+<?php 
+		$item++; 
+		}
+?>
 		<tr class="row_title" >
 			<td  class=" bold">
 				3.
@@ -155,7 +189,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4 " class="b_r" height="50px"></td>
+			<td colspan="4 " class="b_r" height="50px">
+				<span class="orden_d"> <?php echo $observaciones_o ?></span>
+			</td>
 
 		</tr>
 		<tr class="row_title" >
@@ -165,7 +201,7 @@
 			<td  class="n_b_l  bold">
 				FECHA   DE   ENTREGA   DE   LOS   RESULTADOS.
 			</td>
-			<td class="b_r" colspan="2">AÑO : | MES : | DIA : | HORA :</td>
+			<td class="b_r" colspan="2">AÑO : <?php echo $año; ?>| MES : <?php echo $mes; ?>| DIA : <?php echo $dia; ?>| HORA :</td>
 		</tr>
 		<tr class="row_title" >
 			<td  class=" bold">

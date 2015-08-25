@@ -2,6 +2,49 @@
     INICIO Fn Cotizacion
 */
 var OrdenCore = {
+    imprimirOrden:function(nroOrden){
+        $.ajax({
+        url: 'index.php?r=orden/AjaxImprimirOrden',
+        type: 'POST',       
+        data: {nroOrden: nroOrden},
+        })
+        .done(function(data) {
+            console.log(data.Orden);
+            console.log(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $.post('formato-orden_trabajo.php', {
+                        laboratorio:data.Orden[0].laboratorio,
+                        fecha_emision:data.Orden[0].fecha_emision, 
+                        año:data.Orden[0].año,
+                        cant_muestra:data.Orden[0].cant_muestra, 
+                        codigo:data.Orden[0].codigo, 
+                        dia:data.Orden[0].dia, 
+                        mes:data.Orden[0].mes, 
+                        metodocliente:data.Orden[0].metodocliente,
+                        nombre:data.Orden[0].nombre, 
+                        nroOrden:data.Orden[0].nroOrden,
+                        observacion_m:data.Orden[0].observacion_m, 
+                        observaciones_o:data.Orden[0].observaciones_o, 
+                        peso_volumen:data.Orden[0].peso_volumen, 
+                        presentacion:data.Orden[0].presentacion,
+                                            
+                        detalle:JSON.stringify(data.Detalle), 
+            }, function (result) {
+                    WinId = window.open('', '_blank');//resolucion de la ventana
+                    WinId.document.open();
+                    WinId.document.write(result);
+                    //WinId.document.close();
+            });      
+            /*-------------*/
+
+        });
+    },
     ordenesDTecnico: function(){
         //alert("hola");
         var me = this;
@@ -24,13 +67,13 @@ var OrdenCore = {
                         return '<form action="index.php?r=orden/editar" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"></form>';
                     }*/
                     "mRender": function(o) {
-                        return '<input  class="btn btn-default btn-sm" value="Editar Orden" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Orden" type="submit">';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a>    <input  class="btn btn-default btn-sm" value="Editar Orden" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Orden" type="submit">';
                     }
                 }
             ],
             fnDrawCallback: function() {
-                $('.eliminarServicio').click(function() {
-                    me.alertEliminarServicio($(this).attr('lang'));
+                $('.imprimirOrden').click(function() {
+                    me.imprimirOrden($(this).attr('lang'));
                 });
                 $('.editarServicio').click(function() {
                     me.obtenerServicio($(this).attr('lang'));

@@ -25,6 +25,14 @@
 class Ordentrabajo extends CActiveRecord
 {
 
+public function obtenerPrintOrden($nroOrden){
+
+		$sql = "select nroOrden,DATE_FORMAT(o.fecha_registro,'%d-%m-%Y') as fecha_emision,laboratorio,m.nombre,m.codigo,m.cant_muestra,m.peso_volumen,m.presentacion,m.metodocliente,m.observaciones as observacion_m,o.observaciones as observaciones_o,year(o.fecha_entrega) as año,month(o.fecha_entrega)as mes,day(o.fecha_entrega) as dia from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where nroOrden=".$nroOrden;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 
 public function obtenerOrdenAnalista($NroOrdenTrabajo){
 

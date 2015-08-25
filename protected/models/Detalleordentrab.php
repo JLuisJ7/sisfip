@@ -15,6 +15,14 @@
 class Detalleordentrab extends CActiveRecord
 {
 
+
+public function obtenerPrintDetalleOrden($nroOrden){
+
+		$sql = "select serv.descripcion,serv.metodo from detalleordentrab det inner join servicio as serv on serv.idServicio=det.idServicio where nroOrden=".$nroOrden;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
 public function GuardarResultadoServicio($NroOrden,$idservicio,$resultado){
 	
 		

@@ -3,7 +3,14 @@
 class OrdenController extends Controller
 {
 
+public function actionAjaxImprimirOrden(){
+		$nroOrden=$_POST['nroOrden'];
+		
+		$orden = Ordentrabajo::model()->obtenerPrintOrden($nroOrden);
+		$detalle = Detalleordentrab::model()->obtenerPrintDetalleOrden($nroOrden);
 
+		Util::renderJSON(array( 'Orden' => $orden,'Detalle'=>$detalle ));
+	}
 public function actionAjaxGuardarResultadoServicio(){
 		$NroOrden = $_POST['NroOrden'];
 		$idservicio = $_POST['idservicio'];
