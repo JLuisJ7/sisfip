@@ -2,7 +2,87 @@
     INICIO Fn Cotizacion
 */
 var ReporteCore = {
+loadListadoReportes: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#listarReportes',{
+            toolButons:'',
+            url:'index.php?r=ensayos/AjaxListarReportesAnalista',
+            columns:[
+                {"mData": "idServicio", "sClass": "alignCenter"},
+                {"mData": "descripcion", "sClass": "alignCenter"},                
+                {"mData": "metodo", "sClass": "alignCenter"},
+                {"mData": "tiempo_entrega", "sClass": "alignCenter"},
+                {"mData": "cantM_x_ensayo", "sClass": "alignCenter"},
+                 {"mData": "tarifa", "sClass": "alignCenter"},            
+                {
+                    "mData": 'idServicio',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    "mRender": function(o) {
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm editarServicio"><i class="fa fa-pencil"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                $('.eliminarServicio').click(function() {
+                    me.alertEliminarServicio($(this).attr('lang'));
+                });
+                $('.editarServicio').click(function() {
+                    me.obtenerServicio($(this).attr('lang'));
+                    $("#btn-Accion-M").attr('value', 'Actualizar');
+                    $("#text-Accion").text('Actualizar');
 
+                });
+
+            }
+        });
+    },
+ imprimirReporte:function(nroOrden){
+        $.ajax({
+        url: 'index.php?r=ensayos/AjaxImprimirReporte',
+        type: 'POST',       
+        data: {nroEnsayo: nroEnsayo},
+        })
+        .done(function(data) {
+            console.log(data.Orden);
+            console.log(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $.post('formato-orden_trabajo.php', {
+                        laboratorio:data.Orden[0].laboratorio,
+                        fecha_emision:data.Orden[0].fecha_emision, 
+                        año:data.Orden[0].año,
+                        cant_muestra:data.Orden[0].cant_muestra, 
+                        codigo:data.Orden[0].codigo, 
+                        dia:data.Orden[0].dia, 
+                        mes:data.Orden[0].mes, 
+                        metodocliente:data.Orden[0].metodocliente,
+                        nombre:data.Orden[0].nombre, 
+                        nroOrden:data.Orden[0].nroOrden,
+                        observacion_m:data.Orden[0].observacion_m, 
+                        observaciones_o:data.Orden[0].observaciones_o, 
+                        peso_volumen:data.Orden[0].peso_volumen, 
+                        presentacion:data.Orden[0].presentacion,
+                                            
+                        detalle:JSON.stringify(data.Detalle), 
+            }, function (result) {
+                    WinId = window.open('', '_blank');//resolucion de la ventana
+                    WinId.document.open();
+                    WinId.document.write(result);
+                    //WinId.document.close();
+            });      
+            /*-------------*/
+
+        });
+    },
     guardarResultadoServicio:function(NroOrden,idservicio,resultado){
        var me = this;
       $.ajax({

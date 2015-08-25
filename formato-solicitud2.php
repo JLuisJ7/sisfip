@@ -100,6 +100,7 @@ border-top: 0px;
 
 </style>
 </head>
+
 <body>
 	<div>
 	<table border="0" cellspacing="0" cellspading="0" style="max-width:1024px;margin:0 auto;">

@@ -2,6 +2,24 @@
 
 class EnsayosController extends Controller
 {
+
+public function actionAjaxListarReportesAnalista(){
+		
+		$reportes = Reporteensayo::model()->ListarReportesAnalista();
+
+		Util::renderJSON($reportes);
+	}
+
+	public function actionAjaxImprimirReporte(){
+		$nroEnsayo=$_POST['nroEnsayo'];
+		
+		$reporte = Reporteensayo::model()->obtenerPrintReporte($nroEnsayo);
+		$detalle = Detreporteensayo::model()->obtenerPrintDetalleReporte($nroEnsayo);
+
+		Util::renderJSON(array( 'Reporte' => $reporte,'Detalle'=>$detalle ));
+	}
+
+
 	public function actionAjaxRegistrarReporteEnsayos(){
 	//cotizacion
 

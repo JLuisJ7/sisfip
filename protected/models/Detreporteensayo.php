@@ -15,6 +15,14 @@
  */
 class Detreporteensayo extends CActiveRecord
 {
+	public function obtenerPrintDetalleReporte($nroEnsayo){
+
+		$sql = "select s.descripcion,det.resultado,s.metodo from Detreporteensayo as det inner join servicio as s on s.idServicio=det.idServicio where nroEnsayo=".$nroOrden;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+	
 	public function registrarRegistrarDetalleReporte($nroReporte,$idServicio,$resultado){
 
 		$respuesta = array('valor'=>1,'message'=>'Su DEtalle ha sido procesada correctamente.');

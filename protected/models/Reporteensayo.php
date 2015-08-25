@@ -24,7 +24,21 @@
  */
 class Reporteensayo extends CActiveRecord
 {
+public function ListarReportesAnalista(){
 
+		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra";	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	
+	}
+	
+public function obtenerPrintReporte($nroEnsayo){
+
+		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra where nroEnsayo=".$nroEnsayo;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
 
 public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestra,$laboratorio,$observaciones,$ingresado_por){
 
@@ -32,12 +46,12 @@ public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestr
 
 		
 		$Reporte=new Reporteensayo;
-$Reporte->nroEnsayo=$nroReporte;
-$Reporte->nroOrden=$nroOrden;
-$Reporte->idMuestra=$idMuestra;
-$Reporte->laboratorio=$laboratorio;
-$Reporte->observaciones=$observaciones;
-$Reporte->ingresado_por=$ingresado_por;
+		$Reporte->nroEnsayo=$nroReporte;
+		$Reporte->nroOrden=$nroOrden;
+		$Reporte->idMuestra=$idMuestra;
+		$Reporte->laboratorio=$laboratorio;
+		$Reporte->observaciones=$observaciones;
+		$Reporte->ingresado_por=$ingresado_por;
 
       		
 if(!$Reporte->save()){
