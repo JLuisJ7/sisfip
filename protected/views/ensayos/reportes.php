@@ -19,19 +19,19 @@ $this->breadcrumbs=array(
     <div class="col-xs-12">
       <div class="box">
         <div class='box-header with-border'>
-          <h3 class='box-title'><i class="fa fa-user"></i> Servicios</h3>
+          <h3 class='box-title'><i class="fa fa-user"></i> Reportes de Ensayos</h3>
         </div>
         <div class="box-body">
-          <table id="listarServicios" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%">
+          <table id="listarReportes" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%">
             <thead>
               <tr>
                 <!--th style="vertical-align: middle;">#</th-->
-                <th style="vertical-align: middle;" >ID</th>                
-                <th style="vertical-align: middle;" >Servicio</th>
-                <th style="vertical-align: middle;" >Metodo</th>
-                <th style="vertical-align: middle;" >Tiempo</th>
-                <th style="vertical-align: middle;" >Cant</th>
-                <th style="vertical-align: middle;" >Precio</th>
+                <th style="vertical-align: middle;" >Nro</th>                
+                <th style="vertical-align: middle;" >Laboratorio</th>
+                <th style="vertical-align: middle;" >Producto</th>
+                <th style="vertical-align: middle;" >Codigo</th>
+                <th style="vertical-align: middle;" >Fecha</th>
+                <th style="vertical-align: middle;" >nroOrden</th>
                 <th style="vertical-align: middle;" >&nbsp;</th>
               </tr>
             </thead>                 
@@ -43,10 +43,10 @@ $this->breadcrumbs=array(
     </div><!-- /.col -->
   </div><!-- /.row -->
 </section><!-- /.content -->
-<script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/servicio.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->theme->baseUrl;?>/dist/js/entidad/reporte.js" type="text/javascript"></script>
 <script>
     window.onload=function(){
-        ServicioCore.initListadoServicios();
+        ReporteCore.loadListadoReportes();
     };
     jQuery(document).ready(function($) {
       $("#btn-Cancelar-M").click(function(event) {        

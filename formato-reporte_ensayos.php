@@ -1,4 +1,13 @@
+<?php 
+$codigo=$_POST['codigo'];
+$fecha_registro=$_POST['fecha_registro'];
+$laboratorio=$_POST['laboratorio'];
+$nombre=$_POST['nombre'];
+$nroEnsayo=$_POST['nroEnsayo'];
+$nroOrden=$_POST['nroOrden'];
+$observaciones=$_POST['observaciones'];
 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,12 +106,12 @@
 		</tr>
 		<tr>
 			<td colspan="5" align="center" class="n_b_b b_r bold">
-				REPORTE   DE   ENSAYOS   N°  <span class="orden_d"></span>
+				REPORTE   DE   ENSAYOS   N°  <span class="orden_d"><?php echo $nroEnsayo; ?></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="" colspan="4"></td>
-			<td class="n_b_l b_r align-r" colspan="1">Fecha : ..../...../...... <br>
+			<td class="n_b_l b_r align-r" colspan="1">Fecha : <?php echo $fecha_registro; ?> <br>
 (año/mes/día)
  <span class="orden_d"> </span></td>
 		</tr>
@@ -116,13 +125,13 @@
 		</tr>
 		<tr>
 			<td class="">1.1</td>
-			<td class="" colspan="2">Sección del Laboratorio : <span class="orden_d"> </span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Nº de Orden de Trabajo :<span class="orden_d"></td>
+			<td class="" colspan="2">Sección del Laboratorio : <span class="orden_d"> <?php echo $laboratorio; ?></span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Nº de Orden de Trabajo :<span class="orden_d"><?php echo $nroOrden; ?></span></td>
 		</tr>
 		<tr>
 			<td class="">1.3</td>
-			<td class="" colspan="2">Código de Muestra : <span class="orden_d"> </span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.4</span> Producto Ensayado : </td>
+			<td class="" colspan="2">Código de Muestra : <span class="orden_d"><?php echo $codigo; ?> </span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.4</span> Producto Ensayado : <span class="orden_d"><?php echo $nombre; ?> </span></td>
 		</tr>
 		
 		<tr class="row_title" >
@@ -138,11 +147,29 @@
 			<td  class="bold center">ENSAYOS  REALIZADOS</td>
 			<td  class="bold center "  >RESULTADOS  OBTENIDOS</td>
 			<td  class="bold center "  >MÉTODOS  DE <br> ENSAYOS <br> APLICADOS
-
-</td>
-			<td  class="bold center b_r" style="width: 150px;" >FIRMA DEL ANALISTA RESPONSABLE DEL ENSAYO  </td>
-			
+			</td>			
+			<td  class="bold center b_r" style="width: 150px;" >FIRMA DEL ANALISTA RESPONSABLE DEL ENSAYO  </td>			
 		</tr>
+<?php 
+$json=$_POST['detalle'];
+$array = json_decode($json);
+
+		
+	$item=1;
+foreach($array as $obj){
+			
+ ?>
+	<tr>
+		<td class="center"><?php echo $item;?></td>
+		<td class="center"><?php echo $obj->descripcion; ?></td>
+		<td class="center"><?php echo $obj->resultado; ?></td>
+		<td class="center"><?php echo $obj->metodo; ?></td>	
+		<td class="center b_r"></td>	
+	</tr>
+<?php 
+		$item++; 
+		}
+?>
 		<tr class="row_title" >
 			<td  class=" bold">
 				3.
@@ -152,7 +179,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5 " class="b_r" height="50px"></td>
+			<td colspan="5 " class="b_r" height="50px">
+				<?php echo $observaciones;  ?>
+			</td>
 
 		</tr>
 		<tr class="row_title" >

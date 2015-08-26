@@ -10,19 +10,19 @@ loadListadoReportes: function(){
             toolButons:'',
             url:'index.php?r=ensayos/AjaxListarReportesAnalista',
             columns:[
-                {"mData": "idServicio", "sClass": "alignCenter"},
-                {"mData": "descripcion", "sClass": "alignCenter"},                
-                {"mData": "metodo", "sClass": "alignCenter"},
-                {"mData": "tiempo_entrega", "sClass": "alignCenter"},
-                {"mData": "cantM_x_ensayo", "sClass": "alignCenter"},
-                 {"mData": "tarifa", "sClass": "alignCenter"},            
+                {"mData": "nroEnsayo", "sClass": "alignCenter"},
+                {"mData": "laboratorio", "sClass": "alignCenter"},                
+                {"mData": "nombre", "sClass": "alignCenter"},
+                {"mData": "codigo", "sClass": "alignCenter"},
+                {"mData": "fecha_registro", "sClass": "alignCenter"},
+                 {"mData": "nroOrden", "sClass": "alignCenter"},            
                 {
-                    "mData": 'idServicio',
+                    "mData": 'nroEnsayo',
                     "bSortable": false,
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm editarServicio"><i class="fa fa-pencil"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
                     }
                 }
             ],
@@ -30,17 +30,16 @@ loadListadoReportes: function(){
                 $('.eliminarServicio').click(function() {
                     me.alertEliminarServicio($(this).attr('lang'));
                 });
-                $('.editarServicio').click(function() {
-                    me.obtenerServicio($(this).attr('lang'));
-                    $("#btn-Accion-M").attr('value', 'Actualizar');
-                    $("#text-Accion").text('Actualizar');
+                $('.imprimirReporte').click(function() {
+                    me.imprimirReporte($(this).attr('lang'));
+                   
 
                 });
 
             }
         });
     },
- imprimirReporte:function(nroOrden){
+ imprimirReporte:function(nroEnsayo){
         $.ajax({
         url: 'index.php?r=ensayos/AjaxImprimirReporte',
         type: 'POST',       
@@ -56,22 +55,14 @@ loadListadoReportes: function(){
         })
         .always(function(data) {
             /*------*/
-            $.post('formato-orden_trabajo.php', {
-                        laboratorio:data.Orden[0].laboratorio,
-                        fecha_emision:data.Orden[0].fecha_emision, 
-                        año:data.Orden[0].año,
-                        cant_muestra:data.Orden[0].cant_muestra, 
-                        codigo:data.Orden[0].codigo, 
-                        dia:data.Orden[0].dia, 
-                        mes:data.Orden[0].mes, 
-                        metodocliente:data.Orden[0].metodocliente,
-                        nombre:data.Orden[0].nombre, 
-                        nroOrden:data.Orden[0].nroOrden,
-                        observacion_m:data.Orden[0].observacion_m, 
-                        observaciones_o:data.Orden[0].observaciones_o, 
-                        peso_volumen:data.Orden[0].peso_volumen, 
-                        presentacion:data.Orden[0].presentacion,
-                                            
+            $.post('formato-reporte_ensayos.php', {
+                codigo:data.Reporte[0].codigo,
+                fecha_registro:data.Reporte[0].fecha_registro,
+                laboratorio:data.Reporte[0].laboratorio,
+                nombre: data.Reporte[0].nombre,
+                nroEnsayo:data.Reporte[0].nroEnsayo,
+                nroOrden: data.Reporte[0].nroOrden,
+                observaciones: data.Reporte[0].observaciones,
                         detalle:JSON.stringify(data.Detalle), 
             }, function (result) {
                     WinId = window.open('', '_blank');//resolucion de la ventana
