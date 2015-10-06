@@ -22,6 +22,63 @@ loadListadoReportes: function(){
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm enviarReporte"><i class="fa fa-envelope"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                    }
+                }
+            ],
+            fnDrawCallback: function() {
+                
+                $('.imprimirReporte').click(function() {
+                    me.imprimirReporte($(this).attr('lang'));                  
+                });
+
+                $('.enviarReporte').click(function() {
+                    me.actualizarEstadoReporte($(this).attr('lang'),1);                  
+                });
+
+            }
+        });
+    },
+    actualizarEstadoReporte: function(nroEnsayo,estado){
+        $.ajax({
+            url: 'index.php?r=ensayos/AjaxActualizarEstadoReporte',
+            type: 'POST',
+            data: {
+                nroEnsayo: nroEnsayo,
+                estado:estado
+            },
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    },
+    loadListadoReportesDirector: function(){
+        //alert("hola");
+        var me = this;
+        
+        Util.createGrid('#listarReportesDirector',{
+            toolButons:'',
+            url:'index.php?r=ensayos/AjaxListarReportesDirector',
+            columns:[
+                {"mData": "nroEnsayo", "sClass": "alignCenter"},
+                {"mData": "laboratorio", "sClass": "alignCenter"},                
+                {"mData": "nombre", "sClass": "alignCenter"},
+                {"mData": "codigo", "sClass": "alignCenter"},
+                {"mData": "fecha_registro", "sClass": "alignCenter"},
+                 {"mData": "nroOrden", "sClass": "alignCenter"},            
+                {
+                    "mData": 'nroEnsayo',
+                    "bSortable": false,
+                    "bFilterable": false,
+                    //"width": "150px",
+                    "mRender": function(o) {
                         return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
                     }
                 }

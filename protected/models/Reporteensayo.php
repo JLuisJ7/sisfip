@@ -24,9 +24,30 @@
  */
 class Reporteensayo extends CActiveRecord
 {
+
+	public function actualizarEstadoReporte($nroEnsayo,$estado){
+		
+
+		
+		$command = Yii::app()->db->createCommand("update reporteensayo set estado=$estado where nroEnsayo=$nroEnsayo");
+		return $command->execute();
+
+			
+			
+		
+	}
+
 public function ListarReportesAnalista(){
 
 		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra";	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	
+	}
+	
+	public function ListarReportesDirector(){
+
+		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra where r.estado=1";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	

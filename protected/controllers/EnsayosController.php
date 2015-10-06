@@ -3,9 +3,24 @@
 class EnsayosController extends Controller
 {
 
+public function actionAjaxActualizarEstadoReporte(){
+		$nroEnsayo=$_POST['nroEnsayo'];
+		$estado=$_POST['estado'];
+		
+		$reportes = Reporteensayo::model()->actualizarEstadoReporte($nroEnsayo,$estado);
+
+		Util::renderJSON($reportes);
+	}
 public function actionAjaxListarReportesAnalista(){
 		
 		$reportes = Reporteensayo::model()->ListarReportesAnalista();
+
+		Util::renderJSON($reportes);
+	}
+
+	public function actionAjaxListarReportesDirector(){
+		
+		$reportes = Reporteensayo::model()->ListarReportesDirector();
 
 		Util::renderJSON($reportes);
 	}
@@ -93,6 +108,25 @@ public function actionReportes()
   			$rol = $usuarioSession['usuario']['ide_rol'];
   			if ($rol==1 || $rol==4) {
   				$this->render('reportes', array('rol' => $rol));
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
+	}
+
+	public function actionreportes_director()
+	{
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==1 || $rol==3) {
+  				$this->render('reportes_director', array('rol' => $rol));
   			}else{
   				$this->redirect('index.php');
   			}
