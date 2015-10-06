@@ -79,14 +79,12 @@ loadListadoReportes: function(){
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarServicio"><i class="fa fa-trash-o"></i></a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm ">Generar Informe</a>';
                     }
                 }
             ],
             fnDrawCallback: function() {
-                $('.eliminarServicio').click(function() {
-                    me.alertEliminarServicio($(this).attr('lang'));
-                });
+               
                 $('.imprimirReporte').click(function() {
                     me.imprimirReporte($(this).attr('lang'));
                    
