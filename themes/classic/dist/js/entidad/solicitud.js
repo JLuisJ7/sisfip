@@ -57,7 +57,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
         
         Util.createGrid('#SolicitudesA_Cliente',{
             toolButons:'',
-            url:'index.php?r=solicitud/AjaxListarSolicitudesAprobadas',
+            url:'index.php?r=solicitud/AjaxListarSolicitudeEstado',          
             columns:[
                 {"mData": "nroSolicitud", "sClass": "alignCenter"},
                 {"mData": "cliente", "sClass": "alignCenter"},                
@@ -71,7 +71,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm consultarCotizacion"><i class="fa fa-eye"></i> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirSolicitud"><i class="fa fa-print"></i></a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-warning btn-sm enviarDirectorTecnico"><i class="fa fa-envelope"></i> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirSolicitud"><i class="fa fa-print"></i></a>';
                     }
                 }
             ],
@@ -79,8 +79,8 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                 $('.imprimirSolicitud').click(function() {
                     me.imprimirSolicitud($(this).attr('lang'));
                 });
-                $('.consultarCotizacion').click(function() {
-                    me.consultarCotizacion($(this).attr('lang'));
+                $('.enviarDirectorTecnico').click(function() {
+                    me.actualizarEstadoSolicitud($(this).attr('lang'),1);
                 });
             }
         });
@@ -161,20 +161,15 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Orden" type="submit"></form>';
+                        return '<form action="index.php?r=orden/registrar" method="POST"><input type="hidden" name="NroSolicitud" value="' + o + '"><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirSolicitud"><i class="fa fa-print"></i></a> <span style="color:transparent;">__</span><input  class="btn btn-warning btn-sm" value="Generar Orden" type="submit"></form>';
                     }
                 }
             ],
             fnDrawCallback: function() {
-                $('.eliminarServicio').click(function() {
-                    me.alertEliminarServicio($(this).attr('lang'));
+                  $('.imprimirSolicitud').click(function() {
+                    me.imprimirSolicitud($(this).attr('lang'));
                 });
-                $('.editarServicio').click(function() {
-                    me.obtenerServicio($(this).attr('lang'));
-                    $("#btn-Accion-M").attr('value', 'Actualizar');
-                    $("#text-Accion").text('Actualizar');
-
-                });
+                
 
             }
         });

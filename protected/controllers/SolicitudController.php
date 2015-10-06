@@ -28,6 +28,13 @@ public function actionAjaxListarSolicitudesAprobadas(){
 		Util::renderJSON($solicitud);
 	}
 
+	public function actionAjaxListarSolicitudeEstado(){
+			$estado=0;
+		$solicitud = Solicitud::model()->listarSolicitudesEstado($estado);
+
+		Util::renderJSON($solicitud);
+	}
+
 	public function actionAjaxActualizarEstadoSolicitud(){
 		$idSolicitud=$_POST['idSolicitud'];
 		$estado=$_POST['estado'];

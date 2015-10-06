@@ -2,7 +2,14 @@
 
 class OrdenController extends Controller
 {
+public function actionAjaxEliminarOrden(){
+		$nroOrden=$_POST['nroOrden'];
+		$eliminado=1;
+		
+		$orden = Ordentrabajo::model()->eliminarOrden($nroOrden,$eliminado);
 
+		Util::renderJSON($orden);
+	}
 public function actionAjaxImprimirOrden(){
 		$nroOrden=$_POST['nroOrden'];
 		

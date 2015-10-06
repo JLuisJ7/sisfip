@@ -25,6 +25,14 @@
 class Ordentrabajo extends CActiveRecord
 {
 
+public function eliminarOrden($nroOrden,$eliminado){
+		
+
+		
+		$command = Yii::app()->db->createCommand("update Ordentrabajo set eliminado=$eliminado where nroOrden=$nroOrden");
+		return $command->execute();		
+		
+	}
 public function obtenerPrintOrden($nroOrden){
 
 		$sql = "select nroOrden,DATE_FORMAT(o.fecha_registro,'%d-%m-%Y') as fecha_emision,laboratorio,m.nombre,m.codigo,m.cant_muestra,m.peso_volumen,m.presentacion,m.metodocliente,m.observaciones as observacion_m,o.observaciones as observaciones_o,year(o.fecha_entrega) as año,month(o.fecha_entrega)as mes,day(o.fecha_entrega) as dia from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where nroOrden=".$nroOrden;
@@ -45,7 +53,7 @@ public function obtenerOrdenAnalista($NroOrdenTrabajo){
 
 	public function ListarOrdenesAnalista(){
 
-		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.estado=1;";	
+		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.eliminado=0 and o.estado=1;";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
@@ -53,7 +61,7 @@ public function obtenerOrdenAnalista($NroOrdenTrabajo){
 
 	public function ListarOrdenesdtecnico(){
 
-		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.estado=0;";	
+		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.eliminado=0  and o.estado=0;";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	

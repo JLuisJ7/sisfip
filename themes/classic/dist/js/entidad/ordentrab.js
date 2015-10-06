@@ -67,7 +67,7 @@ var OrdenCore = {
                         return '<form action="index.php?r=orden/editar" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"></form>';
                     }*/
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a>    <input  class="btn btn-default btn-sm" value="Editar Orden" type="submit"><span style="color:transparent;">__</span><input  class="btn btn-danger btn-sm" value="Eliminar Orden" type="submit">';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a><span style="color:transparent;">__</span><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarOrden">Eliminar</a>';
                     }
                 }
             ],
@@ -75,15 +75,36 @@ var OrdenCore = {
                 $('.imprimirOrden').click(function() {
                     me.imprimirOrden($(this).attr('lang'));
                 });
-                $('.editarServicio').click(function() {
-                    me.obtenerServicio($(this).attr('lang'));
-                    $("#btn-Accion-M").attr('value', 'Actualizar');
-                    $("#text-Accion").text('Actualizar');
+                $('.eliminarOrden').click(function() {
+                    me.eliminarOrden($(this).attr('lang'));
+                  
 
                 });
 
             }
         });
+    },
+    eliminarOrden: function(nroOrden){
+        $.ajax({
+            url: 'index.php?r=orden/AjaxEliminarOrden',
+            type: 'POST',
+            data: {
+                nroOrden: nroOrden            
+            },
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+            setTimeout(function() {
+                                location.reload();
+                            }, 1000);   
+        });
+        
     },
     ordenesAnalista: function(){
         //alert("hola");
@@ -102,21 +123,15 @@ var OrdenCore = {
                     "mData": 'nroOrden',
                     "bSortable": false,
                     "bFilterable": false,
-                    //"width": "150px",
+                    //"width": "600px",
                     "mRender": function(o) {
-                        return '<form action="index.php?r=ensayos/generar_reporte" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Reporte" type="submit"></form>';
+                        return '  <form action="index.php?r=ensayos/generar_reporte" method="POST"><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a><span style="color:transparent;">__</span><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Reporte" type="submit"></form>';
                     }
                 }
             ],
             fnDrawCallback: function() {
-                $('.eliminarServicio').click(function() {
-                    me.alertEliminarServicio($(this).attr('lang'));
-                });
-                $('.editarServicio').click(function() {
-                    me.obtenerServicio($(this).attr('lang'));
-                    $("#btn-Accion-M").attr('value', 'Actualizar');
-                    $("#text-Accion").text('Actualizar');
-
+                 $('.imprimirOrden').click(function() {
+                    me.imprimirOrden($(this).attr('lang'));
                 });
 
             }

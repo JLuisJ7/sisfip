@@ -56,6 +56,12 @@ where nrosolicitud=".$nroSolicitud;
 		$sql = "select nroSolicitud,c.idcliente,c.nombres as cliente,m.nombre as muestra,DATE_FORMAT(s.fecha_registro,'%d-%m-%Y') as fecha_registro,DATE_FORMAT(fecha_entrega,'%d-%m-%Y') as fecha_entrega,total from solicitud as s inner join muestra as m on m.idMuestra=s.idMuestra inner join cliente as c on c.idCliente=s.idCliente where s.estado=1";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+	public function listarSolicitudesEstado($estado){
+
+		$sql = "select nroSolicitud,c.idcliente,c.nombres as cliente,m.nombre as muestra,DATE_FORMAT(s.fecha_registro,'%d-%m-%Y') as fecha_registro,DATE_FORMAT(fecha_entrega,'%d-%m-%Y') as fecha_entrega,total from solicitud as s inner join muestra as m on m.idMuestra=s.idMuestra inner join cliente as c on c.idCliente=s.idCliente where s.estado=$estado";	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
 	
 	}
 
