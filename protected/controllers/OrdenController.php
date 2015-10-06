@@ -2,6 +2,15 @@
 
 class OrdenController extends Controller
 {
+	public function actionAjaxActualizarEstadoOrden(){
+		$nroOrden=$_POST['nroOrden'];
+		$estado=$_POST['estado'];
+		
+		$orden = Ordentrabajo::model()->actualizarEstadoOrden($nroOrden,$estado);
+
+		Util::renderJSON($orden);
+	}
+
 public function actionAjaxEliminarOrden(){
 		$nroOrden=$_POST['nroOrden'];
 		$eliminado=1;
@@ -116,7 +125,7 @@ foreach($array as $obj){
 			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
   			$usuario = $usuarioSession['datausuario'];
   			$rol = $usuarioSession['usuario']['ide_rol'];
-  			if ($rol==1) {
+  			if ($rol==1 || $rol==3) {
   				//	$NroCotizacion=$_POST['NroCotizacion'];
 			$NroSolicitud = Yii::app()->request->getParam('NroSolicitud');
 			if(empty($NroSolicitud)){

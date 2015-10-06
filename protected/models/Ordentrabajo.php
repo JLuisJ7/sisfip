@@ -25,7 +25,15 @@
 class Ordentrabajo extends CActiveRecord
 {
 
-public function eliminarOrden($nroOrden,$eliminado){
+public function actualizarEstadoOrden($nroOrden,$estado){
+		
+
+		
+		$command = Yii::app()->db->createCommand("update Ordentrabajo set estado=$estado where nroOrden=$nroOrden");
+		return $command->execute();		
+		
+	}
+	public function eliminarOrden($nroOrden,$eliminado){
 		
 
 		
@@ -61,7 +69,7 @@ public function obtenerOrdenAnalista($NroOrdenTrabajo){
 
 	public function ListarOrdenesdtecnico(){
 
-		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.eliminado=0  and o.estado=0;";	
+		$sql = "select nroOrden as nroOrden,DATE_FORMAT(fecha_registro,'%d-%m-%Y') as fecha,nombre as Muestra,codMuestra as Codigo,laboratorio,o.estado from ordentrabajo as o inner join muestra as m on m.idMuestra=o.idMuestra where o.eliminado=0 ;";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	

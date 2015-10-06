@@ -67,7 +67,7 @@ var OrdenCore = {
                         return '<form action="index.php?r=orden/editar" method="POST"><input type="hidden" name="nroOrden" value="' + o + '"><input  class="btn btn-default btn-sm" value="Editar Reporte" type="submit"></form>';
                     }*/
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a><span style="color:transparent;">__</span><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarOrden">Eliminar</a>';
+                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirOrden"><i class="fa fa-print"></i></a><span style="color:transparent;">__</span><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-success btn-sm enviarOrdenAnalista"><i class="fa fa-envelope"></i></a><span style="color:transparent;">__</span><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-danger btn-sm eliminarOrden">Eliminar</a>';
                     }
                 }
             ],
@@ -75,14 +75,38 @@ var OrdenCore = {
                 $('.imprimirOrden').click(function() {
                     me.imprimirOrden($(this).attr('lang'));
                 });
+                $('.enviarOrdenAnalista').click(function() {
+                     me.actualizarEstadoOrden($(this).attr('lang'),1);
+                });
                 $('.eliminarOrden').click(function() {
                     me.eliminarOrden($(this).attr('lang'));
                   
 
                 });
 
+
             }
         });
+    },
+    actualizarEstadoOrden: function(nroOrden,estado){
+        $.ajax({
+            url: 'index.php?r=orden/AjaxActualizarEstadoOrden',
+            type: 'POST',
+            data: {
+                nroOrden: nroOrden,
+                estado:estado
+            },
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
     },
     eliminarOrden: function(nroOrden){
         $.ajax({
