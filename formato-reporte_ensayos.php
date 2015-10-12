@@ -5,6 +5,8 @@ $laboratorio=$_POST['laboratorio'];
 $nombre=$_POST['nombre'];
 $nroEnsayo=$_POST['nroEnsayo'];
 $nroOrden=$_POST['nroOrden'];
+$cod_reporte=$_POST['cod_reporte'];
+$cod_ordentrab=$_POST['cod_ordentrab'];
 $observaciones=$_POST['observaciones'];
 
  ?>
@@ -106,7 +108,7 @@ $observaciones=$_POST['observaciones'];
 		</tr>
 		<tr>
 			<td colspan="5" align="center" class="n_b_b b_r bold">
-				REPORTE   DE   ENSAYOS   N°  <span class="orden_d"><?php echo $nroEnsayo; ?></span>
+				REPORTE   DE   ENSAYOS   N°  <span class="orden_d"><?php echo $cod_reporte; ?></span>
 			</td>
 		</tr>
 		<tr>
@@ -126,7 +128,7 @@ $observaciones=$_POST['observaciones'];
 		<tr>
 			<td class="">1.1</td>
 			<td class="" colspan="2">Sección del Laboratorio : <span class="orden_d"> <?php echo $laboratorio; ?></span></td>
-			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Nº de Orden de Trabajo :<span class="orden_d"><?php echo $nroOrden; ?></span></td>
+			<td class="b_r" colspan="2"><span class="nro_col">1.2</span> Nº de Orden de Trabajo :<span class="orden_d"><?php echo $cod_ordentrab; ?></span></td>
 		</tr>
 		<tr>
 			<td class="">1.3</td>

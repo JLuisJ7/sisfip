@@ -27,7 +27,7 @@ $this->breadcrumbs=array(
 	<h3 class="box-title">Nº de Orden de Trabajo :<b id="NroReporte" NroReporte="" >    </b></h3>		
 <?php else: ?>
 	<h3 class="box-title">Reporte de Ensayos Nro: <b id="NroReporte" NroReporte="<?php echo $data; ?>">   </b></h3>
-	<h3 class="box-title">Nº de Orden de Trabajo : <b id="NroOrdenTrabajo" NroOrden="<?php echo $data; ?>" >  <?php echo $data; ?> </b></h3>
+	<h3 class="box-title" style="margin-left:2em;">Orden de Trabajo Nro: <b id="NroOrdenTrabajo" NroOrden="<?php echo $data; ?>" >  <?php echo $data; ?> </b></h3>
 
 <?php endif; ?>
 	<h3 class="box-title" style="float:right;" id="fecha_actual"></h3>
@@ -90,7 +90,7 @@ $this->breadcrumbs=array(
 	<textarea id="txtObservOrden" class="form-control col-md-12"  rows="2" >       
     </textarea>
 	</div>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="form-group col-md-4">	
 			<label class="" for="">Fecha y hora de Entrega de los Resultados : </label>
 			<div class="input-group">
@@ -98,7 +98,7 @@ $this->breadcrumbs=array(
 				<div class="input-group-addon"><input type="time" class="form-control" id="txtHora" ></div>			
 			</div>				
 		</div>
-	</div>
+	</div> -->
 <div class="row">
 	<div class="col-md-12"> <div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
    		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -146,13 +146,14 @@ $("#btn_GuardarResultado").click(function(event) {
 
 $("#btn_GuardarReporte").click(function(event) {
 var nroReporte=$("#NroReporte").attr('NroReporte');
+var cod_reporte=$("#NroReporte").attr('data-codigo');
 var nroOrden=$("#NroOrdenTrabajo").attr('NroOrden');
 var laboratorio=$("#txtLaboratorio").val();
 var idMuestra=$("#txtNomMuestra").attr('data-id');
 var observaciones=$("#txtObservOrden").val();
 var ingresado_por=1;
 var detalle = $('#DetalleReporte').tableToJSON();
-	ReporteCore.registrarReporteEnsayos(nroReporte,nroOrden,idMuestra,laboratorio,observaciones,ingresado_por,detalle);
+	ReporteCore.registrarReporteEnsayos(nroReporte,nroOrden,cod_reporte,idMuestra,laboratorio,observaciones,ingresado_por,detalle);
 	//var DetalleReporte=$("#DetalleReporte").val();
 });
 
@@ -171,40 +172,6 @@ var detalle = $('#DetalleReporte').tableToJSON();
 				
 	});
 
-$("#btn_aceptar_Solicitud").click(function(event) {
-		var NroSolicitud=$("#NroSolicitud").attr('NroSolicitud');
-		 SolicitudCore.actualizarEstadoSolicitud(NroSolicitud,1);
-	});
-$("#btn_GuardarOrden").click(function(event) {
-/* ------------ */
-
-var nroOrden=$("#NroOrdenTrabajo").attr('nroordentrabajo');
-var nroSolicitud=$("#NroOrdenTrabajo").attr('NroSolicitud');
-var fecha_emision=$("#fecha_actual").text();
-var laboratorio=$("#txtLaboratorio").val();
-var idMuestra=$("#txtNomMuestra").attr('data-id');
-var idCliente=$("#txtNomMuestra").attr('id-cliente');
-var NomMuestra=$("#txtNomMuestra").val();
-var codMuestra=$("#txtCodMuestra").val();
-var observaciones=$("#txtObservOrden").val();
-var fecha_entrega=$("#txtFecha").val();
-var detalle = $('#DetalleOrden').tableToJSON();
-var hora=$("#txtHora").val();
-
-var cant_muestra=$("#txtNumUnidad").val();
-var peso_volumen=$("#txtPesoVol").val();
-var presentacion=$("#txtPresentacion").val();
-var metodocliente=$("#rdb_metodo").val();
-
-var observaciones=$("#txtObservMuestra").val();
-
-ClienteCore.actualizarMuestra(idMuestra,idCliente,codMuestra,NomMuestra,cant_muestra,peso_volumen,metodocliente,presentacion,observaciones);
-OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega+hora,1,detalle);
-
-
-
-
-});
 
 	
 </script>

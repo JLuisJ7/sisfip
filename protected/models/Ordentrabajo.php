@@ -126,6 +126,15 @@ if(!$orden->save()){
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
 
+	public function ObtenerNroOrdenT_RE($nroOrden){
+
+   $sql = "select nroOrden,concat('RE-',SUBSTRING(cod_ordentrab,4,100)) as codigo,cod_ordentrab from ordentrabajo where nroOrden=".$nroOrden;
+	
+
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

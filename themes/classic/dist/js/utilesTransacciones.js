@@ -326,12 +326,39 @@ function ObtenerNroCotizacion(){
     .always(function() {
         //console.log("complete");
     });
+ }; 
+
+ function ObtenerNroOrdenT_RE(nroOrden){
+ 
+   $.ajax({
+        url: 'index.php?r=orden/AjaxObtenerNroOrdenT_RE',
+        type: 'POST',
+        data :{
+            nroOrden:nroOrden
+        }          
+    })
+    .done(function(response) {   
+     data=response.output;     
+    
+        $("#NroReporte").text(data.codigo);        
+        $("#NroReporte").attr('data-codigo', data.codigo);
+
+        $("#NroOrdenTrabajo").text(data.cod_ordentrab);        
+        $("#NroOrdenTrabajo").attr('data-cod_ordentrab', data.codigo); 
+
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+        //console.log("complete");
+    });
  };
 
 
 
  function ObtenerNroReporteE(){
- 
+ var nroOrden=$("#NroOrdenTrabajo").attr('nroorden');
    $.ajax({
         url: 'index.php?r=ensayos/AjaxObtenerNroReporte',
         type: 'POST',          
@@ -348,10 +375,11 @@ function ObtenerNroCotizacion(){
         //console.log("error");
     })
     .always(function() {
-        //console.log("complete");
+        ObtenerNroOrdenT_RE(nroOrden);
     });
  };
  
+
 function obtenerNroBoleta(modulo,idNroComp,idserie){
     var nroSerie=$("#"+idserie+"").attr('data-param');
          $.ajax({

@@ -42,10 +42,11 @@ public function actionAjaxListarReportesAnalista(){
 $nroReporte=$_POST['nroReporte'];
 $nroOrden=$_POST['nroOrden'];
 $idMuestra=$_POST['idMuestra'];
+$cod_reporte=$_POST['cod_reporte'];
 $laboratorio=$_POST['laboratorio'];
 $observaciones=$_POST['observaciones'];
 $ingresado_por=$_POST['ingresado_por'];
-		$respuesta = Reporteensayo::model() -> registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestra,$laboratorio,$observaciones,$ingresado_por);
+		$respuesta = Reporteensayo::model() -> registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$cod_reporte,$idMuestra,$laboratorio,$observaciones,$ingresado_por);
 
 		
 		Util::renderJSON(array( 'success' => $respuesta ));

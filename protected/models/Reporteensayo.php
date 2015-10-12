@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'reporteensayo':
  * @property string $nroEnsayo
  * @property string $nroOrden
+ * @property string $cod_reporte
  * @property integer $idMuestra
  * @property string $fecha_emision
  * @property string $fecha_registro
@@ -24,8 +25,7 @@
  */
 class Reporteensayo extends CActiveRecord
 {
-
-	public function actualizarEstadoReporte($nroEnsayo,$estado){
+		public function actualizarEstadoReporte($nroEnsayo,$estado){
 		
 
 		
@@ -39,7 +39,7 @@ class Reporteensayo extends CActiveRecord
 
 public function ListarReportesAnalista(){
 
-		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra";	
+		$sql = "select nroEnsayo,cod_reporte,r.laboratorio,r.nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado,cod_ordentrab from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra inner join ordentrabajo as ot on ot.nroOrden=r.nroOrden";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
@@ -47,7 +47,7 @@ public function ListarReportesAnalista(){
 	
 	public function ListarReportesDirector(){
 
-		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra where r.estado=1";	
+		$sql = "select nroEnsayo,cod_reporte,r.laboratorio,r.nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,r.estado,cod_ordentrab from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra inner join ordentrabajo as ot on ot.nroOrden=r.nroOrden where r.estado=1";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
@@ -55,13 +55,13 @@ public function ListarReportesAnalista(){
 	
 public function obtenerPrintReporte($nroEnsayo){
 
-		$sql = "select nroEnsayo,laboratorio,nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra where nroEnsayo=".$nroEnsayo;
+		$sql = "select nroEnsayo,cod_reporte,r.laboratorio,r.nroOrden,m.codigo,m.nombre,DATE_FORMAT(r.fecha_registro,'%Y/%m/%d') as fecha_registro,r.observaciones,ot.cod_ordentrab from reporteensayo as r inner join muestra as m on m.idMuestra=r.idMuestra inner join ordentrabajo as ot on ot.nroOrden=r.nroOrden where nroEnsayo=".$nroEnsayo;
 	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
 
-public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestra,$laboratorio,$observaciones,$ingresado_por){
+public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$cod_reporte,$idMuestra,$laboratorio,$observaciones,$ingresado_por){
 
 		$resultado = array('valor'=>1,'message'=>'Reporte Registrado correctamente.');
 
@@ -69,6 +69,7 @@ public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$idMuestr
 		$Reporte=new Reporteensayo;
 		$Reporte->nroEnsayo=$nroReporte;
 		$Reporte->nroOrden=$nroOrden;
+		$Reporte->cod_reporte=$cod_reporte;
 		$Reporte->idMuestra=$idMuestra;
 		$Reporte->laboratorio=$laboratorio;
 		$Reporte->observaciones=$observaciones;
@@ -112,13 +113,14 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 			array('nroEnsayo, nroOrden', 'required'),
 			array('idMuestra, ingresado_por', 'numerical', 'integerOnly'=>true),
 			array('nroEnsayo, nroOrden', 'length', 'max'=>10),
+			array('cod_reporte', 'length', 'max'=>100),
 			array('laboratorio', 'length', 'max'=>50),
 			array('observaciones', 'length', 'max'=>255),
 			array('estado, eliminado', 'length', 'max'=>1),
 			array('fecha_emision, fecha_entrega, hora_entrega', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroEnsayo, nroOrden, idMuestra, fecha_emision, fecha_registro, laboratorio, observaciones, fecha_entrega, hora_entrega, estado, eliminado, ingresado_por', 'safe', 'on'=>'search'),
+			array('nroEnsayo, nroOrden, cod_reporte, idMuestra, fecha_emision, fecha_registro, laboratorio, observaciones, fecha_entrega, hora_entrega, estado, eliminado, ingresado_por', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -144,6 +146,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 		return array(
 			'nroEnsayo' => 'Nro Ensayo',
 			'nroOrden' => 'Nro Orden',
+			'cod_reporte' => 'Cod Reporte',
 			'idMuestra' => 'Id Muestra',
 			'fecha_emision' => 'Fecha Emision',
 			'fecha_registro' => 'Fecha Registro',
@@ -177,6 +180,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 
 		$criteria->compare('nroEnsayo',$this->nroEnsayo,true);
 		$criteria->compare('nroOrden',$this->nroOrden,true);
+		$criteria->compare('cod_reporte',$this->cod_reporte,true);
 		$criteria->compare('idMuestra',$this->idMuestra);
 		$criteria->compare('fecha_emision',$this->fecha_emision,true);
 		$criteria->compare('fecha_registro',$this->fecha_registro,true);

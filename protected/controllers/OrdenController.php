@@ -35,6 +35,15 @@ public function actionAjaxImprimirOrden(){
 	header('Content-Type: application/json; charset="UTF-8"');
     	echo CJSON::encode(array('output'=>$orden[0]));
 	}
+	public function actionAjaxObtenerNroOrdenT_RE(){
+		$nroOrden=$_POST['nroOrden'];
+		
+		$orden = Ordentrabajo::model()->ObtenerNroOrdenT_RE($nroOrden);
+	header('Content-Type: application/json; charset="UTF-8"');
+    	echo CJSON::encode(array('output'=>$orden[0]));
+	}
+
+
 public function actionAjaxGuardarResultadoServicio(){
 		$NroOrden = $_POST['NroOrden'];
 		$idservicio = $_POST['idservicio'];

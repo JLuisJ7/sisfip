@@ -10,12 +10,12 @@ loadListadoReportes: function(){
             toolButons:'',
             url:'index.php?r=ensayos/AjaxListarReportesAnalista',
             columns:[
-                {"mData": "nroEnsayo", "sClass": "alignCenter"},
+                {"mData": "cod_reporte", "sClass": "alignCenter"},
                 {"mData": "laboratorio", "sClass": "alignCenter"},                
                 {"mData": "nombre", "sClass": "alignCenter"},
                 {"mData": "codigo", "sClass": "alignCenter"},
                 {"mData": "fecha_registro", "sClass": "alignCenter"},
-                 {"mData": "nroOrden", "sClass": "alignCenter"},            
+                 {"mData": "cod_ordentrab", "sClass": "alignCenter"},            
                 {
                     "mData": 'nroEnsayo',
                     "bSortable": false,
@@ -67,12 +67,12 @@ loadListadoReportes: function(){
             toolButons:'',
             url:'index.php?r=ensayos/AjaxListarReportesDirector',
             columns:[
-                {"mData": "nroEnsayo", "sClass": "alignCenter"},
+                {"mData": "cod_reporte", "sClass": "alignCenter"},
                 {"mData": "laboratorio", "sClass": "alignCenter"},                
                 {"mData": "nombre", "sClass": "alignCenter"},
                 {"mData": "codigo", "sClass": "alignCenter"},
                 {"mData": "fecha_registro", "sClass": "alignCenter"},
-                 {"mData": "nroOrden", "sClass": "alignCenter"},            
+                 {"mData": "cod_ordentrab", "sClass": "alignCenter"},            
                 {
                     "mData": 'nroEnsayo',
                     "bSortable": false,
@@ -117,6 +117,8 @@ loadListadoReportes: function(){
                 nombre: data.Reporte[0].nombre,
                 nroEnsayo:data.Reporte[0].nroEnsayo,
                 nroOrden: data.Reporte[0].nroOrden,
+                cod_reporte: data.Reporte[0].cod_reporte,
+                cod_ordentrab: data.Reporte[0].cod_ordentrab,
                 observaciones: data.Reporte[0].observaciones,
                         detalle:JSON.stringify(data.Detalle), 
             }, function (result) {
@@ -219,7 +221,7 @@ loadListadoReportes: function(){
         
 
     },
-    registrarReporteEnsayos: function(nroReporte,nroOrden,idMuestra,laboratorio,observaciones,ingresado_por,detalle){
+    registrarReporteEnsayos: function(nroReporte,nroOrden,cod_reporte,idMuestra,laboratorio,observaciones,ingresado_por,detalle){
         
 
         var me = this;
@@ -229,6 +231,7 @@ loadListadoReportes: function(){
             data: {
                 nroReporte:nroReporte,
                 nroOrden:nroOrden,
+                cod_reporte:cod_reporte,
                 idMuestra:idMuestra,
                 laboratorio:laboratorio,
                 observaciones:observaciones,
