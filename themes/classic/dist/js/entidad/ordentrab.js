@@ -29,6 +29,7 @@ var OrdenCore = {
                         metodocliente:data.Orden[0].metodocliente,
                         nombre:data.Orden[0].nombre, 
                         nroOrden:data.Orden[0].nroOrden,
+                        cod_ordentrab:data.Orden[0].cod_ordentrab,
                         observacion_m:data.Orden[0].observacion_m, 
                         observaciones_o:data.Orden[0].observaciones_o, 
                         peso_volumen:data.Orden[0].peso_volumen, 
@@ -53,7 +54,7 @@ var OrdenCore = {
             toolButons:'',
             url:'index.php?r=orden/AjaxListarOrdenesDTecnico',
             columns:[
-                {"mData": "nroOrden", "sClass": "alignCenter"},
+                {"mData": "cod_ordentrab", "sClass": "alignCenter"},
                 {"mData": "Muestra", "sClass": "alignCenter"},                
                 {"mData": "Codigo", "sClass": "alignCenter"},
                 {"mData": "laboratorio", "sClass": "alignCenter"},
@@ -138,7 +139,7 @@ var OrdenCore = {
             toolButons:'',
             url:'index.php?r=orden/AjaxListarOrdenesAnalista',
             columns:[
-                {"mData": "nroOrden", "sClass": "alignCenter"},
+                {"mData": "cod_ordentrab", "sClass": "alignCenter"},
                 {"mData": "Muestra", "sClass": "alignCenter"},                
                 {"mData": "Codigo", "sClass": "alignCenter"},
                 {"mData": "laboratorio", "sClass": "alignCenter"},
@@ -270,7 +271,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
         });
         
     },
-    registrarOrdenTrabajo: function(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega,codPersonal,detalle){
+    registrarOrdenTrabajo: function(nroOrden,nroSolicitud,cod_ordentrab,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega,hora_entrega,codPersonal,detalle){
         
 
         var me = this;
@@ -280,12 +281,14 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
             data: {
                 nroOrden:nroOrden,
                 nroSolicitud:nroSolicitud,
+                cod_ordentrab:cod_ordentrab,
                 fecha_emision:fecha_emision,
                 laboratorio:laboratorio,
                 idMuestra:idMuestra,
                 codMuestra:codMuestra,
                 observaciones:observaciones,
                 fecha_entrega:fecha_entrega,
+                hora_entrega:hora_entrega,
                 codPersonal:codPersonal             
                 },
         })
@@ -299,7 +302,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
 
             
                 setTimeout(function(){
-                      window.location.href = "index.php?r=solicitud/solicitudes";
+                     // window.location.href = "index.php?r=solicitud/solicitudes";
                 }, 1000);
 
         })

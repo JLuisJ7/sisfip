@@ -6,21 +6,25 @@
  * The followings are the available columns in table 'muestra':
  * @property integer $idMuestra
  * @property integer $idCliente
+ * @property string $codigo
  * @property string $nombre
  * @property string $marca
  * @property string $identificacion
  * @property integer $Cant_Muestra
+ * @property double $peso_volumen
+ * @property string $metodocliente
  * @property string $estado
  * @property string $presentacion
  * @property string $observaciones
  *
  * The followings are the available model relations:
  * @property Cliente $idCliente0
+ * @property Ordentrabajo[] $ordentrabajos
+ * @property Reporteensayo[] $reporteensayos
  * @property Solicitud[] $solicituds
  */
 class Muestra extends CActiveRecord
 {
-
 	public function ActualizarMuestra($idMuestra,$idCliente,$codigo,$nombre,$cant_muestra,$peso_volumen,$metodocliente,$presentacion,$observaciones){
 		$resultado = array('valor'=>1,'message'=>'Servicio actualizado correctamente.');
 
@@ -67,10 +71,7 @@ if(!$muestra->save()){
 	$resultado = array('valor'=>0, 'message'=>'No hemos podido Registrar el servicio, intentelo nuevamente');
 
 }
-			
-
-		return $resultado;
-	}
+}
 	/**
 	 * @return string the associated database table name
 	 */
@@ -89,13 +90,15 @@ if(!$muestra->save()){
 		return array(
 			array('idCliente, nombre', 'required'),
 			array('idCliente, Cant_Muestra', 'numerical', 'integerOnly'=>true),
+			array('peso_volumen', 'numerical'),
+			array('codigo, presentacion', 'length', 'max'=>100),
 			array('nombre, marca, identificacion', 'length', 'max'=>45),
+			array('metodocliente', 'length', 'max'=>2),
 			array('estado', 'length', 'max'=>1),
-			array('presentacion', 'length', 'max'=>100),
 			array('observaciones', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idMuestra, idCliente, nombre, marca, identificacion, Cant_Muestra, estado, presentacion, observaciones', 'safe', 'on'=>'search'),
+			array('idMuestra, idCliente, codigo, nombre, marca, identificacion, Cant_Muestra, peso_volumen, metodocliente, estado, presentacion, observaciones', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -108,6 +111,8 @@ if(!$muestra->save()){
 		// class name for the relations automatically generated below.
 		return array(
 			'idCliente0' => array(self::BELONGS_TO, 'Cliente', 'idCliente'),
+			'ordentrabajos' => array(self::HAS_MANY, 'Ordentrabajo', 'idMuestra'),
+			'reporteensayos' => array(self::HAS_MANY, 'Reporteensayo', 'idMuestra'),
 			'solicituds' => array(self::HAS_MANY, 'Solicitud', 'idMuestra'),
 		);
 	}
@@ -120,10 +125,13 @@ if(!$muestra->save()){
 		return array(
 			'idMuestra' => 'Id Muestra',
 			'idCliente' => 'Id Cliente',
+			'codigo' => 'Codigo',
 			'nombre' => 'Nombre',
 			'marca' => 'Marca',
 			'identificacion' => 'Identificacion',
 			'Cant_Muestra' => 'Cant Muestra',
+			'peso_volumen' => 'Peso Volumen',
+			'metodocliente' => 'Metodocliente',
 			'estado' => 'Estado',
 			'presentacion' => 'Presentacion',
 			'observaciones' => 'Observaciones',
@@ -150,10 +158,13 @@ if(!$muestra->save()){
 
 		$criteria->compare('idMuestra',$this->idMuestra);
 		$criteria->compare('idCliente',$this->idCliente);
+		$criteria->compare('codigo',$this->codigo,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('marca',$this->marca,true);
 		$criteria->compare('identificacion',$this->identificacion,true);
 		$criteria->compare('Cant_Muestra',$this->Cant_Muestra);
+		$criteria->compare('peso_volumen',$this->peso_volumen);
+		$criteria->compare('metodocliente',$this->metodocliente,true);
 		$criteria->compare('estado',$this->estado,true);
 		$criteria->compare('presentacion',$this->presentacion,true);
 		$criteria->compare('observaciones',$this->observaciones,true);

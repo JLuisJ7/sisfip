@@ -151,7 +151,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
             toolButons:'',
             url:'index.php?r=solicitud/AjaxListarSolicitudesAprobadas',
             columns:[
-                {"mData": "nroSolicitud", "sClass": "alignCenter"},
+                {"mData": "cod_solicitud", "sClass": "alignCenter"},
                 {"mData": "cliente", "sClass": "alignCenter"},                
                 {"mData": "muestra", "sClass": "alignCenter"},
                 {"mData": "fecha_registro", "sClass": "alignCenter"},

@@ -27,6 +27,14 @@ public function actionAjaxImprimirOrden(){
 
 		Util::renderJSON(array( 'Orden' => $orden,'Detalle'=>$detalle ));
 	}
+
+	public function actionAjaxObtenerNroOrdenT_Sol(){
+		$nroSolicitud=$_POST['nroSolicitud'];
+		
+		$orden = Ordentrabajo::model()->ObtenerNroOrdenT_Sol($nroSolicitud);
+	header('Content-Type: application/json; charset="UTF-8"');
+    	echo CJSON::encode(array('output'=>$orden[0]));
+	}
 public function actionAjaxGuardarResultadoServicio(){
 		$NroOrden = $_POST['NroOrden'];
 		$idservicio = $_POST['idservicio'];
@@ -72,18 +80,20 @@ public function actionAjaxRegistrarOrdenTrabajo(){
 
 $nroOrden=$_POST['nroOrden'];
 $nroSolicitud=$_POST['nroSolicitud'];
+$cod_ordentrab=$_POST['cod_ordentrab'];
 $fecha_emision=$_POST['fecha_emision'];
 $laboratorio=$_POST['laboratorio'];
 $idMuestra=$_POST['idMuestra'];
 $codMuestra=$_POST['codMuestra'];
 $observaciones=$_POST['observaciones'];
 $fecha_entrega=$_POST['fecha_entrega'];
+$hora_entrega=$_POST['hora_entrega'];
 $codPersonal=$_POST['codPersonal'];
 
 
 $date = new DateTime($fecha_emision);
 $fecha=$date->format('Y-m-d');
-		$respuesta = Ordentrabajo::model() -> registrarOrdenTrabajo($nroOrden,$nroSolicitud,$fecha,$laboratorio,$idMuestra,$codMuestra,$observaciones,$fecha_entrega,$codPersonal);
+		$respuesta = Ordentrabajo::model() -> registrarOrdenTrabajo($nroOrden,$nroSolicitud,$cod_ordentrab,$fecha,$laboratorio,$idMuestra,$codMuestra,$observaciones,$fecha_entrega,$hora_entrega,$codPersonal);
 
 		
 		Util::renderJSON(array( 'success' => $respuesta ));

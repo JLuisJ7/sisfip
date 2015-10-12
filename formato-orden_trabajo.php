@@ -9,6 +9,7 @@ $mes=$_POST['mes'];
 $metodocliente=$_POST['metodocliente'];
 $nombre=$_POST['nombre'];
 $nroOrden=$_POST['nroOrden'];
+$cod_ordentrab=$_POST['cod_ordentrab'];
 $observacion_m=$_POST['observacion_m'];
 $observaciones_o=$_POST['observaciones_o'];
 $peso_volumen=$_POST['peso_volumen'];
@@ -113,7 +114,7 @@ $presentacion=$_POST['presentacion'];
 		</tr>
 		<tr>
 			<td colspan="4" align="center" class="n_b_b b_r bold">
-				ORDEN DE TRABAJO PARA ENSAYOS N° <span class="orden_d"><?php echo $nroOrden; ?></span>
+				ORDEN DE TRABAJO PARA ENSAYOS N° <span class="orden_d"><?php echo $cod_ordentrab; ?></span>
 			</td>
 		</tr>
 		<tr>

@@ -200,27 +200,7 @@ function ObtenerNroCotizacion(){
     });
  };
 
- function ObtenerCodigoCotizacion(idCotizacion){
-$.ajax({
-        url: 'index.php?r=Cotizacion/AjaxObtenerCodigoCotizacion',
-        type: 'POST', 
-        data:{
-          idCotizacion:idCotizacion
-        }         
-    })
-    .done(function(response) {   
-     data=response;     
-        console.log(data);
 
-        
-    })
-    .fail(function() {
-        //console.log("error");
-    })
-    .always(function() {
-        //console.log("complete");
-    });
- }
  function ObtenerNroSolicitud(){
  
    $.ajax({
@@ -268,7 +248,7 @@ $.ajax({
  };
 
  function ObtenerNroOrdenT(){
- 
+  var nrosolicitud=$("#NroOrdenTrabajo").attr('nrosolicitud');
    $.ajax({
         url: 'index.php?r=orden/AjaxObtenerNroOrden',
         type: 'POST',          
@@ -278,8 +258,67 @@ $.ajax({
         //console.log(data.nroComp);
 
         $("#NroOrdenTrabajo").text(data.nroOrden);
-        $("#NroOrdenTrabajo").attr('NroOrdenTrabajo', data.nroOrden);
-        $("#fecha_actual").text(data.fecha);      
+        $("#NroOrdenTrabajo").attr('NroOrdenTrabajo', data.nroOrden); 
+       
+        $("#fecha_actual").text(data.fecha);
+
+
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+        ObtenerNroOrdenT_Sol(nrosolicitud);
+    });
+ };
+ function ObtenerNroOrdenT_Sol(nroSolicitud){
+ 
+   $.ajax({
+        url: 'index.php?r=orden/AjaxObtenerNroOrdenT_Sol',
+        type: 'POST',
+        data :{
+            nroSolicitud:nroSolicitud
+        }          
+    })
+    .done(function(response) {   
+     data=response.output;     
+        console.log(data);
+
+         var nro=nroSolicitud; 
+        var anio=data.Anio;
+        var ceros='';
+        var ceros_ot='';
+        var nros=""+nro+"";
+        var largo=nros.length;
+        var nros_ot=data.nroOrdenes
+        var largo_ot=nros_ot.length;
+
+       switch(largo) {
+            case 1:
+                ceros='000';
+                break;
+           case 2:
+                ceros='00';
+                break;
+           case 3:
+                ceros='0';
+                break;           
+            default:
+                ceros='';
+        }
+        switch(largo_ot) {
+            case 1:
+                ceros_ot='0';
+                break;               
+            default:
+                ceros_ot='';
+        }
+        codigo="OT-"+ceros+nro+"-"+ceros_ot+nros_ot+"-"+anio;
+        console.log(codigo);
+        $("#NroOrdenTrabajo").text(codigo); 
+        $("#txtCodMuestra").val("CM-"+ceros+nro+"-"+ceros_ot+nros_ot+"-"+anio);
+        $("#NroOrdenTrabajo").attr('data-codigo', codigo); 
+
     })
     .fail(function() {
         //console.log("error");
@@ -288,6 +327,8 @@ $.ajax({
         //console.log("complete");
     });
  };
+
+
 
  function ObtenerNroReporteE(){
  

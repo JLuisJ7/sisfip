@@ -153,6 +153,7 @@ $("#btn_GuardarOrden").click(function(event) {
 
 var nroOrden=$("#NroOrdenTrabajo").attr('nroordentrabajo');
 var nroSolicitud=$("#NroOrdenTrabajo").attr('NroSolicitud');
+var cod_ordentrab=$("#NroOrdenTrabajo").attr('data-codigo');
 var fecha_emision=$("#fecha_actual").text();
 var laboratorio=$("#txtLaboratorio").val();
 var idMuestra=$("#txtNomMuestra").attr('data-id');
@@ -162,7 +163,7 @@ var codMuestra=$("#txtCodMuestra").val();
 var observaciones=$("#txtObservOrden").val();
 var fecha_entrega=$("#txtFecha").val();
 var detalle = $('#DetalleOrden').tableToJSON();
-var hora=$("#txtHora").val();
+var hora_entrega=$("#txtHora").val()+':00';
 
 var cant_muestra=$("#txtNumUnidad").val();
 var peso_volumen=$("#txtPesoVol").val();
@@ -172,7 +173,7 @@ var metodocliente=$("#rdb_metodo").val();
 var observaciones=$("#txtObservMuestra").val();
 
 ClienteCore.actualizarMuestra(idMuestra,idCliente,codMuestra,NomMuestra,cant_muestra,peso_volumen,metodocliente,presentacion,observaciones);
-OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega+hora,1,detalle);
+OrdenCore.registrarOrdenTrabajo(nroOrden,nroSolicitud,cod_ordentrab,fecha_emision,laboratorio,idMuestra,codMuestra,observaciones,fecha_entrega,hora_entrega,1,detalle);
 
 
 
