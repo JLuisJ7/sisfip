@@ -119,9 +119,7 @@ $this->breadcrumbs=array(
 		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar">Cancelar</button>
 	</div>
 
-	<div class="col-md-12" style="margin-top:1em;">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_aceptar_Solicitud">Enviar a analista</button>
-	</div>
+	
 	
 
 </div>

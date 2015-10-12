@@ -136,7 +136,7 @@ public function actionReportes()
 		}
 		
 	}
-public function actiongenerar_informe()
+public function actiongenerar_informes()
 	{
 		if($this->verificarSessiousuario()==FALSE){
 			$this->redirect("login.php");
@@ -146,6 +146,38 @@ public function actiongenerar_informe()
   			$rol = $usuarioSession['usuario']['ide_rol'];
   			if ($rol==1 || $rol==3) {
   				$this->render('generar_informe', array('rol' => $rol));
+  			}else{
+  				$this->redirect('index.php');
+  			}
+  			
+			
+		}
+		
+	}
+
+	public function actiongenerar_informe()
+	{
+		if($this->verificarSessiousuario()==FALSE){
+			$this->redirect("login.php");
+		}else{
+			$usuarioSession = Yii::app()->getSession()->get('usuarioSesion');
+  			$usuario = $usuarioSession['datausuario'];
+  			$rol = $usuarioSession['usuario']['ide_rol'];
+  			if ($rol==1 || $rol==3) {
+  				//$this->render('generar_reporte', array('rol' => $rol));
+  				//	$NroCotizacion=$_POST['NroCotizacion'];
+				$nroEnsayo = Yii::app()->request->getParam('nroEnsayo');
+				if(empty($nroEnsayo)){
+					$this->render("registrar");
+				}else{
+					//$cotizacion = Cotizacion::model()->obtenerCotizacion($NroCotizacion);
+					//$detalle = Detallecotizacion::model()->obtenerDetalleCotizacion($NroCotizacion);
+					
+					$this->render('generar_informe', array('rol' => $rol,'data' => $nroEnsayo));
+					
+					
+				}
+
   			}else{
   				$this->redirect('index.php');
   			}

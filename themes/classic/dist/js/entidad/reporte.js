@@ -79,7 +79,7 @@ loadListadoReportes: function(){
                     "bFilterable": false,
                     //"width": "150px",
                     "mRender": function(o) {
-                        return '<a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a> <a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm ">Generar Informe</a>';
+                        return '<form action="index.php?r=ensayos/generar_informe" method="POST"><a href="#" style="margin-left:5px;margin-right:0px" lang="' + o + '" class="btn btn-default btn-sm imprimirReporte"><i class="fa fa-print"></i></a><span style="color:transparent;">__</span><input type="hidden" name="nroEnsayo" value="' + o + '"><input  class="btn btn-warning btn-sm" value="Generar Informe" type="submit"></form>';
                     }
                 }
             ],

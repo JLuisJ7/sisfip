@@ -172,3 +172,12 @@ resultado varchar(255)
 
 ALTER TABLE reporteensayo ADD CONSTRAINT fk_detalle_reporte FOREIGN KEY(nroEnsayo) references reporteensayo(nroEnsayo);
 ALTER TABLE reporteensayo ADD CONSTRAINT fk_detreporte_servicio FOREIGN KEY(idServicio) references servicio(idServicio);
+
+
+select cli.nombres,cli.direccion,cli.provincia,cli.telefono,cli.doc_ident,sol.nroSolicitud,sol.cod_solicitud,mu.nombre,mu.identificacion,mu.marca,mu.cant_muestra,mu.presentacion,ot.nroOrden,ot.cod_ordentrab,re.cod_reporte,re.nroEnsayo, 
+concat('IE-',SUBSTRING(re.cod_reporte,4,100)) as cod_informe
+from reporteensayo as re
+inner join ordentrabajo as ot on ot.nroOrden=re.nroOrden
+inner join muestra as mu on mu.idMuestra=ot.idMuestra
+inner join solicitud as sol on sol.nroSolicitud=ot.nroSolicitud
+inner join cliente as cli on cli.idCliente=sol.idCliente
