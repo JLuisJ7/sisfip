@@ -59,7 +59,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
             toolButons:'',
             url:'index.php?r=solicitud/AjaxListarSolicitudeEstado',          
             columns:[
-                {"mData": "nroSolicitud", "sClass": "alignCenter"},
+                {"mData": "cod_solicitud", "sClass": "alignCenter"},
                 {"mData": "cliente", "sClass": "alignCenter"},                
                 {"mData": "muestra", "sClass": "alignCenter"},
                 {"mData": "fecha_registro", "sClass": "alignCenter"},
@@ -107,7 +107,8 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                         Ensayos:data.Solicitud[0].Ensayos, 
                         Inspeccion:data.Solicitud[0].Inspeccion, 
                         acreditacion:data.Solicitud[0].acreditacion, 
-                        año:data.Solicitud[0].año, 
+                        año:data.Solicitud[0].año,
+                        hora_entrega:data.Solicitud[0].hora_entrega, 
                         cant_muestra:data.Solicitud[0].cant_muestra, 
                         cliente:data.Solicitud[0].cliente, 
                         contramuestras:data.Solicitud[0].contramuestras, 
@@ -121,7 +122,8 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                         muestreo:data.Solicitud[0].muestreo, 
                         nombre:data.Solicitud[0].nombre, 
                         nroCotizacion:data.Solicitud[0].nroCotizacion, 
-                        nroSolicitud:data.Solicitud[0].nroSolicitud, 
+                        nroSolicitud:data.Solicitud[0].nroSolicitud,
+                        cod_solicitud:data.Solicitud[0].cod_solicitud, 
                         observaciones_m:data.Solicitud[0].observaciones_m,
                         observaciones_sol:data.Solicitud[0].observaciones_sol, 
                         otros:data.Solicitud[0].otros, 
@@ -235,7 +237,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
         });
         
     },
-    registrarSolicitud: function(nroSolicitud,nroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observaciones,detalle){
+    registrarSolicitud: function(nroSolicitud,nroCotizacion,cod_solicitud,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,hora_entrega,Acreditacion,Contramuestras,observaciones,detalle){
         var me = this;
         $.ajax({
             url: 'index.php?r=solicitud/AjaxRegistrarSolicitud',
@@ -243,6 +245,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
             data: {
                nroSolicitud:nroSolicitud,
                nroCotizacion:nroCotizacion,
+               cod_solicitud:cod_solicitud,
                idCliente:idCliente,
                idMuestra:idMuestra,
                Ensayos:Ensayos,
@@ -251,6 +254,7 @@ $("#btn_imprimirCotizacion").removeAttr('disabled');
                otros:otros,
                total:total,
                fecha_entrega:fecha_entrega,
+               hora_entrega:hora_entrega,
                Acreditacion:Acreditacion,
                Contramuestras:Contramuestras,
                observaciones:observaciones               

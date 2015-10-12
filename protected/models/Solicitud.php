@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'solicitud':
  * @property string $nroSolicitud
  * @property string $nroCotizacion
+ * @property string $cod_solicitud
  * @property integer $idCliente
  * @property integer $idMuestra
  * @property string $fecha_registro
@@ -15,6 +16,7 @@
  * @property string $otros
  * @property string $total
  * @property string $fecha_entrega
+ * @property string $hora_entrega
  * @property string $Acreditacion
  * @property string $Contramuestras
  * @property string $observaciones
@@ -33,7 +35,7 @@ class Solicitud extends CActiveRecord
 
 public function obtenerPrintSolicitud($nroSolicitud){
 
-		$sql = "select nroSolicitud,nroCotizacion,DATE_FORMAT(sol.fecha_registro,'%d-%m-%Y') as fecha_registro,cli.nombres as cliente,cli.doc_ident as documento,cli.direccion,cli.distrito,cli.provincia,cli.telefono,cli.referencia,Ensayos,Inspeccion,muestreo,sol.otros,m.nombre,m.marca,m.identificacion,m.cant_muestra,m.presentacion,m.observaciones as observaciones_m,m.metodocliente,sol.total,sol.acreditacion,sol.contramuestras,sol.observaciones as observaciones_sol,year(sol.fecha_entrega) as año,month(sol.fecha_entrega)as mes,day(sol.fecha_entrega) as dia from solicitud as sol inner join cliente as cli on cli.idCliente=sol.idCliente inner join cotizacion as cot on cot.idCotizacion=sol.nroCotizacion inner join muestra as m on m.idMuestra=sol.idMuestra
+		$sql = "select nroSolicitud,nroCotizacion,cod_solicitud,DATE_FORMAT(sol.fecha_registro,'%d-%m-%Y') as fecha_registro,cli.nombres as cliente,cli.doc_ident as documento,cli.direccion,cli.distrito,cli.provincia,cli.telefono,cli.referencia,Ensayos,Inspeccion,muestreo,sol.otros,m.nombre,m.marca,m.identificacion,m.cant_muestra,m.presentacion,m.observaciones as observaciones_m,m.metodocliente,sol.total,sol.acreditacion,sol.contramuestras,sol.observaciones as observaciones_sol,year(sol.fecha_entrega) as año,month(sol.fecha_entrega)as mes,day(sol.fecha_entrega) as dia,sol.hora_entrega from solicitud as sol inner join cliente as cli on cli.idCliente=sol.idCliente inner join cotizacion as cot on cot.idCotizacion=sol.nroCotizacion inner join muestra as m on m.idMuestra=sol.idMuestra
 where nroSolicitud=".$nroSolicitud;
 	
 
@@ -59,7 +61,7 @@ where nrosolicitud=".$nroSolicitud;
 	}
 	public function listarSolicitudesEstado($estado){
 
-		$sql = "select nroSolicitud,c.idcliente,c.nombres as cliente,m.nombre as muestra,DATE_FORMAT(s.fecha_registro,'%d-%m-%Y') as fecha_registro,DATE_FORMAT(fecha_entrega,'%d-%m-%Y') as fecha_entrega,total from solicitud as s inner join muestra as m on m.idMuestra=s.idMuestra inner join cliente as c on c.idCliente=s.idCliente where eliminado=0";	
+		$sql = "select nroSolicitud,cod_solicitud,c.idcliente,c.nombres as cliente,m.nombre as muestra,DATE_FORMAT(s.fecha_registro,'%d-%m-%Y') as fecha_registro,DATE_FORMAT(fecha_entrega,'%d-%m-%Y') as fecha_entrega,total from solicitud as s inner join muestra as m on m.idMuestra=s.idMuestra inner join cliente as c on c.idCliente=s.idCliente where eliminado=0";	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	
@@ -77,7 +79,7 @@ public function actualizarEstadoSolicitud($idSolicitud,$estado){
 		
 	}
 
-	public function registrarSolicitud($nroSolicitud,$nroCotizacion,$idCliente,$idMuestra,$Ensayos,$Inspeccion,$muestreo,$otros,$total,$fecha_entrega,$Acreditacion,$Contramuestras,$observaciones){
+	public function registrarSolicitud($nroSolicitud,$nroCotizacion,$cod_solicitud,$idCliente,$idMuestra,$Ensayos,$Inspeccion,$muestreo,$otros,$total,$fecha_entrega,$hora_entrega,$Acreditacion,$Contramuestras,$observaciones){
 
 		$resultado = array('valor'=>1,'message'=>'Servicio Registrado correctamente.');
 
@@ -85,6 +87,7 @@ public function actualizarEstadoSolicitud($idSolicitud,$estado){
 		$solicitud=new Solicitud;
 $solicitud->nroSolicitud=$nroSolicitud;
 $solicitud->nroCotizacion=$nroCotizacion;
+$solicitud->cod_solicitud=$cod_solicitud;
 $solicitud->idCliente=$idCliente;
 $solicitud->idMuestra=$idMuestra;
 $solicitud->Ensayos=$Ensayos;
@@ -93,6 +96,7 @@ $solicitud->muestreo=$muestreo;
 $solicitud->otros=$otros;
 $solicitud->total=$total;
 $solicitud->fecha_entrega=$fecha_entrega;
+$solicitud->hora_entrega=$hora_entrega;
 $solicitud->Acreditacion=$Acreditacion;
 $solicitud->Contramuestras=$Contramuestras;
 $solicitud->observaciones=$observaciones;
@@ -109,7 +113,7 @@ if(!$solicitud->save()){
 
 	public function ObtenerNroSolicitud(){
 
-$sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from Solicitud";
+$sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha,DATE_FORMAT(NOW(),'%y') as Anio from Solicitud";
 	
 
 
@@ -131,17 +135,19 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nroSolicitud, nroCotizacion, idCliente, idMuestra, fecha_entrega', 'required'),
+			array('nroSolicitud, nroCotizacion, idCliente, idMuestra', 'required'),
 			array('idCliente, idMuestra', 'numerical', 'integerOnly'=>true),
 			array('nroSolicitud, nroCotizacion', 'length', 'max'=>10),
+			array('cod_solicitud', 'length', 'max'=>100),
 			array('Ensayos, Inspeccion, muestreo, Estado, eliminado', 'length', 'max'=>1),
 			array('otros', 'length', 'max'=>200),
 			array('total', 'length', 'max'=>8),
 			array('Acreditacion, Contramuestras', 'length', 'max'=>2),
 			array('observaciones', 'length', 'max'=>300),
+			//array('hora_entrega', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('nroSolicitud, nroCotizacion, idCliente, idMuestra, fecha_registro, Ensayos, Inspeccion, muestreo, otros, total, fecha_entrega, Acreditacion, Contramuestras, observaciones, Estado, eliminado', 'safe', 'on'=>'search'),
+			array('nroSolicitud, nroCotizacion, cod_solicitud, idCliente, idMuestra, fecha_registro, Ensayos, Inspeccion, muestreo, otros, total, fecha_entrega, hora_entrega, Acreditacion, Contramuestras, observaciones, Estado, eliminado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -169,6 +175,7 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		return array(
 			'nroSolicitud' => 'Nro Solicitud',
 			'nroCotizacion' => 'Nro Cotizacion',
+			'cod_solicitud' => 'Cod Solicitud',
 			'idCliente' => 'Id Cliente',
 			'idMuestra' => 'Id Muestra',
 			'fecha_registro' => 'Fecha Registro',
@@ -178,6 +185,7 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 			'otros' => 'Otros',
 			'total' => 'Total',
 			'fecha_entrega' => 'Fecha Entrega',
+			'hora_entrega' => 'Hora Entrega',
 			'Acreditacion' => 'Acreditacion',
 			'Contramuestras' => 'Contramuestras',
 			'observaciones' => 'Observaciones',
@@ -206,6 +214,7 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 
 		$criteria->compare('nroSolicitud',$this->nroSolicitud,true);
 		$criteria->compare('nroCotizacion',$this->nroCotizacion,true);
+		$criteria->compare('cod_solicitud',$this->cod_solicitud,true);
 		$criteria->compare('idCliente',$this->idCliente);
 		$criteria->compare('idMuestra',$this->idMuestra);
 		$criteria->compare('fecha_registro',$this->fecha_registro,true);
@@ -215,6 +224,7 @@ $sql = "select count(*)+1 as nroSolicitud,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha
 		$criteria->compare('otros',$this->otros,true);
 		$criteria->compare('total',$this->total,true);
 		$criteria->compare('fecha_entrega',$this->fecha_entrega,true);
+		$criteria->compare('hora_entrega',$this->hora_entrega,true);
 		$criteria->compare('Acreditacion',$this->Acreditacion,true);
 		$criteria->compare('Contramuestras',$this->Contramuestras,true);
 		$criteria->compare('observaciones',$this->observaciones,true);

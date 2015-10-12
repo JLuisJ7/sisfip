@@ -231,9 +231,33 @@ $.ajax({
      data=response.output;     
         //console.log(data.nroComp);
 
-        $("#NroSolicitud").text(data.nroSolicitud);
+       
         $("#NroSolicitud").attr('NroSolicitud', data.nroSolicitud);
-        $("#fecha_actual").text(data.fecha);      
+        $("#fecha_actual").text(data.fecha);
+  
+        var nro=data.nroSolicitud; 
+        var anio=data.Anio;
+        var ceros='';
+        var nros=""+nro+"";
+        var largo=nros.length;
+       switch(largo) {
+            case 1:
+                ceros='000';
+                break;
+           case 2:
+                ceros='00';
+                break;
+           case 3:
+                ceros='0';
+                break;           
+            default:
+                ceros='';
+        }
+        codigo="SS-"+ceros+nro+"-"+anio;
+        console.log(codigo);
+        $("#NroSolicitud").text(codigo);
+        $("#NroSolicitud").attr('data-codigo', codigo);
+  
     })
     .fail(function() {
         //console.log("error");

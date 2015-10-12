@@ -278,6 +278,7 @@ var observacionesServ=$("#txtObservacionesServicios").val();
 
 /* ------------ */
 var NroSolicitud=$("#NroSolicitud").attr('NroSolicitud');
+var cod_solicitud=$("#NroSolicitud").attr('data-codigo');
 var NroCotizacion=$("#NroSolicitud").attr('nroCotizacion');
 
 
@@ -313,11 +314,11 @@ if($('input:checkbox[name=chkOtrosServicios]').prop('checked')){
 //var otros=$("#txtOtrosServicios").val();
 
 var fecha_entrega=$("#txtFecha").val();
-var txtHora=$("#txtHora").val();
+var hora_entrega=$("#txtHora").val()+':00';
 var total=$("#txtTotal").val();	
 /* --------------*/
 var detalle = $('#DetalleCotizacion').tableToJSON();
-SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,Acreditacion,Contramuestras,observacionesServ,detalle);
+SolicitudCore.registrarSolicitud(NroSolicitud,NroCotizacion,cod_solicitud,idCliente,idMuestra,Ensayos,Inspeccion,muestreo,otros,total,fecha_entrega,hora_entrega,Acreditacion,Contramuestras,observacionesServ,detalle);
 });
 
 	

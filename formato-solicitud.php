@@ -5,6 +5,7 @@ $Ensayos=$_POST['Ensayos'];
 $Inspeccion=$_POST['Inspeccion'];
 $acreditacion=$_POST['acreditacion'];
 $año=$_POST['año'];
+$hora_entrega=$_POST['hora_entrega'];
 $cant_muestra=$_POST['cant_muestra'];
 $cliente=$_POST['cliente'];
 $contramuestras=$_POST['contramuestras'];
@@ -19,6 +20,7 @@ $muestreo=$_POST['muestreo'];
 $nombre=$_POST['nombre'];
 $nroCotizacion=$_POST['nroCotizacion'];
 $nroSolicitud=$_POST['nroSolicitud'];
+$cod_solicitud=$_POST['cod_solicitud'];
 $observaciones_m=$_POST['observaciones_m'];
 $observaciones_sol=$_POST['observaciones_sol'];
 $otros=$_POST['otros'];
@@ -128,7 +130,7 @@ $json=$_POST['detalle'];
 		</tr>
 		<tr>
 			<td colspan="4" align="center" class="n_b_b b_r bold">
-				SOLICITUD PARA SERVICIOS DE ENSAYOS N° <span class="sol_d"><?php echo $nroSolicitud; ?></span>
+				SOLICITUD PARA SERVICIOS DE ENSAYOS N° <span class="sol_d"><?php echo $cod_solicitud; ?></span>
 			</td>
 		</tr>
 		<tr>
@@ -255,7 +257,7 @@ foreach($array as $obj){
 			<td class="b_r center" rowspan="2"	colspan="2"><?php echo $contramuestras; ?></td>		
 		</tr>
 		<tr>
-			<td class="" colspan="2">AÑO : <span class="sol_d"><?php echo $año; ?> MES: <span class="sol_d"><?php echo $mes; ?>  DIA : <span class="sol_d"><?php echo $dia; ?> HORA</td>
+			<td class="" colspan="2">AÑO : <span class="sol_d"><?php echo $año; ?> MES: <span class="sol_d"><?php echo $mes; ?>  DIA : <span class="sol_d"><?php echo $dia; ?> HORA : <?php echo $hora_entrega; ?></td>
 		</tr>
 		<tr class="row_title">
 			<td class="bold">

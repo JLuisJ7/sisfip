@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
 	<table id="SolicitudesA_Cliente" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%">
                     <thead>
                       <tr>                        
-                        <th style="vertical-align: middle;" >ID</th>
+                        <th style="vertical-align: middle;" >Codigo</th>
                         <th style="vertical-align: middle;" >Cliente</th>
                         <th style="vertical-align: middle;" >Muestra</th>
                         <th style="vertical-align: middle;" >Fecha Registro</th>   	                    

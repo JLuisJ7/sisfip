@@ -48,6 +48,7 @@ public function actionAjaxRegistrarSolicitud(){
 	//cotizacion
 $nroSolicitud=$_POST['nroSolicitud'];
 $nroCotizacion=$_POST['nroCotizacion'];
+$cod_solicitud=$_POST['cod_solicitud'];
 $idCliente=$_POST['idCliente'];
 $idMuestra=$_POST['idMuestra'];
 $Ensayos=$_POST['Ensayos'];
@@ -56,12 +57,13 @@ $muestreo=$_POST['muestreo'];
 $otros=$_POST['otros'];
 $total=$_POST['total'];
 $fecha_entrega=$_POST['fecha_entrega'];
+$hora_entrega=$_POST['hora_entrega'];
 $Acreditacion=$_POST['Acreditacion'];
 $Contramuestras=$_POST['Contramuestras'];
 $observaciones=$_POST['observaciones'];
 
 
-		$respuesta = Solicitud::model() -> registrarSolicitud($nroSolicitud,$nroCotizacion,$idCliente,$idMuestra,$Ensayos,$Inspeccion,$muestreo,$otros,$total,$fecha_entrega,$Acreditacion,$Contramuestras,$observaciones);
+		$respuesta = Solicitud::model() -> registrarSolicitud($nroSolicitud,$nroCotizacion,$cod_solicitud,$idCliente,$idMuestra,$Ensayos,$Inspeccion,$muestreo,$otros,$total,$fecha_entrega,$hora_entrega,$Acreditacion,$Contramuestras,$observaciones);
 
 		
 		Util::renderJSON(array( 'success' => $respuesta ));
