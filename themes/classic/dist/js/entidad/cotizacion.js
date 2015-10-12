@@ -23,7 +23,7 @@ var CotizacionCore = {
                 "bFilter": false,
                 "data": response,
                 columns:[               
-                    {"mData": "idCotizacion", "sClass": "alignCenter"},
+                    {"mData": "codigo_cot", "sClass": "alignCenter"},
                     {"mData": "muestra", "sClass": "alignCenter"},
                     {"mData": "fecha_registro", "sClass": "alignCenter"},
                     {"mData": "fecha_entrega", "sClass": "alignCenter"},
@@ -63,13 +63,14 @@ var CotizacionCore = {
         });
         
     },
-    registrarCotizacion: function(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle){
+    registrarCotizacion: function(idCotizacion,codigo_cot,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle){
         var me = this;
         $.ajax({
             url: 'index.php?r=cotizacion/AjaxRegistrarCotizacion',
             type: 'POST',
             data: {
                 idCotizacion:idCotizacion,
+                codigo_cot:codigo_cot,
                 idCliente:idCliente,
                 muestra,muestra,
                 cond_tecnica:cond_tecnica,
@@ -179,7 +180,9 @@ $("#txtTiempo").val(data.Cotizacion[0].fecha_entrega);
 $("#txtCantidad").val(data.Cotizacion[0].cant_Muestra_necesaria);
 $("#txtMuestra").val(data.Cotizacion[0].muestra);
 $("#Edit_NroCotizacion").attr('data-nro',data.Cotizacion[0].idCotizacion);
-$("#Edit_NroCotizacion").text(data.Cotizacion[0].idCotizacion);
+$("#Edit_NroCotizacion").attr('data-codigo',data.Cotizacion[0].codigo_cot);
+
+$("#Edit_NroCotizacion").text(data.Cotizacion[0].codigo_cot);
 $("#idCotSolicitud").val(data.Cotizacion[0].idCotizacion);
 $("#btn_Generar_Solicitud").removeAttr('disabled');
 $("#btn_GuardarCotizacion").removeAttr('disabled');
@@ -290,7 +293,8 @@ console.log(detalle);
                         doc_ident:data.Cotizacion[0].doc_ident,
                         fecha_entrega:data.Cotizacion[0].fecha_entrega, 
                         fecha_registro:data.Cotizacion[0].fecha_registro, 
-                        idCotizacion:data.Cotizacion[0].idCotizacion, 
+                        idCotizacion:data.Cotizacion[0].idCotizacion,
+                        codigo_cot:data.Cotizacion[0].codigo_cot, 
                         muestra:data.Cotizacion[0].muestra, 
                         nombres:data.Cotizacion[0].nombres, 
                         referencia:data.Cotizacion[0].referencia, 

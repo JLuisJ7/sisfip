@@ -29,7 +29,7 @@ $this->breadcrumbs=array(
 </div>
 <div class="box-body">
 
-	<!-- Date range -->
+ 
 	<div class="form-group col-md-3">	
 		<label class="" for="">DNI o RUC: <span class="text-danger " id="doc_Exist" style="display:none;">El cliente no Existe</span></label>
 		<div class="input-group">
@@ -218,16 +218,17 @@ var fecha_Entrega=$("#txtTiempo").val();
 var cant_Muestra_necesaria=$("#txtCantidad").val();
 var muestra=$("#txtMuestra").val();
 var idCotizacion=$("#NroCotizacion").attr('data-nro');
+var CodigoCotizacion=$("#NroCotizacion").attr('data-codigo');
 
 var detalle = $('#DetalleCotizacion').tableToJSON();
 if($("#txtDocumento").attr('data-id')=='Nuevo'	){
 
  idCliente=ClienteCore.registrarCliente(nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia);
-CotizacionCore.registrarCotizacion(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
+CotizacionCore.registrarCotizacion(idCotizacion,CodigoCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
 }else{
 	idCliente= $("#txtDocumento").attr('data-id');
 	ClienteCore.actualizarCliente(idCliente,nombres,doc_ident,atencion_a,direccion,telefono,correo,referencia,'','');
-	 CotizacionCore.registrarCotizacion(idCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
+	 CotizacionCore.registrarCotizacion(idCotizacion,CodigoCotizacion,idCliente,muestra,cond_tecnica,detalle_servicios,total,fecha_Entrega,cant_Muestra_necesaria,detalle);
 }
 
 setTimeout(function() {

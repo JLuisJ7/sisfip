@@ -9,6 +9,7 @@ $doc_ident=$_POST['doc_ident'];
 $fecha_entrega=$_POST['fecha_entrega'];
 $fecha_registro=$_POST['fecha_registro'];
 $idCotizacion=$_POST['idCotizacion'];
+$codigo_cot=$_POST['codigo_cot'];
 $muestra=$_POST['muestra'];
 $nombres=$_POST['nombres'];
 $referencia=$_POST['referencia'];
@@ -103,7 +104,7 @@ border-top: 0px;
 	<div>
 	<table border="0" cellspacing="0" cellspading="0" style="max-width:1024px;margin:0 auto;">
 	<tr>
-		<td colspan="4" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo $idCotizacion; ?></span></td>
+		<td colspan="4" class="border-t border-r n_border-b" style="	text-align: center;font-weight: bold; padding-bottom: 1em;">COTIZACION DE SERVICIOS PARA ENSAYOS N°:  <span class="bold"><?php echo $codigo_cot; ?></span></td>
 	</tr>
 	<tr>
 		<td colspan="4" class="border-r">Fecha :  <span class="bold"><?php echo $fecha_registro; ?></span></td>

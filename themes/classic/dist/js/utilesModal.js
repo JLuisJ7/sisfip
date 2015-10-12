@@ -57,6 +57,8 @@
 /*
     INICIO InventCore
 */
+
+
 var InventCore = {
 
     loadInventario: function(){

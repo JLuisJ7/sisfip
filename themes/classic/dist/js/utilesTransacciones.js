@@ -159,11 +159,60 @@ function ObtenerNroCotizacion(){
     })
     .done(function(response) {   
      data=response.output;     
-        //console.log(data.nroComp);
+        console.log(data);
 
-        $("#NroCotizacion").text(data.nroCotizacion);
+        
         $("#NroCotizacion").attr('data-nro', data.nroCotizacion);
-        $("#fecha_actual").text(data.fecha);        
+        $("#fecha_actual").text(data.fecha);
+        var nro=data.nroCotizacion; 
+        var anio=data.Anio;
+        var ceros='';
+        var nros=""+nro+"";
+        var largo=nros.length;
+       switch(largo) {
+            case 1:
+                ceros='000';
+                break;
+           case 2:
+                ceros='00';
+                break;
+           case 3:
+                ceros='0';
+                break;           
+            default:
+                ceros='';
+        }
+        codigo="CT-"+ceros+nro+"-"+anio;
+        console.log(codigo);
+        $("#NroCotizacion").text(codigo);
+        $("#NroCotizacion").attr('data-codigo', codigo);
+
+
+
+
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function(response) {
+      //data=response.output;  
+        //obtenerCodigoCotizacion(data.nroCotizacion);
+    });
+ };
+
+ function ObtenerCodigoCotizacion(idCotizacion){
+$.ajax({
+        url: 'index.php?r=Cotizacion/AjaxObtenerCodigoCotizacion',
+        type: 'POST', 
+        data:{
+          idCotizacion:idCotizacion
+        }         
+    })
+    .done(function(response) {   
+     data=response;     
+        console.log(data);
+
+        
     })
     .fail(function() {
         //console.log("error");
@@ -171,8 +220,7 @@ function ObtenerNroCotizacion(){
     .always(function() {
         //console.log("complete");
     });
- };
-
+ }
  function ObtenerNroSolicitud(){
  
    $.ajax({

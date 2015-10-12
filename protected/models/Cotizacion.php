@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'cotizacion':
  * @property string $idCotizacion
+ * @property string $codigo_cot
  * @property string $fecha_registro
  * @property integer $idCliente
  * @property string $cond_tecnica
@@ -18,6 +19,8 @@
  *
  * The followings are the available model relations:
  * @property Cliente $idCliente0
+ * @property Detallecotizacion[] $detallecotizacions
+ * @property Solicitud[] $solicituds
  */
 class Cotizacion extends CActiveRecord
 {
@@ -25,7 +28,7 @@ class Cotizacion extends CActiveRecord
 
 public function CotizacionesxCliente($doc_ident){
 
-		$sql = "select idCotizacion,DATE_FORMAT(cot.fecha_registro,'%d-%m-%Y') as fecha_registro ,cot.muestra,cot.total,DATE_FORMAT(cot.fecha_entrega,'%d-%m-%Y') as fecha_entrega,cant_Muestra_necesaria,cot.estado from cotizacion as cot
+		$sql = "select idCotizacion,codigo_cot,DATE_FORMAT(cot.fecha_registro,'%d-%m-%Y') as fecha_registro ,cot.muestra,cot.total,DATE_FORMAT(cot.fecha_entrega,'%d-%m-%Y') as fecha_entrega,cant_Muestra_necesaria,cot.estado from cotizacion as cot
 					inner join cliente as cli ON cli.idCliente=cot.idCliente
 					where cli.doc_ident='".$doc_ident."'";
 	
@@ -35,9 +38,16 @@ public function CotizacionesxCliente($doc_ident){
 
 	public function obtenerCotizacion($NroCotizacion){
 
-		$sql = "select idCotizacion,cot.idCliente,DATE_FORMAT(cot.fecha_registro,'%d-%m-%Y') as fecha_registro,cli.nombres,cli.doc_ident,cli.atencion_a,cli.direccion,cli.telefono,cli.correo,cli.referencia,cot.muestra,cot.cond_tecnica,cot.detalle_servicios,cot.total,cot.fecha_entrega,cant_Muestra_necesaria from cotizacion as cot
+		$sql = "select idCotizacion,codigo_cot,cot.idCliente,DATE_FORMAT(cot.fecha_registro,'%d-%m-%Y') as fecha_registro,cli.nombres,cli.doc_ident,cli.atencion_a,cli.direccion,cli.telefono,cli.correo,cli.referencia,cot.muestra,cot.cond_tecnica,cot.detalle_servicios,cot.total,cot.fecha_entrega,cant_Muestra_necesaria from cotizacion as cot
 inner join cliente as cli ON cli.idCliente=cot.idCliente
 where idCotizacion=".$NroCotizacion;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+	public function ObtenerCodigoCotizacion($idCotizacion){
+
+		$sql = "select * from cotizacion where idCotizacion=".$idCotizacion;
 	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
@@ -45,19 +55,20 @@ where idCotizacion=".$NroCotizacion;
 
 	public function ObtenerNroCotizacion(){
 
-$sql = "select count(*)+1 as nroCotizacion,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from cotizacion";
+$sql = "select count(idCotizacion)+1 as nroCotizacion,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha,DATE_FORMAT(NOW(),'%y') as Anio from cotizacion";
 	
 
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
 
-	public function registrarCotizacion($idCliente,$cond_tecnica,$detalle_servicios,$total,$fecha_Entrega,$cant_Muestra_necesaria,$muestra){
+	public function registrarCotizacion($codigo_cot,$idCliente,$cond_tecnica,$detalle_servicios,$total,$fecha_Entrega,$cant_Muestra_necesaria,$muestra){
 
 		$resultado = array('valor'=>1,'message'=>'Servicio Registrado correctamente.');
 
 		
 		$cotizacion=new Cotizacion;
+$cotizacion->codigo_cot=$codigo_cot;
 $cotizacion->idCliente=$idCliente;
 $cotizacion->cond_tecnica=$cond_tecnica;
 $cotizacion->detalle_servicios=$detalle_servicios;
@@ -76,7 +87,6 @@ if(!$cotizacion->save()){
 
 		return $resultado;
 	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -95,6 +105,7 @@ if(!$cotizacion->save()){
 		return array(
 			array('idCliente', 'required'),
 			array('idCliente, cant_Muestra_necesaria', 'numerical', 'integerOnly'=>true),
+			array('codigo_cot', 'length', 'max'=>100),
 			array('cond_tecnica, detalle_servicios', 'length', 'max'=>200),
 			array('total', 'length', 'max'=>8),
 			array('estado', 'length', 'max'=>12),
@@ -103,7 +114,7 @@ if(!$cotizacion->save()){
 			array('fecha_registro, fecha_Entrega', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idCotizacion, fecha_registro, idCliente, cond_tecnica, detalle_servicios, total, fecha_Entrega, cant_Muestra_necesaria, estado, muestra, eliminado', 'safe', 'on'=>'search'),
+			array('idCotizacion, codigo_cot, fecha_registro, idCliente, cond_tecnica, detalle_servicios, total, fecha_Entrega, cant_Muestra_necesaria, estado, muestra, eliminado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -116,6 +127,8 @@ if(!$cotizacion->save()){
 		// class name for the relations automatically generated below.
 		return array(
 			'idCliente0' => array(self::BELONGS_TO, 'Cliente', 'idCliente'),
+			'detallecotizacions' => array(self::HAS_MANY, 'Detallecotizacion', 'idCotizacion'),
+			'solicituds' => array(self::HAS_MANY, 'Solicitud', 'nroCotizacion'),
 		);
 	}
 
@@ -126,6 +139,7 @@ if(!$cotizacion->save()){
 	{
 		return array(
 			'idCotizacion' => 'Id Cotizacion',
+			'codigo_cot' => 'Codigo Cot',
 			'fecha_registro' => 'Fecha Registro',
 			'idCliente' => 'Id Cliente',
 			'cond_tecnica' => 'Cond Tecnica',
@@ -158,6 +172,7 @@ if(!$cotizacion->save()){
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('idCotizacion',$this->idCotizacion,true);
+		$criteria->compare('codigo_cot',$this->codigo_cot,true);
 		$criteria->compare('fecha_registro',$this->fecha_registro,true);
 		$criteria->compare('idCliente',$this->idCliente);
 		$criteria->compare('cond_tecnica',$this->cond_tecnica,true);

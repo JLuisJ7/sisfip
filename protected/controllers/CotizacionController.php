@@ -41,6 +41,13 @@ public function actionAjaxEliminarDetalleCotizacion(){
 		
 	}
 
+	public function actionAjaxObtenerCodigoCotizacion(){	
+		$idCotizacion=$_POST['idCotizacion'];
+		$cotizacion = Cotizacion::model()->ObtenerCodigoCotizacion($idCotizacion);
+		Util::renderJSON($cotizacion);
+		
+	}
+
 	public function actionAjaxObtenerNroCotizacion(){		
 		$cotizacion = Cotizacion::model()->ObtenerNroCotizacion();
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -52,6 +59,7 @@ public function actionAjaxEliminarDetalleCotizacion(){
 public function actionAjaxRegistrarCotizacion(){
 	//cotizacion
 $idCliente=$_POST['idCliente'];
+$codigo_cot=$_POST['codigo_cot'];
 $idCotizacion=$_POST['idCotizacion'];
 $muestra=$_POST['muestra'];
 $cond_tecnica=$_POST['cond_tecnica'];
@@ -61,7 +69,7 @@ $fecha_Entrega=$_POST['fecha_Entrega'];
 $cant_Muestra_necesaria=$_POST['cant_Muestra_necesaria'];
 
 
-		$respuesta = Cotizacion::model() -> registrarCotizacion($idCliente,$cond_tecnica,$detalle_servicios,$total,$fecha_Entrega,$cant_Muestra_necesaria,$muestra);
+		$respuesta = Cotizacion::model() -> registrarCotizacion($codigo_cot,$idCliente,$cond_tecnica,$detalle_servicios,$total,$fecha_Entrega,$cant_Muestra_necesaria,$muestra);
 
 		
 		Util::renderJSON(array( 'success' => $respuesta ));
