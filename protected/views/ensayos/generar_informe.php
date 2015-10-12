@@ -23,30 +23,91 @@ $this->breadcrumbs=array(
 <div class="box box-primary">
 <div class="box-header">
 <?php if (empty($data)): ?>
-	<h3 class="box-title">Reporte de Ensayos Nro: <b id="NroReporte" NroReporte="" >    </b></h3>
-	<h3 class="box-title">Nº de Orden de Trabajo :<b id="NroReporte" NroReporte="" >    </b></h3>		
+	<h3 class="box-title">Informe de Ensayos Nro: <b id="NroInforme" NroInforme="" >    </b></h3>
+	
 <?php else: ?>
-	<h3 class="box-title">Reporte de Ensayos Nro: <b id="NroReporte" NroReporte="<?php echo $data; ?>">   </b></h3>
-	<h3 class="box-title" style="margin-left:2em;">Orden de Trabajo Nro: <b id="NroOrdenTrabajo" NroOrden="<?php echo $data; ?>" >  <?php echo $data; ?> </b></h3>
-
+	<h3 class="box-title">Informe de Ensayos Nro: <b id="NroInforme" NroReporte="<?php echo $data; ?>">   </b></h3>
+	
 <?php endif; ?>
 	<h3 class="box-title" style="float:right;" id="fecha_actual"></h3>
 </div>
 <div class="box-body">
+<div class="box-header">
+	<h3 class="box-title">INFORMACIÓN GENERAL </h3>
+</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Solicitante : </label>
+	<input type="text" class="form-control" id="txtSolicitante" data-id="" id-cliente="">
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">RUC : </label>
+	<input type="text" class="form-control" id="txtRUC">
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Dirección Legal : </label>
+	<input type="text" class="form-control" id="txtDireccion" >
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Provincia / Departamento : </label>
+	<input type="text" class="form-control" id="txtProvincia" >
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Teléfonos / Fax : </label>
+	<input type="text" class="form-control" id="txtTelefono" >
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Solicitud : </label>
+	<input type="text" class="form-control" id="txtSolicitud" >
+	</div>
+
+	<div class="form-group col-md-12">
+	<label class="" for="">Fecha de Recepcion de Solicitud : </label>
+	<input type="text" class="form-control" id="txtFecha_R_Solicitud" >
+	</div>
+	
+	<div class="form-group col-md-12">
+	<label class="" for="">Ensayos / Servicios Solicitados : </label>
+	<input type="text" class="form-control" id="txtEnsayos_Solicitados" >
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Fecha de Inicio de Ensayo: </label>
+	<input type="date" class="form-control" id="txtFecha_Inicio" >
+	</div>
+	<div class="form-group col-md-6">
+	<label class="" for="">Fecha de Termino de Ensayo: </label>
+	<input type="date" class="form-control" id="txtFecha_Termino" >
+	</div>	
+
+	<div class="form-group col-md-12">
+		<h3 class="box-title">INFORMACIÓN DEL PRODUCTO </h3>
+	</div>	
 
 	<div class="form-group col-md-6">
-	<label class="" for="">Laboratorio Sección : </label>
-	<input type="text" class="form-control" id="txtLaboratorio" >
+	<label class="" for="">Producto (Nombre Genérico) : </label>
+	<input type="text" class="form-control" id="txtProducto" >
 	</div>
 	<div class="form-group col-md-6">
-	<label class="" for="">Nombre del Producto : </label>
-	<input type="text" class="form-control" id="txtNomMuestra" data-id="" id-cliente="">
+	<label class="" for="">Identificación de las Muestras Recepcionadas</label>
+	<input type="text" class="form-control" id="txtIdentificiacion" >
 	</div>
-	<div class="form-group col-md-6">
-	<label class="" for="">Codigo de Muestra : </label>
-	<input type="text" class="form-control" data-id="" id="txtCodMuestra" >
-	</div>	
-	
+	<div class="form-group col-md-12">
+	<label class="" for="">Marca Comercial o Especial de las Muestras</label>
+	<input type="text" class="form-control" id="txtMarca" >
+	</div>
+
+
+	<div class="form-group col-md-4">
+	<label class="" for="">Número de Muestras Recepcionadas</label>
+	<input type="text" class="form-control" id="txtNumeroMuestra" >
+	</div>
+	<div class="form-group col-md-4">
+	<label class="" for="">Cantidad de Muestra Recepcionada</label>
+	<input type="text" class="form-control" id="txtCantidadMuestra" >
+	</div>
+	<div class="form-group col-md-4">
+	<label class="" for="">Forma de Presentación de las Muestras</label>
+	<input type="text" class="form-control" id="txtPresentacion" >
+	</div>
 	
 
 	<table id="DetalleReporte" class="table table-bordered table-hover dataTable" cellspacing="0" width="100%" style="border-bottom:2px solid;">
@@ -55,35 +116,12 @@ $this->breadcrumbs=array(
 	<th style="vertical-align: middle;" >ID</th>                        
 	<th style="vertical-align: middle;" >Ensayo</th>	
 	<th style="vertical-align: middle;" >Metodo</th>
-	<th style="vertical-align: middle;" ><span style="display:none;">RES</span></th>	
+	<th style="vertical-align: middle;" >Resultado</th>	
 	</tr>
 	</thead>                 
 	</table>
 	
-	<div id="FormResultado" class="row" style="margin:2em;border:2px solid;padding:1em;display:none;">
-		<div class="col-md-12">
-			<h3 style="text-align:center;">Resultado de servicio</h3>
-		</div>
-		<hr style="border:2px solid;">
-		<div class="form-group col-md-6">
-	<label class="" for="">Servicio : </label>
-	<input type="text" class="form-control" id="txtServicio" disabled>
-	</div>
-		<div class="form-group col-md-6">
-	<label class="" for="">Metodo : </label>
-	<input type="text" class="form-control" id="txtMetodo" disabled>
-	</div>
-		<div class="form-group col-md-12">
-	<label class="" for="">Resultado: </label>
-	<input type="text" class="form-control" id="txtResultado" >
-	</div>
-	<div class="col-md-6">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarResultado">Guardar</button>
-	</div>
-	<div class="col-md-6">
-		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar_resultado">Cancelar</button>
-	</div>
-	</div>
+	
 	
 	<div class="form-group col-md-12">
 	<label class="" for="">Observaciones : </label>
@@ -159,13 +197,9 @@ var detalle = $('#DetalleReporte').tableToJSON();
 	});
 	
 	$(document).ready(function() {
-		ObtenerNroReporteE();
+		GenerarNroInforme();
 
-		var NroOrdenTrabajo=$("#NroOrdenTrabajo").attr('NroOrden');
-		if (NroOrdenTrabajo!='') {
-			ReporteCore.consultarOrdenT(NroOrdenTrabajo);
-		};
-
+		
 				
 	});
 

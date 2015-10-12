@@ -17,7 +17,7 @@ class Detreporteensayo extends CActiveRecord
 {
 	public function obtenerPrintDetalleReporte($nroEnsayo){
 
-		$sql = "select s.descripcion,det.resultado,s.metodo from Detreporteensayo as det inner join servicio as s on s.idServicio=det.idServicio where nroEnsayo=".$nroEnsayo;
+		$sql = "select s.idServicio,s.descripcion,det.resultado,s.metodo from Detreporteensayo as det inner join servicio as s on s.idServicio=det.idServicio where nroEnsayo=".$nroEnsayo;
 	
 
 		return Yii::app()->db->createCommand($sql)->queryAll();

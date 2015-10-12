@@ -378,8 +378,83 @@ function ObtenerNroCotizacion(){
         ObtenerNroOrdenT_RE(nroOrden);
     });
  };
+
+ function GenerarNroInforme(){
+ var nroEnsayo=$("#NroInforme").attr('NroReporte');
+   $.ajax({
+        url: 'index.php?r=ensayos/AjaxGenerarNroInforme',
+        type: 'POST',
+        data:{
+           nroEnsayo:nroEnsayo 
+        }          
+    })
+    .done(function(response) {   
+     data=response.output;
+     detalle=response.output;
+
+        console.log(data);
+        console.log(response.detalle);
+
+        $("#NroInforme").text(data.cod_informe);
+        $("#NroInforme").attr('data-codigo_informe', data.cod_informe);
+        $("#fecha_actual").text(data.fecha_actual);   
+$("#txtSolicitante").val(data.nombres);
+$("#txtSolicitante").attr('data-id', data.idCliente);
+$("#txtRUC").val(data.doc_ident);
+$("#txtDireccion").val(data.direccion);
+$("#txtProvincia").val(data.provincia);
+$("#txtTelefono").val(data.telefono);
+$("#txtSolicitud").val(data.cod_solicitud);
+//$("#txtFecha_R_Solicitud").val(data.)
+//$("#txtEnsayos_Solicitados").val(data.)
+//$("#txtFecha_Inicio").val(data.)
+//$("#txtFecha_Termino").val(data.)
+$("#txtProducto").val(data.nombre);
+$("#txtIdentificiacion").val(data.identificacion);
+$("#txtMarca").val(data.marca);
+//$("#txtNumeroMuestra").val(data.)
+$("#txtCantidadMuestra").val(data.cant_muestra);
+$("#txtPresentacion").val(data.presentacion); 
+llenarDetalle_Informe(response.detalle);
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+       
+    });
+ };
  
 
+    function llenarDetalle_Informe(detalle){
+        console.log(detalle);
+        var table = $('#DetalleReporte').DataTable();
+       table.destroy();
+        $('#DetalleReporte').dataTable({  
+      "language": {
+            "lengthMenu": "Display _MENU_ records per page",
+            "zeroRecords": " ",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        },   
+       
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "bFilter": false
+    } );
+    $.each(detalle,function(index, value){ 
+        
+            $('#DetalleReporte').DataTable().row.add([value.idServicio,value.descripcion, value.metodo,value.resultado
+            ]).draw();
+        
+          
+
+        });
+
+
+    }
 function obtenerNroBoleta(modulo,idNroComp,idserie){
     var nroSerie=$("#"+idserie+"").attr('data-param');
          $.ajax({

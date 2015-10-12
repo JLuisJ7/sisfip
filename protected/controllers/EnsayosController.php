@@ -79,6 +79,21 @@ foreach($array as $obj){
     	echo CJSON::encode(array('output'=>$reporte[0]));
 		
 	}
+	public function actionAjaxGenerarNroInforme(){	
+		$nroEnsayo=$_POST['nroEnsayo'];
+		$reporte = Reporteensayo::model()->generarNroInforme($nroEnsayo);
+		$detalle = Detreporteensayo::model()->obtenerPrintDetalleReporte($nroEnsayo);		
+		header('Content-Type: application/json; charset="UTF-8"');
+    	//echo CJSON::encode(array('output'=>$reporte[0],));
+		Util::renderJSON(array('output'=>$reporte[0],'detalle'=>$detalle ));
+	}
+
+	public function actionAjaxobtenerDetalleOrdenAnalista(){
+		$NroOrdenTrabajo=$_POST['NroOrdenTrabajo'];
+		$detalle = Detalleordentrab::model()->obtenerDetalleOrdenAnalista($NroOrdenTrabajo);
+
+		Util::renderJSON(array('Detalle'=>$detalle ));
+	}
 
 public function actionInformes()
 	{

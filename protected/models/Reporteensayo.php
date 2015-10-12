@@ -94,6 +94,22 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
+
+	public function generarNroInforme($nroEnsayo){
+
+$sql = "select cli.idCliente,cli.nombres,cli.direccion,cli.provincia,cli.telefono,cli.doc_ident,sol.nroSolicitud,sol.cod_solicitud,mu.nombre,mu.identificacion,mu.marca,mu.cant_muestra,mu.presentacion,ot.nroOrden,ot.cod_ordentrab,re.cod_reporte,re.nroEnsayo, 
+concat('IE-',SUBSTRING(re.cod_reporte,4,100)) as cod_informe,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha_actual
+from reporteensayo as re
+inner join ordentrabajo as ot on ot.nroOrden=re.nroOrden
+inner join muestra as mu on mu.idMuestra=ot.idMuestra
+inner join solicitud as sol on sol.nroSolicitud=ot.nroSolicitud
+inner join cliente as cli on cli.idCliente=sol.idCliente
+where re.nroEnsayo=$nroEnsayo";
+	
+
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
 	/**
 	 * @return string the associated database table name
 	 */
