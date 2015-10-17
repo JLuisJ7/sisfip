@@ -221,6 +221,42 @@ loadListadoReportes: function(){
         
 
     },
+    registrarInformeEnsayos: function(nroInforme,codInforme,nroReporte,nroOrden,nroSolicitud,idCliente,idMuestra,fecha_inicio,fecha_termino,observaciones){
+        
+
+        var me = this;
+        $.ajax({
+            url: 'index.php?r=ensayos/AjaxRegistrarInformeEnsayos',
+            type: 'POST',
+            data: {
+                nroInforme:nroInforme,
+                codInforme:codInforme,
+                nroReporte:nroReporte,
+                nroOrden:nroOrden,
+                nroSolicitud:nroSolicitud,
+                idCliente:idCliente,
+                idMuestra:idMuestra,
+                fecha_inicio:fecha_inicio,
+                fecha_termino:fecha_termino,
+                observaciones:observaciones                            
+                },
+        })
+        .done(function(response) {
+            console.log(response);
+            
+             $('#Success').show();
+             //boton generar solicitud
+             //$("#idCotSolicitud").val(idCotizacion);
+            //$("#btn_Generar_Solicitud").removeAttr('disabled');
+
+            
+                setTimeout(function(){
+                      //window.location.href = "index.php?r=orden/ordenes_analista";
+                }, 1000);
+
+        })
+           
+    },
     registrarReporteEnsayos: function(nroReporte,nroOrden,cod_reporte,idMuestra,laboratorio,observaciones,ingresado_por,detalle){
         
 

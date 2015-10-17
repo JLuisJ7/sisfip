@@ -181,3 +181,28 @@ inner join ordentrabajo as ot on ot.nroOrden=re.nroOrden
 inner join muestra as mu on mu.idMuestra=ot.idMuestra
 inner join solicitud as sol on sol.nroSolicitud=ot.nroSolicitud
 inner join cliente as cli on cli.idCliente=sol.idCliente
+
+
+
+create table informeensayo(
+nroInforme int unsigned not null,
+codInforme varchar(100),
+nroReporte int unsigned,
+nroOrden int unsigned,
+nroSolicitud int unsigned,
+idCliente int ,
+idMuestra int,
+fecha_inicio date,
+fecha_termino date,
+observaciones varchar(255),
+estado char(1) DEFAULT '0',  
+eliminado char(1) DEFAULT '0',  
+fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE informeensayo ADD CONSTRAINT fk_informe_reporteensayo FOREIGN KEY(nroReporte) references reporteensayo(nroEnsayo);
+ALTER TABLE informeensayo ADD CONSTRAINT fk_informe_ordentrabajo FOREIGN KEY(nroOrden) references ordentrabajo(nroOrden);
+ALTER TABLE informeensayo ADD CONSTRAINT fk_informe_solicitud FOREIGN KEY(nroSolicitud) references solicitud(nroSolicitud);
+ALTER TABLE informeensayo ADD CONSTRAINT fk_informe_Cliente FOREIGN KEY(idCliente) references Cliente(idCliente);
+ALTER TABLE informeensayo ADD CONSTRAINT fk_informe_Muestra FOREIGN KEY(idMuestra) references Muestra(idMuestra);

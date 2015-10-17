@@ -86,7 +86,7 @@ if(!$Reporte->save()){
 		return $resultado;
 	}
 
-		public function obtenerNroReporteE(){
+public function obtenerNroReporteE(){
 
 $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from Reporteensayo";
 	
