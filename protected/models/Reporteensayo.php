@@ -97,7 +97,7 @@ $sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha f
 
 	public function generarNroInforme($nroEnsayo){
 
-$sql = "select cli.idCliente,cli.nombres,cli.direccion,cli.provincia,cli.telefono,cli.doc_ident,sol.nroSolicitud,sol.cod_solicitud,mu.nombre,mu.identificacion,mu.marca,mu.cant_muestra,mu.presentacion,ot.nroOrden,ot.cod_ordentrab,re.cod_reporte,re.nroEnsayo, 
+$sql = "select cli.idCliente,cli.nombres,cli.direccion,cli.provincia,cli.telefono,cli.doc_ident,sol.nroSolicitud,sol.cod_solicitud,mu.idMuestra,mu.nombre,mu.identificacion,mu.marca,mu.cant_muestra,mu.presentacion,ot.nroOrden,ot.cod_ordentrab,re.cod_reporte,re.nroEnsayo, 
 concat('IE-',SUBSTRING(re.cod_reporte,4,100)) as cod_informe,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha_actual
 from reporteensayo as re
 inner join ordentrabajo as ot on ot.nroOrden=re.nroOrden

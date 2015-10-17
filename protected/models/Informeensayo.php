@@ -27,14 +27,45 @@
  */
 class Informeensayo extends CActiveRecord
 {
-	public function obtenerNroReporteE(){
 
-$sql = "select count(*)+1 as nroReporte,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from Reporteensayo";
+
+	public function obtenerNroInforme(){
+
+$sql = "select count(*)+1 as nroInforme,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha from informeensayo";
 	
 
 
 	return Yii::app()->db->createCommand($sql)->queryAll();
 }
+
+public function registrarRegistrarInformeEnsayos($nroInforme,$codInforme,$nroReporte,$nroOrden,$nroSolicitud,$idCliente,$idMuestra,$fecha_inicio,$fecha_termino,$observaciones){
+
+		$resultado = array('valor'=>1,'message'=>'Informe Registrado correctamente.');
+
+		
+		$informe=new Informeensayo;
+	
+$informe->nroInforme=$nroInforme;
+$informe->codInforme=$codInforme;
+$informe->nroReporte=$nroReporte;
+$informe->nroOrden=$nroOrden;
+$informe->nroSolicitud=$nroSolicitud;
+$informe->idCliente=$idCliente;
+$informe->idMuestra=$idMuestra;
+$informe->fecha_inicio=$fecha_inicio;
+$informe->fecha_termino=$fecha_termino;
+$informe->observaciones=$observaciones;
+      		
+if(!$informe->save()){
+	
+	$resultado = array('valor'=>0, 'message'=>'No hemos podido Registrar el Informe, intentelo nuevamente');
+
+}
+			
+
+		return $resultado;
+	}
+
 
 	/**
 	 * @return string the associated database table name

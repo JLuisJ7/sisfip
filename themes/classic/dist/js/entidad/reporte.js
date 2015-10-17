@@ -251,7 +251,7 @@ loadListadoReportes: function(){
 
             
                 setTimeout(function(){
-                      //window.location.href = "index.php?r=orden/ordenes_analista";
+                      window.location.href = "index.php?r=ensayos/reportes_director";
                 }, 1000);
 
         })

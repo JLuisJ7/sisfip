@@ -377,6 +377,28 @@ function ObtenerNroCotizacion(){
     .always(function() {
         ObtenerNroOrdenT_RE(nroOrden);
     });
+ }; 
+
+ function ObtenerNroInformeE(){
+ 
+   $.ajax({
+        url: 'index.php?r=ensayos/AjaxObtenerNroInforme',
+        type: 'POST',          
+    })
+    .done(function(response) {   
+     data=response.output;     
+             console.log(data);
+
+   
+        $("#NroInforme").attr('data-NroInforme', data.nroInforme);
+     
+    })
+    .fail(function() {
+        //console.log("error");
+    })
+    .always(function() {
+        
+    });
  };
 
  function GenerarNroInforme(){
@@ -394,9 +416,14 @@ function ObtenerNroCotizacion(){
 
         console.log(data);
         console.log(response.detalle);
-
+        //$("#NroInforme").attr('data-NroInforme', 1);
         $("#NroInforme").text(data.cod_informe);
         $("#NroInforme").attr('data-codigo_informe', data.cod_informe);
+        $("#NroInforme").attr('data-nroOrden', data.nroOrden);
+        $("#NroInforme").attr('data-nroSolicitud', data.nroSolicitud);
+        $("#NroInforme").attr('data-idMuestra', data.idMuestra);
+        $("#NroInforme").attr('data-idCliente', data.idCliente);
+
         $("#fecha_actual").text(data.fecha_actual);   
 $("#txtSolicitante").val(data.nombres);
 $("#txtSolicitante").attr('data-id', data.idCliente);
@@ -421,7 +448,7 @@ llenarDetalle_Informe(response.detalle);
         //console.log("error");
     })
     .always(function() {
-       
+       ObtenerNroInformeE();
     });
  };
  

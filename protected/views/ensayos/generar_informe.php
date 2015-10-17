@@ -26,7 +26,7 @@ $this->breadcrumbs=array(
 	<h3 class="box-title">Informe de Ensayos Nro: <b id="NroInforme" NroInforme="" >    </b></h3>
 	
 <?php else: ?>
-	<h3 class="box-title">Informe de Ensayos Nro: <b id="NroInforme" NroReporte="<?php echo $data; ?>">   </b></h3>
+	<h3 class="box-title">Informe de Ensayos Nro: <b id="NroInforme" data-NroInforme="" NroReporte="<?php echo $data; ?>">   </b></h3>
 	
 <?php endif; ?>
 	<h3 class="box-title" style="float:right;" id="fecha_actual"></h3>
@@ -141,7 +141,7 @@ $this->breadcrumbs=array(
 	<div class="col-md-12"> <div class="alert alert-success alert-dismissable" id="Success" style="display:none;">
    		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
    		<h4>  <i class="icon fa fa-check"></i> Alert!</h4>
-   		Reporte de Ensayos  Guardado Correctamente
+   		Informe de Ensayos  Guardado Correctamente
    		</div>
    	</div>
 </div>
@@ -151,7 +151,7 @@ $this->breadcrumbs=array(
 	
 	
 	<div class="col-md-6">
-		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarReporte">Guardar e Imprimir</button>
+		<button type="button" class="btn btn-primary col-md-12" id="btn_GuardarInforme">Guardar e Imprimir</button>
 	</div>
 	<div class="col-md-6">
 		<button type="button" class="btn btn-danger col-md-12" id="btn_cancelar">Cancelar</button>
@@ -179,16 +179,28 @@ $("#btn_GuardarResultado").click(function(event) {
 	
 });
 
-$("#btn_GuardarReporte").click(function(event) {
-var nroReporte=$("#NroReporte").attr('NroReporte');
-var cod_reporte=$("#NroReporte").attr('data-codigo');
-var nroOrden=$("#NroOrdenTrabajo").attr('NroOrden');
-var laboratorio=$("#txtLaboratorio").val();
-var idMuestra=$("#txtNomMuestra").attr('data-id');
+$("#btn_GuardarInforme").click(function(event) {
+var NroInforme=$("#NroInforme").attr('data-NroInforme');
+var NroReporte=$("#NroInforme").attr('NroReporte');
+var codigo_informe=$("#NroInforme").attr('data-codigo_informe');
+var nroOrden=$("#NroInforme").attr('data-nroOrden');
+var nroSolicitud=$("#NroInforme").attr('data-nroSolicitud');
+var idcliente=$("#NroInforme").attr('data-idcliente');
+var idMuestra=$("#NroInforme").attr('data-idMuestra');
+
+var nroInforme=$("#NroInforme").attr('data-NroInforme');
+var codInforme=$("#NroInforme").attr('data-codigo_informe');
+var nroReporte=$("#NroInforme").attr('NroReporte');
+var nroOrden=$("#NroInforme").attr('data-nroOrden');
+var nroSolicitud=$("#NroInforme").attr('data-nroSolicitud');
+var idCliente=$("#NroInforme").attr('data-idcliente');
+var idMuestra=$("#NroInforme").attr('data-idMuestra');
+var fecha_inicio=$("#txtFecha_Inicio").val();
+var fecha_termino=$("#txtFecha_Termino").val();
 var observaciones=$("#txtObservOrden").val();
-var ingresado_por=1;
-var detalle = $('#DetalleReporte').tableToJSON();
-	ReporteCore.registrarReporteEnsayos(nroReporte,nroOrden,cod_reporte,idMuestra,laboratorio,observaciones,ingresado_por,detalle);
+//var ingresado_por=1;
+
+	ReporteCore.registrarInformeEnsayos(nroInforme,codInforme,nroReporte,nroOrden,nroSolicitud,idCliente,idMuestra,fecha_inicio,fecha_termino,observaciones);
 	//var DetalleReporte=$("#DetalleReporte").val();
 });
 

@@ -51,6 +51,26 @@ $ingresado_por=$_POST['ingresado_por'];
 		
 		Util::renderJSON(array( 'success' => $respuesta ));
 	}
+
+	public function actionAjaxRegistrarInformeEnsayos(){
+	
+
+
+$nroInforme=$_POST['nroInforme'];
+$codInforme=$_POST['codInforme'];
+$nroReporte=$_POST['nroReporte'];
+$nroOrden=$_POST['nroOrden'];
+$nroSolicitud=$_POST['nroSolicitud'];
+$idCliente=$_POST['idCliente'];
+$idMuestra=$_POST['idMuestra'];
+$fecha_inicio=$_POST['fecha_inicio'];
+$fecha_termino=$_POST['fecha_termino'];
+$observaciones=$_POST['observaciones'];
+		$respuesta = Informeensayo::model() -> registrarRegistrarInformeEnsayos($nroInforme,$codInforme,$nroReporte,$nroOrden,$nroSolicitud,$idCliente,$idMuestra,$fecha_inicio,$fecha_termino,$observaciones);
+
+		
+		Util::renderJSON(array( 'success' => $respuesta ));
+	}
 public function actionAjaxRegistrarDetalleReporte(){
 
 $nroReporte=$_POST['nroReporte'];
@@ -75,6 +95,12 @@ foreach($array as $obj){
 	
 	public function actionAjaxObtenerNroReporte(){		
 		$reporte = Reporteensayo::model()->obtenerNroReporteE();
+		header('Content-Type: application/json; charset="UTF-8"');
+    	echo CJSON::encode(array('output'=>$reporte[0]));
+		
+	}
+	public function actionAjaxObtenerNroInforme(){		
+		$reporte = Informeensayo::model()->obtenerNroInforme();
 		header('Content-Type: application/json; charset="UTF-8"');
     	echo CJSON::encode(array('output'=>$reporte[0]));
 		
