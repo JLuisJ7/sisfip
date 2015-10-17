@@ -131,6 +131,62 @@ loadListadoReportes: function(){
 
         });
     },
+ imprimirInforme:function(nroInforme,nroEnsayo){
+        $.ajax({
+        url: 'index.php?r=ensayos/AjaxImprimirInforme',
+        type: 'POST',       
+        data: {
+            nroEnsayo: nroEnsayo,
+            nroInforme: nroInforme  
+        },
+        })
+        .done(function(data) {
+            console.log(data.Informe);
+            console.log(data.Detalle);
+
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function(data) {
+            /*------*/
+            $.post('formato-informe_ensayos.php', {
+cant_muestra:data.informe[0].cant_muestra,
+cod_ordentrab:data.informe[0].cod_ordentrab,
+cod_reporte:data.informe[0].cod_reporte,
+cod_solicitud:data.informe[0].cod_solicitud,
+codinforme:data.informe[0].codinforme,
+direccion:data.informe[0].direccion,
+doc_ident:data.informe[0].doc_ident,
+fecha_actual:data.informe[0].fecha_actual,
+fecha_inicio:data.informe[0].fecha_inicio,
+fecha_termino:data.informe[0].fecha_termino,
+idCliente:data.informe[0].idCliente,
+idMuestra:data.informe[0].idMuestra,
+identificacion:data.informe[0].identificacion,
+marca:data.informe[0].marca,
+nombre:data.informe[0].nombre,
+nombres:data.informe[0].nombres,
+nroEnsayo:data.informe[0].nroEnsayo,
+nroOrden:data.informe[0].nroOrden,
+nroSolicitud:data.informe[0].nroSolicitud,
+nroinforme:data.informe[0].nroinforme,
+observaciones:data.informe[0].observaciones,
+presentacion:data.informe[0].presentacion,
+provincia:data.informe[0].provincia,
+telefono:data.informe[0].telefono,
+                
+                        detalle:JSON.stringify(data.Detalle), 
+            }, function (result) {
+                    WinId = window.open('', '_blank');//resolucion de la ventana
+                    WinId.document.open();
+                    WinId.document.write(result);
+                    //WinId.document.close();
+            });      
+            /*-------------*/
+
+        });
+    },
     guardarResultadoServicio:function(NroOrden,idservicio,resultado){
        var me = this;
       $.ajax({
@@ -248,9 +304,10 @@ loadListadoReportes: function(){
              //boton generar solicitud
              //$("#idCotSolicitud").val(idCotizacion);
             //$("#btn_Generar_Solicitud").removeAttr('disabled');
-
+                me.imprimirInforme(nroInforme,nroReporte);
             
                 setTimeout(function(){
+                    
                       window.location.href = "index.php?r=ensayos/reportes_director";
                 }, 1000);
 

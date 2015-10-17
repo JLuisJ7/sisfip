@@ -28,6 +28,21 @@
 class Informeensayo extends CActiveRecord
 {
 
+public function obtenerPrintInforme($nroInforme){
+
+		$sql = "select cli.idCliente,cli.nombres,cli.direccion,cli.provincia,cli.telefono,cli.doc_ident,sol.nroSolicitud,sol.cod_solicitud,mu.idMuestra,mu.nombre,mu.identificacion,mu.marca,mu.cant_muestra,mu.presentacion,ot.nroOrden,ot.cod_ordentrab,re.cod_reporte,re.nroEnsayo,inf.codinforme as codinforme,inf.nroinforme,inf.fecha_inicio,inf.fecha_termino,inf.observaciones,DATE_FORMAT(NOW(),'%d-%m-%Y') as fecha_actual
+from informeensayo as inf
+inner join reporteensayo as re on re.nroensayo=inf.nroreporte
+inner join ordentrabajo as ot on ot.nroOrden=inf.nroOrden
+inner join muestra as mu on mu.idMuestra=inf.idMuestra
+inner join solicitud as sol on sol.nroSolicitud=inf.nroSolicitud
+inner join cliente as cli on cli.idCliente=inf.idCliente
+where inf.nroinforme=".$nroInforme;
+	
+
+		return Yii::app()->db->createCommand($sql)->queryAll();
+	}
+
 
 	public function obtenerNroInforme(){
 

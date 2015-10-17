@@ -61,6 +61,8 @@ public function obtenerPrintReporte($nroEnsayo){
 		return Yii::app()->db->createCommand($sql)->queryAll();
 	}
 
+	
+
 public function registrarRegistrarReporteEnsayos($nroReporte,$nroOrden,$cod_reporte,$idMuestra,$laboratorio,$observaciones,$ingresado_por){
 
 		$resultado = array('valor'=>1,'message'=>'Reporte Registrado correctamente.');

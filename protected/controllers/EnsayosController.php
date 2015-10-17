@@ -34,6 +34,15 @@ public function actionAjaxListarReportesAnalista(){
 		Util::renderJSON(array( 'Reporte' => $reporte,'Detalle'=>$detalle ));
 	}
 
+	public function actionAjaxImprimirInforme(){
+		$nroInforme=$_POST['nroInforme'];
+		$nroEnsayo=$_POST['nroEnsayo'];
+		$informe = Informeensayo::model()->obtenerPrintInforme($nroInforme);
+		$detalle = Detreporteensayo::model()->obtenerPrintDetalleReporte($nroEnsayo);
+
+		Util::renderJSON(array( 'informe' => $informe,'Detalle'=>$detalle ));
+	}
+
 
 	public function actionAjaxRegistrarReporteEnsayos(){
 	//cotizacion

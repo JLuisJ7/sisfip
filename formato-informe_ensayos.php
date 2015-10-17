@@ -1,4 +1,29 @@
-
+<?php 
+$cant_muestra=$_POST['cant_muestra'];
+$cod_ordentrab=$_POST['cod_ordentrab'];
+$cod_reporte=$_POST['cod_reporte'];
+$cod_solicitud=$_POST['cod_solicitud'];
+$codinforme=$_POST['codinforme'];
+$direccion=$_POST['direccion'];
+$doc_ident=$_POST['doc_ident'];
+$fecha_actual=$_POST['fecha_actual'];
+$fecha_inicio=$_POST['fecha_inicio'];
+$fecha_termino=$_POST['fecha_termino'];
+$idCliente=$_POST['idCliente'];
+$idMuestra=$_POST['idMuestra'];
+$identificacion=$_POST['identificacion'];
+$marca=$_POST['marca'];
+$nombre=$_POST['nombre'];
+$nombres=$_POST['nombres'];
+$nroEnsayo=$_POST['nroEnsayo'];
+$nroOrden=$_POST['nroOrden'];
+$nroSolicitud=$_POST['nroSolicitud'];
+$nroinforme=$_POST['nroinforme'];
+$observaciones=$_POST['observaciones'];
+$presentacion=$_POST['presentacion'];
+$provincia=$_POST['provincia'];
+$telefono=$_POST['telefono'];
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,7 +132,7 @@
 		<tr>
 			<td colspan="4" align="center" class="n_b_b b_r bold">
 				<br>
-				INFORME   DE   ENSAYOS   N° <span class="orden_d"></span>
+				INFORME   DE   ENSAYOS   N° <span class="orden_d"><?php echo $codinforme ?></span>
 			</td>
 		</tr>
 		<tr>
@@ -125,33 +150,33 @@
 		</tr>
 		<tr>
 			<td class="n_b_b">1.1</td>
-			<td class="n_b_b">Solicitante (Nombre Legal)<span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Solicitante (Nombre Legal) </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"><?php echo $nombres; ?> </span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.2</td>
-			<td class="n_b_b">Dirección Legal <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Dirección Legal </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"> <?php echo $direccion; ?> </span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.3</td>
-			<td class="n_b_b">Provincia / Departamento <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Provincia / Departamento </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"> <?php echo $provincia; ?></span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.4</td>
-			<td class="n_b_b">Teléfonos / Fax <span class="orden_d"> </span></td>
+			<td class="n_b_b">Teléfonos / Fax <span class="orden_d"><?php echo $telefono; ?> </span></td>
 			<td class="n_b_b b_r" colspan="2"></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.5</td>
-			<td class="n_b_b">Registro Único del Contribuyente (Nº) <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Registro Único del Contribuyente (Nº) </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"><?php echo $doc_ident ?> </span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.6</td>
-			<td class="n_b_b">Solicitud para Servicios de Ensayos (Nº) <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Solicitud para Servicios de Ensayos (Nº) </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"><?php echo $cod_solicitud; ?> </span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">1.7</td>
@@ -184,18 +209,18 @@
 		</tr>
 		<tr>
 			<td class="n_b_b">2.1</td>
-			<td class="n_b_b">Producto (Nombre Genérico) <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Producto (Nombre Genérico) </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"><?php echo $nombre; ?> </span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">2.2</td>
-			<td class="n_b_b">Identificación de las Muestras Recepcionadas <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Identificación de las Muestras Recepcionadas </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"> <?php echo $identificacion ?></span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">2.3</td>
-			<td class="n_b_b">Marca Comercial o Especial de las Muestras <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Marca Comercial o Especial de las Muestras </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"> <?php echo $marca; ?></span></td>
 		</tr>
 		<tr>
 			<td class="n_b_b">2.4</td>
@@ -204,13 +229,13 @@
 		</tr>
 		<tr>
 			<td class="n_b_b">2.5</td>
-			<td class="n_b_b">Cantidad de Muestra Recepcionada <span class="orden_d"> </span></td>
-			<td class="n_b_b b_r" colspan="2"></td>
+			<td class="n_b_b">Cantidad de Muestra Recepcionada </td>
+			<td class="n_b_b b_r" colspan="2"><span class="orden_d"> <?php echo $cant_muestra ?></span></td>
 		</tr>
 		<tr>
 			<td class="">2.6</td>
-			<td class="">Forma de Presentación de las Muestras <span class="orden_d"> </span></td>
-			<td class=" b_r" colspan="2"></td>
+			<td class="">Forma de Presentación de las Muestras </td>
+			<td class=" b_r" colspan="2"><span class="orden_d"><?php echo $presentacion ?> </span></td>
 		</tr>
 		<tr class="row_title" >
 			<td  class=" bold">
@@ -222,19 +247,31 @@
 		</tr>
 		<tr class="header_detalle">
 			<td  class="bold center">Item</td>
-			<td  class="bold center">ENSAYOS</td>
-			<td  class="bold center " style="width: 135px;" colspan="">MÉTODO  DE  ENSAYO</td>
-			<td  class="bold center b_r" style="width: 135px;" colspan="">RESULTADOS OBTENIDOS</td>
+			<td  class="bold center" style="width: 100px!important;">ENSAYOS</td>
+			<td  class="bold center " style="width: 100px;" colspan="">MÉTODO  DE  ENSAYO</td>
+			<td  class="bold center b_r" style="width: 100px;" colspan="">RESULTADOS OBTENIDOS</td>
 			
 		</tr>
-		<tr class="">
-			<td  class="bold center">3.1</td>
-			<td  class="bold center"></td>
-			<td  class="bold center " style="width: 135px;" colspan=""></td>
-			<td  class="bold center b_r" style="width: 135px;" colspan=""></td>
-			
-		</tr>
+		<?php 
+$json=$_POST['detalle'];
+$array = json_decode($json);
 
+		
+	$item=1;
+foreach($array as $obj){
+			
+ ?>
+		<tr class="">
+			<td  class="bold center">3.<?php echo $item; ?> </td>
+			<td  class="bold center"><?php echo $obj->descripcion; ?></td>
+			<td  class="bold center " style="width: ;" colspan=""><?php echo $obj->metodo; ?></td>
+			<td  class="bold center b_r" style="width: ;" colspan=""><?php echo $obj->resultado; ?></td>
+			
+		</tr>
+<?php 
+		$item++; 
+		}
+?>
 		<tr class="row_title" >
 			<td  class=" bold">
 				4.
@@ -244,8 +281,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4 " class="b_r" height="25px"></td>
-
+			<td colspan="4 " class="b_r" height="25px">
+				<?php echo $observaciones; ?>
+			</td>
+	
 		</tr>
 		<tr>
 			<td colspan="4" class="n_b_b b_r" style="paddin-right:40px;">
